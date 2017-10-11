@@ -27,3 +27,6 @@ nbdist/
 lms.iml
 mvnw
 mvnw.cmd
+logs
+.gitignore
+src/main/java/com/lms/demo/util/
