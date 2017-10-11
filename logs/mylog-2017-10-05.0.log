@@ -1,0 +1,38 @@
+[ INFO ] [2017-10-05 12:05:18] com.lms.demo.DemoApplication [48] - Starting DemoApplication on pzs-pc with PID 2432 (D:\IdeaProjects\lms\target\classes started by puzhengsong in D:\IdeaProjects\lms)
+[ INFO ] [2017-10-05 12:05:18] com.lms.demo.DemoApplication [593] - No active profile set, falling back to default profiles: default
+[ INFO ] [2017-10-05 12:05:19] org.hibernate.validator.internal.util.Version [30] - HV000001: Hibernate Validator 5.3.5.Final
+[ INFO ] [2017-10-05 12:05:19] org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext [583] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@e8a17b7: startup date [Thu Oct 05 12:05:19 CST 2017]; root of context hierarchy
+[ INFO ] [2017-10-05 12:05:23] org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer [89] - Tomcat initialized with port(s): 8082 (http)
+[ INFO ] [2017-10-05 12:05:23] org.apache.catalina.core.StandardService [179] - Starting service [Tomcat]
+[ INFO ] [2017-10-05 12:05:23] org.apache.catalina.core.StandardEngine [179] - Starting Servlet Engine: Apache Tomcat/8.5.20
+[ INFO ] [2017-10-05 12:05:23] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [179] - Initializing Spring embedded WebApplicationContext
+[ INFO ] [2017-10-05 12:05:23] org.springframework.web.context.ContextLoader [276] - Root WebApplicationContext: initialization completed in 3917 ms
+[ INFO ] [2017-10-05 12:05:23] org.springframework.boot.web.servlet.ServletRegistrationBean [190] - Mapping servlet: 'dispatcherServlet' to [/]
+[ INFO ] [2017-10-05 12:05:23] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'characterEncodingFilter' to: [/*]
+[ INFO ] [2017-10-05 12:05:23] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[ INFO ] [2017-10-05 12:05:23] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[ INFO ] [2017-10-05 12:05:23] org.springframework.boot.web.servlet.FilterRegistrationBean [258] - Mapping filter: 'requestContextFilter' to: [/*]
+[ INFO ] [2017-10-05 12:05:24] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [349] - Building JPA container EntityManagerFactory for persistence unit 'default'
+[ INFO ] [2017-10-05 12:05:24] org.hibernate.jpa.internal.util.LogHelper [31] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[ INFO ] [2017-10-05 12:05:24] org.hibernate.Version [37] - HHH000412: Hibernate Core {5.0.12.Final}
+[ INFO ] [2017-10-05 12:05:24] org.hibernate.cfg.Environment [213] - HHH000206: hibernate.properties not found
+[ INFO ] [2017-10-05 12:05:24] org.hibernate.cfg.Environment [317] - HHH000021: Bytecode provider name : javassist
+[ INFO ] [2017-10-05 12:05:25] org.hibernate.annotations.common.Version [66] - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[ INFO ] [2017-10-05 12:05:25] org.hibernate.dialect.Dialect [156] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[ INFO ] [2017-10-05 12:05:26] org.hibernate.tool.hbm2ddl.SchemaUpdate [105] - HHH000228: Running hbm2ddl schema update
+[ INFO ] [2017-10-05 12:05:26] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [379] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[ INFO ] [2017-10-05 12:05:26] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [534] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@e8a17b7: startup date [Thu Oct 05 12:05:19 CST 2017]; root of context hierarchy
+[ INFO ] [2017-10-05 12:05:26] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [543] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+[ INFO ] [2017-10-05 12:05:26] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [543] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[ INFO ] [2017-10-05 12:05:26] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [362] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[ INFO ] [2017-10-05 12:05:26] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [362] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[ INFO ] [2017-10-05 12:05:26] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [362] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+[ INFO ] [2017-10-05 12:05:27] org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [58] - LiveReload server is running on port 35729
+[ INFO ] [2017-10-05 12:05:27] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [431] - Registering beans for JMX exposure on startup
+[ INFO ] [2017-10-05 12:05:27] org.apache.coyote.http11.Http11NioProtocol [179] - Initializing ProtocolHandler ["http-nio-8082"]
+[ INFO ] [2017-10-05 12:05:27] org.apache.coyote.http11.Http11NioProtocol [179] - Starting ProtocolHandler ["http-nio-8082"]
+[ INFO ] [2017-10-05 12:05:27] org.apache.tomcat.util.net.NioSelectorPool [179] - Using a shared selector for servlet write/read
+[ INFO ] [2017-10-05 12:05:27] org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer [201] - Tomcat started on port(s): 8082 (http)
+[ INFO ] [2017-10-05 12:05:27] com.lms.demo.DemoApplication [57] - Started DemoApplication in 10.121 seconds (JVM running for 13.681)
