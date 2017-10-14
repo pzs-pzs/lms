@@ -15,7 +15,7 @@ public class HomeController {
     public String toLogin() {
         return "/web/login";
     }
-    @GetMapping("/register")
+    @GetMapping("/toRegister")
     public String toRegister() {
         return "/web/register";
     }
