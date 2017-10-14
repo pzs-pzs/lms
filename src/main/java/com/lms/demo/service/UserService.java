@@ -1,9 +1,11 @@
 package com.lms.demo.service;
 
+import com.lms.demo.domain.User;
 import com.lms.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +33,25 @@ public class UserService {
         }*/
         return false;
 
+    }
+
+    public boolean createUser(String username, String password,
+                              String email){
+        User user = new User();
+        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(4);
+        user.setPassword(encoder.encode(password));
+        user.setName(username);
+        user.setEnabled(true);
+        user.setEmail(email);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        User result = userRepository.save(user);
+        if(result!=null){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

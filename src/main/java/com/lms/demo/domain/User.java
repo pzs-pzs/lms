@@ -3,6 +3,7 @@ package com.lms.demo.domain;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -159,4 +160,7 @@ public class User implements UserDetails {
     public void setId(Long id) {
         this.id = id;
     }
+
+
+
 }

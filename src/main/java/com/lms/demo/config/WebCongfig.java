@@ -25,6 +25,8 @@ public class WebCongfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/toRegister").permitAll()
+                .antMatchers("/register").permitAll()
                 .antMatchers("/web/getBookList").permitAll()
                 .anyRequest().authenticated()
                 .and()
