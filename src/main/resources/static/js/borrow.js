@@ -18,7 +18,7 @@ function borrow(id) {
             return;
         }
     });
-    if(f==0){
+    if(f == 0){
         return;
     }
     var msg = "亲，确定预约借阅这本书籍么?";
@@ -29,7 +29,7 @@ function borrow(id) {
             dataType: "json",
             success: function (data) {
                 if(data['error']==0){
-                    alert("已预约");
+                    alert("预约成功!");
                     return;
                 }
                 alert("预约失败!");

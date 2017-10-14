@@ -11,7 +11,7 @@ public class HomeController {
     public String home() {
         return "redirect:/web/getBookList";
     }
-    @GetMapping("/login")
+    @GetMapping("/web/login")
     public String toLogin() {
         return "/web/login";
     }

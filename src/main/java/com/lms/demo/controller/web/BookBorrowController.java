@@ -22,6 +22,7 @@ public class BookBorrowController {
 
     @Autowired
     UserService userService;
+
     @GetMapping("/borrowBook")
     @ResponseBody
     public String borrow(@RequestParam(name = "id",required = false) Long bookId) throws JsonProcessingException {
@@ -32,7 +33,6 @@ public class BookBorrowController {
             return objectMapper.writeValueAsString(map);
         }
         boolean f = borrowService.borrow(bookId,1L);
-
         if (f){
             map.put("error",0);
             return objectMapper.writeValueAsString(map);
