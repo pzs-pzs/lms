@@ -11,17 +11,14 @@ public class HomeController {
     public String home() {
         return "redirect:/web/getBookList";
     }
-    @GetMapping("/web/login")
+    @GetMapping("/login")
     public String toLogin() {
-        return "web/login";
+        return "/web/login";
     }
-    /*@RequestMapping(value = "/login", produces = "text/html;charset=UTF-8")
-    public String adminloginjump(){
-        return "web/login";
+    @GetMapping("/register")
+    public String toRegister() {
+        return "/web/register";
     }
-    @RequestMapping(value = "/index", produces = "text/html;charset=UTF-8")
-    public String loginjump(){
-        return "index";
-    }*/
+
 
 }

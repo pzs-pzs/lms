@@ -1,7 +1,6 @@
 package com.lms.demo.service;
 
 import com.lms.demo.domain.User;
-import com.lms.demo.repository.RoleRepository;
 import com.lms.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

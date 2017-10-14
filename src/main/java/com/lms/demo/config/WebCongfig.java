@@ -23,15 +23,17 @@ public class WebCongfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http.authorizeRequests()
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/web/getBookList").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/index")
-                .failureUrl("/login?error")
-                .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/login?logout").permitAll().invalidateHttpSession(true);
-        http.csrf().disable();*/
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/web/getBookList")
+                .failureUrl("/error").permitAll()
+                .and()
+                .logout().permitAll();
+        http.csrf().disable();
     }
 }

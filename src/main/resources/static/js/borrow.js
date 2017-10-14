@@ -5,7 +5,6 @@ function borrow(id) {
         dataType: "json",
         async: false,
         success: function (data) {
-
             if(data['error']==2){
                 window.location = '/web/login';
                 return;
