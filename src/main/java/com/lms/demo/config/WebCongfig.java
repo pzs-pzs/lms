@@ -23,7 +23,7 @@ public class WebCongfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        /*http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login")
@@ -32,6 +32,6 @@ public class WebCongfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/login?logout").permitAll().invalidateHttpSession(true);
-        http.csrf().disable();
+        http.csrf().disable();*/
     }
 }

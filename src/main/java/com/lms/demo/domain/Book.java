@@ -1,7 +1,10 @@
 package com.lms.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
+
 
 @Entity
 @Table(name = "t_book")
@@ -14,6 +17,15 @@ public class Book {
     private String isbn;
     private String authorName;
     //出版社
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     private String press;
     //备注
     private String remarks;
@@ -22,8 +34,24 @@ public class Book {
     private Integer status;
     //图片链接
     private String picture;
+    //书籍类型，多种类型用逗号隔开
+    private String type;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createDate;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updateDate;
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getPicture() {
         return picture;
