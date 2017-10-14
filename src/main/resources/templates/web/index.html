@@ -170,7 +170,7 @@
                                     </nav>
                                 </th:block>
                                 <th:block th:if="${page.totalPages gt 5}">
-                                    <nav aria-label="Page navigation">
+                                    <nav aria-label="Page navigation" style="text-align: center">
                                         <ul class="pagination">
                                             <li th:if="${cPage>0}">
                                                 <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" aria-label="Previous">
