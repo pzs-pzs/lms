@@ -2,7 +2,7 @@ function borrow(id) {
     var f = 1;
     $.ajax({
         type: 'GET',
-        url: '/web/borrowBook?id=' + id,
+        url: '/web/isLogin',
         dataType: "json",
         async: false,
         success: function (data) {

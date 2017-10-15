@@ -3,6 +3,7 @@ package com.lms.demo.config;
 import com.lms.demo.service.CustomUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,8 +26,10 @@ public class WebCongfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/toRegister").permitAll()
                 .antMatchers("/web/**").permitAll()
                 .antMatchers("/image/**").permitAll()
+                .antMatchers("/image/bitbug_favicon.ico").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/bootstrap/**").permitAll()
                 .antMatchers("/fonts/**").permitAll()
@@ -38,9 +41,12 @@ public class WebCongfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/web/getBookList")
-                .failureUrl("/error").permitAll()
+                .failureUrl("/web/login").permitAll()
                 .and()
-                .logout().permitAll();
+                .logout()
+                .logoutSuccessUrl("/web/getBookList")
+                .permitAll();
         http.csrf().disable();
     }
+
 }

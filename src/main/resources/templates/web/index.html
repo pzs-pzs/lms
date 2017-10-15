@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Library</title>
@@ -53,24 +54,32 @@
                         <li><p style="font-size: 35px;margin-top: 3px">Library Management System</p></li>
                     </ul>
                 </div>
-                <ul class="nav nav-tabs ">
-                    <li class="dropdown pull-right">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Account<strong class="caret"></strong></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">Modify</a>
-                            </li>
-                            <li>
-                                <a href="#">Attention</a>
-                            </li>
-                            <li>
-                                <a href="#">More</a>
-                            </li>
+                <th:block th:switch="${#authentication.name}">
+                    <!--<a th:case="'anonymousUser'" href="../../templates/web/login.html" th:href="'/web/login'">Login</a>-->
+                    <ul th:case="'anonymousUser'" class="nav nav-tabs ">
+                        <li class="dropdown pull-right">
+                        <a th:href="'/web/login'"  >Login</a>
+                        </li>
 
-                        </ul>
-                    </li>
+                    </ul>
+                    <ul th:case="*" class="nav nav-tabs ">
+                        <li class="dropdown pull-right">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle" th:text="${#authentication.name}"></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../../templates/web/profile.html" th:href="'/web/profile'">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="/logout">logout</a>
+                                </li>
 
-                </ul>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </th:block>
+
             </nav>
             <div class="row clearfix">
                 <div class="col-md-3 column">
@@ -138,10 +147,50 @@
                                                             Thumbnail label
                                                         </h3>
                                                         <p>
-                                                            <a class="btn btn-primary" href="#" onclick="borrow(1)" th:onclick="'borrow('+${p.id}+')'">borrow</a>  <a class="btn btn-primary" href="#">Detail</a>
+                                                            <a class="btn btn-primary" href="#" onclick="borrow(1)" th:onclick="'borrow('+${p.id}+')'">borrow</a>
+                                                            <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Detail</a>
+                                                        <p>
+
+                                                    </p>
                                                         </p>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" style="width:1100px">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                &times;
+                                                            </button>
+                                                            <h1 style="text-align: center">Details</h1>
+
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="container">
+                                                                <div class="col-lg-4">
+                                                                    <img src="../../static/image/3.jpg" th:src="${p.picture}" style="height: 300px; width: 200px">
+                                                                </div>
+
+                                                                <div class="col-lg-8">
+                                                                    <h1 style="font-family: 'Arial Black'" th:text="${p.name}">书名</h1>
+                                                                    <h3 th:text="${p.authorName}">作者</h3>
+                                                                    <p>简介
+
+                                                                        </br></br></br></br>
+
+                                                                    </p>
+                                                                    <h4 th:text="${p.remarks}">Left/All： * / * </h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">close
+                                                            </button>-->
+
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+                                                </div><!-- /.modal -->
                                             </div>
                                         </th:block>
                                     </div>

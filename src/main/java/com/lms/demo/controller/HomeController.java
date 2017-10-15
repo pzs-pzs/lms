@@ -1,9 +1,7 @@
 package com.lms.demo.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
@@ -15,10 +13,12 @@ public class HomeController {
     public String toLogin() {
         return "/web/login";
     }
-    @GetMapping("/toRegister")
+    @GetMapping("/web/toRegister")
     public String toRegister() {
         return "/web/register";
     }
+
+
 
 
 }

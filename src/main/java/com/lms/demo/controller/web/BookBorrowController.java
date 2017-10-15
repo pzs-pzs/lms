@@ -28,11 +28,7 @@ public class BookBorrowController {
     public String borrow(@RequestParam(name = "id",required = false) Long bookId) throws JsonProcessingException {
         Map<String,Object> map = new HashMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        if (!userService.isLogin()){
-            map.put("error",2);
-            return objectMapper.writeValueAsString(map);
-        }
-        boolean f = borrowService.borrow(bookId,1L);
+        boolean f = borrowService.borrow(bookId,userService.getUserId());
         if (f){
             map.put("error",0);
             return objectMapper.writeValueAsString(map);

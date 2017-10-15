@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Library</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="'/css/bootstrap.min.css'">
+    <link rel="stylesheet" href="../../static/css/bootstrap-theme.min.css" th:href="'/css/bootstrap-theme.min.css'">
+    <script src="../../static/js/jquery-3.2.1.min.js" th:src="'/js/jquery-3.2.1.min.js'"></script>
+    <script src="../../static/js/bootstrap.min.js" th:src="'/js/bootstrap.min.js'"></script>
+    <link rel="stylesheet" href="../../static/css/login.css" th:href="'/css/login.css'">
+    <style type="text/css">
+        #myCarousel {
+            height: 400px;
+
+        }
+        #myCarousel img{
+            width: 100%;
+            height: 400px;
+        }
+
+        .footer {
+            border-top: 1px solid #e5e5e5;
+            color: #777;
+            padding: 19px 0;
+            background-color: #f5f5f5;
+        }
+
+
+        .myDiv{
+            padding-right: 20px;
+            border-right:1px solid #D8D8D8;
+        }
+
+        .myp{
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation">
+                <div class="navbar-header">
+                    <ul class="nav nav-tabs ">
+                        <li><img src="../../static/image/logo.jpg" style="height: 45px;width: auto; margin-top: 5px" ></li>
+                        <li><p style="font-size: 35px;margin-top: 3px">Library Management System</p></li>
+                    </ul>
+                </div>
+                <ul class="nav nav-tabs ">
+                    <li class="dropdown pull-right">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle" th:text="${#authentication.name}">Account<strong class="caret"></strong></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../../templates/web/index.html" th:href="'/web/getBookList'">Index</a>
+                            </li>
+                            <li>
+                                <a th:href="'/logout'">Logout</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+            <div class="row clearfix">
+
+                <div class="col-lg-12 columm">
+                    <div class="row clearfix">
+                        <div class="col-md-2 column">
+
+                            <div class="col-md-12">
+                                <label> Name:</label>
+                                <p th:text="${user.name}">Pu Zhengsong</p>
+                            </div>
+                            <div th:if="${user.email}!=null" class="col-md-12">
+                                <label> Email:</label>
+                                <p th:text="${user.email}">12345667</p>
+                            </div>
+
+
+
+
+
+                        </div>
+
+                        <div class="col-lg-10">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Borrowing time</th>
+                                    <th>Borrowing status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="p,index:${bookList}">
+
+                                    <tr>
+                                        <td th:text="${p.isbn}">Tanmay</td>
+                                        <td th:text="${p.name}">Bangalore</td>
+                                        <td th:text="${p.authorName}">560001</td>
+                                        <td th:text="${p.createDate}">560001</td>
+                                        <th:block th:switch="${p.status}">
+                                            <td th:case="'1'">未归还</td>
+                                            <td th:case="'2'">已归还</td>
+                                        </th:block>
+
+
+                                    </tr>
+                                </th:block>
+
+                                </tbody>
+                            </table>
+
+                            <!--分页-->
+                            <th:block th:if="${(page.totalPages le 5) and (page.totalPages gt 0)}">
+                                <nav style="text-align: center">
+                                    <ul class="pagination ">
+
+                                        <li th:if="${cPage>0}">
+                                            <a th:href="'/web/profile?page='+${cPage-1}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <th:block th:each="pg : ${#numbers.sequence(0, page.totalPages - 1)}">
+                                            <li th:class="(${cPage}==${pg})?'active':'gg'"><a th:href="'/web/profile?page='+${pg}" th:text="${pg+1}">1</a></li>
+                                        </th:block>
+                                        <li th:if="${cPage}<${page.totalPages - 1}">
+                                            <a th:href="'/web/profile?page='+${cPage+1}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </nav>
+                            </th:block>
+                            <th:block th:if="${page.totalPages gt 5}">
+                                <nav aria-label="Page navigation" style="text-align: center">
+                                    <ul class="pagination">
+                                        <li th:if="${cPage>0}">
+                                            <a th:href="'/web/profile?page='+${cPage-1}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <th:block th:if="${cPage}<=1">
+                                            <li th:class="(${cPage}==0)?'active':'gg'"><a th:href="'/web/profile?page=0'">1</a></li>
+                                            <li th:class="(${cPage}==1)?'active':'gg'"><a th:href="'/web/profile?page=1'">2</a></li>
+                                            <li th:class="(${cPage}==2)?'active':'gg'"><a th:href="'/web/profile?page=2'">3</a></li>
+                                            <li th:class="(${cPage}==3)?'active':'gg'"><a th:href="'/web/profile?page=3'">4</a></li>
+                                            <li th:class="(${cPage}==4)?'active':'gg'"><a th:href="'/web/profile?page=4'">5</a></li>
+                                        </th:block>
+                                        <th:block th:if="${cPage}>1 and ${cPage}<${page.totalPages-2}">
+                                            <li><a th:href="'/web/profile?page='+${cPage-2}" th:text="${cPage-1}">3</a></li>
+                                            <li><a th:href="'/web/profile?page='+${cPage-1}" th:text="${cPage}">3</a></li>
+                                            <li class="active"><a th:href="'/web/profile?page='+${cPage}" th:text="${cPage+1}">3</a></li>
+                                            <li><a th:href="'/web/profile?page='+${cPage+1}" th:text="${cPage+2}">3</a></li>
+                                            <li><a th:href="'/web/profile?page='+${cPage+2}" th:text="${cPage+3}">3</a></li>
+                                        </th:block>
+                                        <th:block th:if="${cPage}>=${page.totalPages-2}">
+                                            <li th:class="(${cPage}==${page.totalPages-5})?'active':'gg'"><a th:text="${page.totalPages-4}" th:href="'/web/profile?page='+${page.totalPages-5}">1</a></li>
+                                            <li th:class="(${cPage}==${page.totalPages-4})?'active':'gg'"><a th:text="${page.totalPages-3}" th:href="'/web/profile?page='+${page.totalPages-4}">2</a></li>
+                                            <li th:class="(${cPage}==${page.totalPages-3})?'active':'gg'"><a th:text="${page.totalPages-2}" th:href="'/web/profile?page='+${page.totalPages-3}">3</a></li>
+                                            <li th:class="(${cPage}==${page.totalPages-2})?'active':'gg'"><a th:text="${page.totalPages-1}" th:href="'/web/profile?page='+${page.totalPages-2}">4</a></li>
+                                            <li th:class="(${cPage}==${page.totalPages-1})?'active':'gg'"><a th:text="${page.totalPages}" th:href="'/web/profile?page='+${page.totalPages-1}">5</a></li>
+
+                                        </th:block>
+                                        <li th:if="${cPage}<${page.totalPages - 1}">
+                                            <a th:href="'/web/profile?page='+${cPage+1}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                            </th:block>
+                            <!--分页-->
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="footer col-lg-12  " id="footer">
+        <div class="container">
+            <div class="row footer-top">
+                <div class="col-sm-6 col-lg-6">
+                    <h4></h4>
+                    <p>Welcome!</p>
+                </div>
+                <div class="col-sm-6  col-lg-5 col-lg-offset-1">
+                    <div class="row about">
+                        <div class="col-xs-3">
+                            <h4>About Us</h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href=""></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <h4>Contact Us</h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a target="_blank" title="" href=""></a>
+                                </li>
+                                <li>
+                                    <a href="">Email</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <hr>
+            <div class="row footer-bottom">
+                <ul class="list-inline text-center">
+                    <li>Copyright &copy;2017. Group 6 Software All Rights Reserved.</li>
+                </ul>
+            </div>
+            </br>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

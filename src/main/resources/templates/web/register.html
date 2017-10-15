@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>register</title>
 
@@ -16,7 +16,7 @@
     <script src="../../static/js/jquery.backstretch.min.js" th:src="'/js/jquery.backstretch.min.js'"></script>
 
 </head>
-<body style="background-image: url(../../static/image/1.jpg)">
+<body background="../../static/image/1.jpg" th:background="'/image/1.jpg'">
 
 
 <div class="container-fluid">
@@ -27,13 +27,13 @@
                      role="navigation">
                     <div class="navbar-header">
                         <ul class="nav nav-tabs ">
-                            <li><img src="../../static/image/~F$UI6VM26N2K%7B)M(%60%5BX%5DFI.jpg"
+                            <li><img th:src="'/image/logo.jpg'" src="../../static/image/logo.jpg"
                                      style="height: 45px; width: auto; margin-top: 5px"></li>
                             <li><p style="font-size: 35px;margin-top: 3px">Library Management System</p></li>
                         </ul>
                     </div>
 
-                    <ul class="nav nav-tabs ">
+                    <!--<ul class="nav nav-tabs ">
 
                           <li class="dropdown pull-right">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Account<strong class="caret"></strong></a>
@@ -50,12 +50,12 @@
 
                         </ul></li>
                         
-                    </ul>
+                    </ul>-->
                 </nav>
             </div>
         </div>
         <div class="col-md-offset-3 col-md-6">
-            <form class="form-horizontal" id="register" method="post" action="/register">
+            <form class="form-horizontal" id="register" method="post" action="/web/register">
                 <span class="heading">register</span>
                 <div class="form-group">
                     <input type="text" class="form-control" id="username"
@@ -78,14 +78,14 @@
                            placeholder="email" /> <br />
                     <i class="fa fa-user"></i>
                 </div>
-                <div>
+                <!--<div>
                     <label class="radio-inline">
                         <input type="radio" name="role" id="optionsRadios1" value="1" checked> user
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="role" id="optionsRadios2" value="2" checked> admin
                     </label>
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <input id="btn-register" type="submit" class="btn btn-default"
