@@ -88,7 +88,7 @@ public class UserService {
         Map<String,Object> map = new HashMap<>();
         Sort sort = new Sort(Sort.Direction.DESC,"updateDate");
         PageRequest pageRequest = new PageRequest(page,size,sort);
-        Page<BorrowBooksTable> p = borrowBookRepository.findAll(1,pageRequest);
+        Page<BorrowBooksTable> p = borrowBookRepository.findAll(1,getUserId(),pageRequest);
         List<Book> bookList = new ArrayList<>();
         List<BorrowBooksTable> borrowBooksTables = p.getContent();
         for (BorrowBooksTable b : borrowBooksTables) {

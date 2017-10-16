@@ -30,13 +30,6 @@ public class UserController {
         return "web/profile";
     }
 
-
-
-
-
-
-
-
     @GetMapping("/isLogin")
     @ResponseBody
     public String isLogin() throws JsonProcessingException {
@@ -60,6 +53,6 @@ public class UserController {
         if(result)
             return "/web/login";
         else
-            return "/toRegister";
+            return "redirect:/web/toRegister";
     }
 }

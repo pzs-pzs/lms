@@ -26,10 +26,8 @@ public class WebCongfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/toRegister").permitAll()
                 .antMatchers("/web/**").permitAll()
                 .antMatchers("/image/**").permitAll()
-                .antMatchers("/image/bitbug_favicon.ico").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/bootstrap/**").permitAll()
                 .antMatchers("/fonts/**").permitAll()
