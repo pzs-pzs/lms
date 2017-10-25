@@ -106,14 +106,12 @@
                                     <tr>
                                         <td th:text="${p.isbn}">Tanmay</td>
                                         <td th:text="${p.name}">Bangalore</td>
-                                        <td th:text="${p.authorName}">560001</td>
-                                        <td th:text="${p.createDate}">560001</td>
-                                        <th:block th:switch="${p.status}">
+                                        <td th:text="${p.autherName}">560001</td>
+                                        <td th:text="${#dates.format(p.borrowTime,'yyyy-MM-dd')}">560001</td>
+                                        <th:block th:switch="${p.borrowStatus}">
                                             <td th:case="'1'">未归还</td>
                                             <td th:case="'2'">已归还</td>
                                         </th:block>
-
-
                                     </tr>
                                 </th:block>
 

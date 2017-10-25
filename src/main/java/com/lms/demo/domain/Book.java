@@ -3,7 +3,7 @@ package com.lms.demo.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Entity
@@ -37,7 +37,7 @@ public class Book {
     //书籍类型，多种类型用逗号隔开
     private String type;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    private Date createDate;
+    private Date createDate = new Date();
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updateDate;
 

@@ -1,9 +1,7 @@
 package com.lms.demo.config;
 
 import com.lms.demo.service.CustomUserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-public class WebCongfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityCongfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CustomUserService userDetailsService;

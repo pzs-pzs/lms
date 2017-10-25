@@ -3,9 +3,11 @@ package com.lms.demo.service;
 import com.lms.demo.domain.Book;
 import com.lms.demo.domain.BorrowBooksTable;
 import com.lms.demo.domain.User;
+import com.lms.demo.dto.BorrowHistory;
 import com.lms.demo.repository.BookRepository;
 import com.lms.demo.repository.BorrowBookRepository;
 import com.lms.demo.repository.UserRepository;
+import com.lms.demo.util.BorrowBookUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -89,11 +91,12 @@ public class UserService {
         Sort sort = new Sort(Sort.Direction.DESC,"updateDate");
         PageRequest pageRequest = new PageRequest(page,size,sort);
         Page<BorrowBooksTable> p = borrowBookRepository.findAll(1,getUserId(),pageRequest);
-        List<Book> bookList = new ArrayList<>();
+        List<BorrowHistory> bookList = new ArrayList<>();
         List<BorrowBooksTable> borrowBooksTables = p.getContent();
         for (BorrowBooksTable b : borrowBooksTables) {
             Book book = bookRepository.findOne(1,b.getBookId());
-            bookList.add(book);
+            BorrowHistory borrowHistory = BorrowBookUtil.getBorrowHistory(b,book);
+            bookList.add(borrowHistory);
         }
         map.put("page",p);
         map.put("bookList",bookList);
