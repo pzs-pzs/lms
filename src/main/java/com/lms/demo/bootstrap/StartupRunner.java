@@ -30,10 +30,10 @@ public class StartupRunner implements CommandLineRunner {
             roleRepository.save(new Role("ROLE_NORMAL_USER"));
         }
 
-        User user=userRepository.findByName("admin");
+        User user=userRepository.findByName("14130110035");
         if(user==null){
             user=new User();
-            user.setName("admin");
+            user.setName("14130110035");
             user.setPassword(new BCryptPasswordEncoder(4).encode("1234"));
             user.setEnabled(true);
             user.setAccountNonExpired(true);

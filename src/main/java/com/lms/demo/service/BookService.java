@@ -1,7 +1,9 @@
 package com.lms.demo.service;
 
 import com.lms.demo.domain.Book;
+import com.lms.demo.query.QueryBook;
 import com.lms.demo.repository.BookRepository;
+import com.lms.demo.repository.QueryBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +23,9 @@ public class BookService {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Autowired
+    QueryBookRepository queryBookRepository;
 
     /**
      * 通过标签进行分类查询
@@ -70,8 +75,10 @@ public class BookService {
      * @param kw
      * @return
      */
-    public List<Book> getBookByKw(String kw) {
-        return new ArrayList<>();
+    public Page<QueryBook> getBookByKw(String kw, int p, int s) {
+
+        return queryBookRepository.findByNameContaining(kw,new PageRequest(p,s) );
+
     }
 
 

@@ -119,13 +119,14 @@
                                 </h3>
                             </div>
                             <div class="col-md-5 column">
-                                <form class="bs-example bs-example-form" role="form" action="search.html" th:action="'/web/search'" method="get">
+                                <form class="bs-example bs-example-form" role="form" method="get" action="search.html" th:action="'/web/search'">
                                     <div class="col-lg-12"  style="margin-top: 15px">
                                         <div class="input-group">
                                             <input type="text" name="kw" placeholder="Search" class="form-control">
                                             <span class="input-group-btn">
-													<input class="btn btn-default"  type="submit" value="Go!">
-                                            </span>
+													<input class="btn btn-default" type="submit" value="Go!">
+
+					                            </span>
                                         </div><!-- /input-group -->
                                     </div><!-- /.col-lg-6 -->
                                 </form>
@@ -177,6 +178,7 @@
                                                                 <p>简介</br></br></br></br></p>
                                                                 <p><h4 th:text="${p.remarks}">Left/All： * / * </h4></p>
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -198,15 +200,15 @@
                                 <ul class="pagination ">
 
                                     <li th:if="${cPage>0}">
-                                        <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" aria-label="Previous">
+                                        <a th:href="'/web/search?kw='+${kw}+'&&page='+${cPage-1}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                     <th:block th:each="pg : ${#numbers.sequence(0, page.totalPages - 1)}">
-                                        <li th:class="(${cPage}==${pg})?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page='+${pg}" th:text="${pg+1}">1</a></li>
+                                        <li th:class="(${cPage}==${pg})?'active':'gg'"><a th:href="'/web/search?kw='+${kw}+'&&page='+${pg}" th:text="${pg+1}">1</a></li>
                                     </th:block>
                                     <li th:if="${cPage}<${page.totalPages - 1}">
-                                        <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+1}" aria-label="Next">
+                                        <a th:href="'/web/search?kw='+${kw}+'&&page='+${cPage+1}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
@@ -218,34 +220,34 @@
                             <nav aria-label="Page navigation" style="text-align: center">
                                 <ul class="pagination">
                                     <li th:if="${cPage>0}">
-                                        <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" aria-label="Previous">
+                                        <a th:href="'/web/search?kw='+${kw}+'&&page='+${cPage-1}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                     <th:block th:if="${cPage}<=1">
-                                        <li th:class="(${cPage}==0)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=0'">1</a></li>
-                                        <li th:class="(${cPage}==1)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=1'">2</a></li>
-                                        <li th:class="(${cPage}==2)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=2'">3</a></li>
-                                        <li th:class="(${cPage}==3)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=3'">4</a></li>
-                                        <li th:class="(${cPage}==4)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=4'">5</a></li>
+                                        <li th:class="(${cPage}==0)?'active':'gg'"><a th:href="'/web/search?kw='+${kw}+'&&page=0'">1</a></li>
+                                        <li th:class="(${cPage}==1)?'active':'gg'"><a th:href="'/web/search?kw='+${kw}+'&&page=1'">2</a></li>
+                                        <li th:class="(${cPage}==2)?'active':'gg'"><a th:href="'/web/search?kw='+${kw}+'&&page=2'">3</a></li>
+                                        <li th:class="(${cPage}==3)?'active':'gg'"><a th:href="'/web/search?kw='+${kw}+'&&page=3'">4</a></li>
+                                        <li th:class="(${cPage}==4)?'active':'gg'"><a th:href="'/web/search?kw='+${kw}+'&&page=4'">5</a></li>
                                     </th:block>
                                     <th:block th:if="${cPage}>1 and ${cPage}<${page.totalPages-2}">
-                                        <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-2}" th:text="${cPage-1}">3</a></li>
-                                        <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" th:text="${cPage}">3</a></li>
-                                        <li class="active"><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage}" th:text="${cPage+1}">3</a></li>
-                                        <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+1}" th:text="${cPage+2}">3</a></li>
-                                        <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+2}" th:text="${cPage+3}">3</a></li>
+                                        <li><a th:href="'/web/search?kw='+${kw}+'&&page='+${cPage-2}" th:text="${cPage-1}">3</a></li>
+                                        <li><a th:href="'/web/search?kw='+${kw}+'&&page='+${cPage-1}" th:text="${cPage}">3</a></li>
+                                        <li class="active"><a th:href="'/web/search?kw='+${kw}+'&&page='+${cPage}" th:text="${cPage+1}">3</a></li>
+                                        <li><a th:href="'/web/search?kw='+${kw}+'&&page='+${cPage+1}" th:text="${cPage+2}">3</a></li>
+                                        <li><a th:href="'/web/search?kw='+${kw}+'&&page='+${cPage+2}" th:text="${cPage+3}">3</a></li>
                                     </th:block>
                                     <th:block th:if="${cPage}>=${page.totalPages-2}">
-                                        <li th:class="(${cPage}==${page.totalPages-5})?'active':'gg'"><a th:text="${page.totalPages-4}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-5}">1</a></li>
-                                        <li th:class="(${cPage}==${page.totalPages-4})?'active':'gg'"><a th:text="${page.totalPages-3}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-4}">2</a></li>
-                                        <li th:class="(${cPage}==${page.totalPages-3})?'active':'gg'"><a th:text="${page.totalPages-2}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-3}">3</a></li>
-                                        <li th:class="(${cPage}==${page.totalPages-2})?'active':'gg'"><a th:text="${page.totalPages-1}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-2}">4</a></li>
-                                        <li th:class="(${cPage}==${page.totalPages-1})?'active':'gg'"><a th:text="${page.totalPages}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-1}">5</a></li>
+                                        <li th:class="(${cPage}==${page.totalPages-5})?'active':'gg'"><a th:text="${page.totalPages-4}" th:href="'/web/search?kw='+${kw}+'&&page='+${page.totalPages-5}">1</a></li>
+                                        <li th:class="(${cPage}==${page.totalPages-4})?'active':'gg'"><a th:text="${page.totalPages-3}" th:href="'/web/search?kw='+${kw}+'&&page='+${page.totalPages-4}">2</a></li>
+                                        <li th:class="(${cPage}==${page.totalPages-3})?'active':'gg'"><a th:text="${page.totalPages-2}" th:href="'/web/search?kw='+${kw}+'&&page='+${page.totalPages-3}">3</a></li>
+                                        <li th:class="(${cPage}==${page.totalPages-2})?'active':'gg'"><a th:text="${page.totalPages-1}" th:href="'/web/search?kw='+${kw}+'&&page='+${page.totalPages-2}">4</a></li>
+                                        <li th:class="(${cPage}==${page.totalPages-1})?'active':'gg'"><a th:text="${page.totalPages}" th:href="'/web/search?kw='+${kw}+'&&page='+${page.totalPages-1}">5</a></li>
 
                                     </th:block>
                                     <li th:if="${cPage}<${page.totalPages - 1}">
-                                        <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+1}" aria-label="Next">
+                                        <a th:href="'/web/search?kw='+${kw}+'&&page='+${cPage+1}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>

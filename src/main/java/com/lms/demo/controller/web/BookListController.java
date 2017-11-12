@@ -1,11 +1,13 @@
 package com.lms.demo.controller.web;
 
 import com.lms.demo.domain.Book;
+import com.lms.demo.query.QueryBook;
 import com.lms.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,5 +49,26 @@ public class BookListController {
     public String getBookDetail(@RequestParam(name = "id") Long id) {
         Book book = bookService.getBookById(id);
         return "web/demo";
+    }
+
+    @GetMapping("/search")
+    public String searchByKw(@RequestParam(name = "page" ,required = false,defaultValue = "0") int p,
+                             @RequestParam(name = "size" ,required = false,defaultValue = "9") int s,
+                             @RequestParam(name = "kw" , required = false) String kw,
+                             Model model){
+        if ( kw==null || StringUtils.isEmpty(kw)) {
+            Page<Book> page = bookService.getBookList(p,s);
+            model.addAttribute("bookList",page.getContent());
+            model.addAttribute("page",page);
+            model.addAttribute("cPage",p);
+            model.addAttribute("kw",kw);
+            return "web/search";
+        }
+        Page<QueryBook> page = bookService.getBookByKw(kw,p,s);
+        model.addAttribute("bookList",page.getContent());
+        model.addAttribute("page",page);
+        model.addAttribute("cPage",p);
+        model.addAttribute("kw",kw);
+        return "web/search";
     }
 }

@@ -73,6 +73,12 @@
             <version>2.0.1</version>
         </dependency>
 
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-solr</artifactId>
+        </dependency>
+
 	</dependencies>
 
 	<build>
