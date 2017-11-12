@@ -10,6 +10,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @Order(value=1)
 public class StartupRunner implements CommandLineRunner {
@@ -30,15 +33,19 @@ public class StartupRunner implements CommandLineRunner {
             roleRepository.save(new Role("ROLE_NORMAL_USER"));
         }
 
-        User user=userRepository.findByName("admin");
+        User user=userRepository.findByName("admin777");
         if(user==null){
             user=new User();
-            user.setName("admin");
+            Role role1 = new Role("ROLE_ADMIN");
+            List<Role> lr = new ArrayList<>();
+            lr.add(role1);
+            user.setName("admin777");
             user.setPassword(new BCryptPasswordEncoder(4).encode("1234"));
             user.setEnabled(true);
             user.setAccountNonExpired(true);
             user.setAccountNonLocked(true);
             user.setCredentialsNonExpired(true);
+            //user.setRoles(lr);
             userRepository.save(user);
         }
 

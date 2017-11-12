@@ -6,9 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface BorrowBookRepository extends JpaRepository<BorrowBooksTable,Long> {
 
     @Query("select c from BorrowBooksTable c where c.status=?1 and c.userId=?2 ")
-    public Page<BorrowBooksTable> findAll(Integer status,Long id, Pageable pageable);
+    public Page<BorrowBooksTable> findAllByUserId(Integer status,Long id, Pageable pageable);
+
+    public Page<BorrowBooksTable> findAll(Pageable pageable);
 
 }

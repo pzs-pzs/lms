@@ -1,12 +1,11 @@
 package com.lms.demo.service;
 
-import com.lms.demo.domain.Book;
-import com.lms.demo.domain.BorrowBooksTable;
-import com.lms.demo.domain.User;
+import com.lms.demo.domain.*;
 import com.lms.demo.dto.BorrowHistory;
 import com.lms.demo.repository.BookRepository;
 import com.lms.demo.repository.BorrowBookRepository;
 import com.lms.demo.repository.UserRepository;
+import com.lms.demo.repository.UserRoleRepository;
 import com.lms.demo.util.BorrowBookUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +29,9 @@ import java.util.Map;
 public class UserService {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserRoleRepository userRoleRepository;
 
     @Autowired
     BorrowBookRepository borrowBookRepository;
@@ -71,6 +73,9 @@ public class UserService {
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         User result = userRepository.save(user);
+        long rid = new Long(2);
+        UserRole userRole = new UserRole(userRepository.findByName(username).getId(),rid);
+        userRoleRepository.save(userRole);
         if(result!=null){
             return true;
         }else{
@@ -90,12 +95,13 @@ public class UserService {
         Map<String,Object> map = new HashMap<>();
         Sort sort = new Sort(Sort.Direction.DESC,"updateDate");
         PageRequest pageRequest = new PageRequest(page,size,sort);
-        Page<BorrowBooksTable> p = borrowBookRepository.findAll(1,getUserId(),pageRequest);
+        Page<BorrowBooksTable> p = borrowBookRepository.findAllByUserId(1,getUserId(),pageRequest);
         List<BorrowHistory> bookList = new ArrayList<>();
         List<BorrowBooksTable> borrowBooksTables = p.getContent();
         for (BorrowBooksTable b : borrowBooksTables) {
-            Book book = bookRepository.findOne(1,b.getBookId());
-            BorrowHistory borrowHistory = BorrowBookUtil.getBorrowHistory(b,book);
+            Book book = bookRepository.findOne(2,b.getBookId());
+            User user = userRepository.findOne(b.getUserId());
+            BorrowHistory borrowHistory = BorrowBookUtil.getBorrowHistory(b,book,user);
             bookList.add(borrowHistory);
         }
         map.put("page",p);
@@ -103,5 +109,33 @@ public class UserService {
         return map;
     }
 
+    public UserDetails getUserDetails() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        return userDetails;
+    }
+
+    public boolean createAdmin(String username, String password,
+                              String email){
+        User user = new User();
+        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(4);
+        user.setPassword(encoder.encode(password));
+        user.setName(username);
+        user.setEnabled(true);
+        user.setEmail(email);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        User result = userRepository.save(user);
+        long rid = new Long(1);
+        UserRole userRole = new UserRole(userRepository.findByName(username).getId(),rid);
+        userRoleRepository.save(userRole);
+        if(result!=null){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }

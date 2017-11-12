@@ -40,6 +40,16 @@ public class Book {
     private Date createDate = new Date();
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updateDate;
+    @Column(name="location")
+    private String location;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getAuthorName() {
         return authorName;
