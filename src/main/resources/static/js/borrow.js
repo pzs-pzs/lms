@@ -21,7 +21,7 @@ function borrow(id) {
     if(f == 0){
         return;
     }
-    var msg = "亲，确定预约借阅这本书籍么?";
+    var msg = "Are you sure borrow this book?";
     if(confirm(msg)){
         $.ajax({
             type: 'GET',
@@ -29,13 +29,13 @@ function borrow(id) {
             dataType: "json",
             success: function (data) {
                 if(data['error']==0){
-                    alert("预约成功!");
+                    alert("Ordered success!");
                     return;
                 }
-                alert("预约失败!");
+                alert("Quantity is not enough,Ordered failed!");
             },
             error: function () {
-                alert("预约失败!");
+                alert("Ordered failed!");
             }
         });
     }

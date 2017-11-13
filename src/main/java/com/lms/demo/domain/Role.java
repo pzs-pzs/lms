@@ -28,8 +28,8 @@ public class Role {
         this.name = name;
     }
 
+
     public Role(String name) {
-        super();
         this.name = name;
     }
 

@@ -82,33 +82,7 @@
                 </th:block>
 
             </nav>
-            <div class="row clearfix">
-                <div class="col-md-3 column">
-                    <div class="myDiv">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li th:class="(${type}==Literature)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Literature'">Literature</a>
-                            </li>
-                            <li th:class="(${type}==Children)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Children'">Children</a>
-                            </li>
-                            <li th:class="(${type}==Education)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Education'">Education</a>
-                            </li>
-                            <li th:class="(${type}==SocialSciences)?'active':'gg'" class="active">
-                                <a href="#" th:href="'/web/getBookList?type=SocialSciences'">SocialSciences</a>
-                            </li>
-                            <li th:class="(${type}==Management)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Management'">Management</a>
-                            </li>
-                            <li th:class="(${type}==Encouragement)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Encouragement'">Encouragement</a>
-                            </li>
-                        </ul>
-                    </div>
 
-
-                </div>
                 <div class="col-lg-9 columm">
 
                     <div class="col-md-12 column">
@@ -119,25 +93,16 @@
                                 </h3>
                             </div>
                             <div class="col-md-5 column">
-                                <form class="bs-example bs-example-form" role="form" action="search.html" th:action="'/web/search'" method="get">
+                                <form class="bs-example bs-example-form" role="form">
                                     <div class="col-lg-12"  style="margin-top: 15px">
-
                                         <div class="input-group">
-                                            <input type="text" name="kw" placeholder="Search" class="form-control">
-                                            <span class="input-group-btn">
-													<input class="btn btn-default"  type="submit" value="Go!">
-                                            </span>
-                                        </div><!-- /input-group -->
-
-                                        <!--<div class="input-group">
                                             <input type="text" class="form-control">
                                             <span class="input-group-btn">
 													<button class="btn btn-default" type="button">
 														Go!
 													</button>
 					                            </span>
-                                        </div>--><!-- /input-group -->
-
+                                        </div><!-- /input-group -->
                                     </div><!-- /.col-lg-6 -->
                                 </form>
                             </div>
@@ -157,7 +122,7 @@
                                                         Thumbnail label
                                                     </h3>
                                                     <p>
-                                                        <!--<a class="btn btn-primary" href="#" onclick="borrow(1)" th:onclick="'borrow('+${p.id}+')'">borrow</a>-->
+                                                        <a class="btn btn-primary" href="#" onclick="borrow(1)" th:onclick="'borrow('+${p.id}+')'">borrow</a>
                                                         <a id="dddd" class="btn btn-primary" data-toggle="modal"  th:attr="data-target='#myModel'+${index.count}" >Detail</a>
                                                     <p>
 
@@ -173,7 +138,7 @@
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                                             &times;
                                                         </button>
-                                                        <p style="text-align: center">Details</p>
+                                                        <h1 style="text-align: center">Details</h1>
 
                                                     </div>
                                                     <div class="modal-body">
@@ -182,19 +147,11 @@
                                                                 <img src="../../static/image/3.jpg" th:src="${p.picture}" style="height: 300px; width: 200px">
                                                             </div>
 
-                                                            <div class="col-lg-7">
-<!--<<<<<<< HEAD
-                                                                <h1 style="font-family: 'Arial Black'" th:text="${p.name}">书名</h1>
-                                                                <h3 th:text="'作者:'+${p.authorName}">作者</h3>
-                                                                <p>简介</br></br></br></br></p>
-                                                                <p><h4 th:text="${p.remarks}">Left/All： * / * </h4></p>
-=======-->
-                                                                <p th:text="'bookName:'+${p.name}"></p>
-                                                                <p th:text="'author name:'+${p.authorName}">author name</p>
-                                                                <P th:text="'location:'+${p.location}">location</P>
-                                                                <p >remarks:</p></pr></br></br></br></br></p>
-                                                                <h4 th:text="${p.remarks}"></h4>
-                                                            </div>
+                                                            <p class="col-lg-8">
+                                                            <h1 style="font-family: 'Arial Black'" th:text="${p.name}">书名</h1>
+                                                            <h3 th:text="'作者:'+${p.authorName}">作者</h3>
+                                                            <p>简介</br></br></br></br></p>
+                                                            <p><h4 th:text="${p.remarks}">Left/All： * / * </h4></p>
                                                         </div>
                                                     </div>
                                                 </div>

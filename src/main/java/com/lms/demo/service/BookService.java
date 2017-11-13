@@ -1,7 +1,9 @@
 package com.lms.demo.service;
 
 import com.lms.demo.domain.Book;
+import com.lms.demo.domain.BookInventory;
 import com.lms.demo.query.QueryBook;
+import com.lms.demo.repository.BookInventoryRepository;
 import com.lms.demo.repository.BookRepository;
 import com.lms.demo.repository.QueryBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional
@@ -26,6 +26,9 @@ public class BookService {
 
     @Autowired
     QueryBookRepository queryBookRepository;
+
+    @Autowired
+    BookInventoryRepository bookInventoryRepository;
 
     /**
      * 通过标签进行分类查询
@@ -81,6 +84,31 @@ public class BookService {
 
     }
 
+    /**
+     *添加图书
+     */
 
+    public void save(Book entity,String[] booktype,String path,Integer quantity){
+        String allType = "";
+        for(String type:booktype){
+            type = type.substring(0, 1).toUpperCase() + type.substring(1);
+            allType += type+",";
+        }
+        entity.setType(allType);
+        entity.setPicture(path);
+        entity.setStatus(2);
+        bookRepository.save(entity);
+        if(bookInventoryRepository.findOneByBookName(entity.getName())!=null){
+            bookInventoryRepository.addBook(entity.getName());
+        }else {
+            BookInventory bookInventory = new BookInventory();
+            bookInventory.setBookName(entity.getName());
+            bookInventory.setBookType(entity.getType());
+            bookInventory.setBookBorrowQuantity(0);
+            bookInventory.setBookTotalQuantity(quantity);
+            bookInventoryRepository.save(bookInventory);
+        }
+
+    }
 
 }

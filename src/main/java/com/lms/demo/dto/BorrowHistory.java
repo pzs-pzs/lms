@@ -6,8 +6,17 @@ public class BorrowHistory {
     private String isbn;
     private String name;
     private String autherName;
+    private String userName;
     private Date borrowTime;
     private Integer borrowStatus;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getIsbn() {
         return isbn;

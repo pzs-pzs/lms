@@ -93,7 +93,7 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Number</th>
+                                    <th>Isbn</th>
                                     <th>Title</th>
                                     <th>Author</th>
                                     <th>Borrowing time</th>
@@ -109,8 +109,8 @@
                                         <td th:text="${p.autherName}">560001</td>
                                         <td th:text="${#dates.format(p.borrowTime,'yyyy-MM-dd')}">560001</td>
                                         <th:block th:switch="${p.borrowStatus}">
-                                            <td th:case="'1'">未归还</td>
-                                            <td th:case="'2'">已归还</td>
+                                            <td th:case="'1'">Not Returned</td>
+                                            <td th:case="'2'">Returned</td>
                                         </th:block>
                                     </tr>
                                 </th:block>

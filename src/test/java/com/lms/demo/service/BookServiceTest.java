@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestOperations;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -19,6 +20,9 @@ public class BookServiceTest {
 
     @Autowired
     QueryBookRepository repository;
+
+    @Autowired
+    private RestOperations restOperations;
 
     @Test
     public void getBookListByType() throws Exception {
@@ -37,6 +41,7 @@ public class BookServiceTest {
 
     @Test
     public void getBookByKw() throws Exception {
+
     }
 
 }
