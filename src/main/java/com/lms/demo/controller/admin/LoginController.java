@@ -15,10 +15,11 @@ public class LoginController {
 
     @RequestMapping(value = "/loginJudgement")
     public String loginJudge(){
+        System.out.println("GG");
         UserDetails userDetails =userService.getUserDetails();
         System.out.println(userDetails.getAuthorities().toString());
         if(userDetails.getAuthorities().toString().equals("[ROLE_ADMIN]")){
-            return "redirect:admin/bookStatusList";
+            return "redirect:/admin/bookStatusList";
         }else if(userDetails.getAuthorities().toString().equals("[ROLE_NORMAL_USER]")){
             return "redirect:/web/getBookList";
         }else {

@@ -2,10 +2,15 @@ package com.lms.demo.service;
 
 import com.lms.demo.domain.Book;
 import com.lms.demo.domain.BookInventory;
+import com.lms.demo.domain.BorrowBooksTable;
+import com.lms.demo.domain.User;
+import com.lms.demo.dto.BorrowHistory;
 import com.lms.demo.query.QueryBook;
 import com.lms.demo.repository.BookInventoryRepository;
 import com.lms.demo.repository.BookRepository;
 import com.lms.demo.repository.QueryBookRepository;
+import com.lms.demo.repository.UserRepository;
+import com.lms.demo.util.BorrowBookUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -29,6 +36,9 @@ public class BookService {
 
     @Autowired
     BookInventoryRepository bookInventoryRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     /**
      * 通过标签进行分类查询
@@ -62,6 +72,19 @@ public class BookService {
         Pageable pageable = new PageRequest(page,size,sort);
         Page<Book> pageList = bookRepository.findAll(1,pageable);
         return pageList;
+    }
+
+    public List<BorrowHistory> getBorrowHistory(Page<BorrowBooksTable> p) {
+        List<BorrowHistory> bookList = new ArrayList<>();
+        List<BorrowBooksTable> borrowBooksTables = p.getContent();
+        for (BorrowBooksTable b : borrowBooksTables) {
+            Book book = bookRepository.findOne(b.getBookId());
+            User user = userRepository.getOne(b.getUserId());
+            BorrowHistory borrowHistory = BorrowBookUtil.getBorrowHistory(b,book,user);
+            bookList.add(borrowHistory);
+        }
+        return bookList;
+
     }
 
     /**

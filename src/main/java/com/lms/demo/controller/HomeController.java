@@ -13,13 +13,5 @@ public class HomeController {
     public String toLogin() {
         return "/web/login";
     }
-    @GetMapping("/web/toRegister")
-    public String toRegister() {
-        return "/web/register";
-    }
-
-
-
-
 
 }

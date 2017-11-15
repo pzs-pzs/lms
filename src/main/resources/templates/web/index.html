@@ -1,17 +1,18 @@
-<!DOCTYPE html>
+<!DOCtype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       xmlns:data="http://www.thymeleaf.org/extras/data">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <title>Library</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="'/css/bootstrap.min.css'">
     <link rel="stylesheet" href="../../static/css/bootstrap-theme.min.css" th:href="'/css/bootstrap-theme.min.css'">
+    <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="'/css/style.css'">
     <script src="../../static/js/jquery-3.2.1.min.js" th:src="'/js/jquery-3.2.1.min.js'"></script>
     <script src="../../static/js/bootstrap.min.js" th:src="'/js/bootstrap.min.js'"></script>
     <script src="../../static/js/borrow.js" th:src="'/js/borrow.js'"></script>
-    <link rel="stylesheet" href="../../static/css/login.css" th:href="'/css/login.css'">
     <style type="text/css">
         #myCarousel {
             height: 400px;
@@ -45,102 +46,94 @@
 
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid " style="padding: 0px">
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <nav class="navbar navbar-default navbar-static-top" role="navigation">
-                <div class="navbar-header">
-                    <ul class="nav nav-tabs ">
-                        <li><img src="../../static/image/logo.jpg" th:src="'/image/logo.jpg'" style="height: 45px;width: auto; margin-top: 5px" ></li>
-                        <li><p style="font-size: 35px;margin-top: 3px">Library Management System</p></li>
-                    </ul>
-                </div>
-                <th:block th:switch="${#authentication.name}">
-                    <!--<a th:case="'anonymousUser'" href="../../templates/web/login.html" th:href="'/web/login'">Login</a>-->
-                    <ul th:case="'anonymousUser'" class="nav nav-tabs ">
-                        <li class="dropdown pull-right">
-                            <a th:href="'/web/login'"  >Login</a>
-                        </li>
-
-                    </ul>
-                    <ul th:case="*" class="nav nav-tabs ">
-                        <li class="dropdown pull-right">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle" th:text="${#authentication.name}"></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../../templates/web/profile.html" th:href="'/web/profile'">Profile</a>
-                                </li>
-                                <li>
-                                    <a href="/logout">logout</a>
-                                </li>
-
-
-                            </ul>
-                        </li>
-
-                    </ul>
-                </th:block>
-
-            </nav>
-            <div class="row clearfix">
-                <div class="col-md-3 column">
-                    <div class="myDiv">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li th:class="(${type}==Literature)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Literature'">Literature</a>
-                            </li>
-                            <li th:class="(${type}==Children)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Children'">Children</a>
-                            </li>
-                            <li th:class="(${type}==Education)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Education'">Education</a>
-                            </li>
-                            <li th:class="(${type}==SocialSciences)?'active':'gg'" class="active">
-                                <a href="#" th:href="'/web/getBookList?type=SocialSciences'">SocialSciences</a>
-                            </li>
-                            <li th:class="(${type}==Management)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Management'">Management</a>
-                            </li>
-                            <li th:class="(${type}==Encouragement)?'active':'gg'">
-                                <a href="" th:href="'/web/getBookList?type=Encouragement'">Encouragement</a>
-                            </li>
-                        </ul>
+            <nav class="navbar navbar-default mynav" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header" style="text-indent: 30px">
+                        <a class="navbar-brand" href="#"><img src="../../static/image/Library.png" th:src="'/image/Library.png'"  ondragstart="return false;"></a>
                     </div>
 
+                    <div>
+                        <ul class="nav navbar-nav pull-right bbbbb">
+                            <th:block th:switch="${#authentication.name}">
 
+                                <li th:case="'anonymousUser'" class="dropdown">
+                                    <a href="#"  class="dropdown-toggle" th:href="'/web/login'">
+                                        Login
+                                    </a>
+                                </li>
+                                <li th:case="*" class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-user" th:text="${#authentication.name}">Admin</span>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right aaaaa">
+                                        <li><a  class="text-right" href="#" th:href="'/web/profile'">Profile</a></li>
+                                        <li class="divider"></li>
+                                        <li><a class="text-right" href="#" th:href="'/logout'">Log out</a></li>
+                                    </ul>
+                                </li>
+                            </th:block>
+                        </ul>
+
+                    </div>
                 </div>
-                <div class="col-lg-9 columm">
+            </nav>
+            <div class="row clearfix">
+                <div class="col-md-1 column"></div>
+                <div class="col-md-2 column well well-lg" style="background: rgba(255,255,255,0.5);margin-top: 40px">
+                    <h3>Category</h3>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li th:class="(${type}==All)?'active':'gg'">
+                            <a href="" th:href="'/web/getBookList?type=All'">All</a>
+                        </li>
+                        <li th:class="(${type}==Literature)?'active':'gg'">
+                            <a href="" th:href="'/web/getBookList?type=Literature'">Literature</a>
+                        </li>
+                        <li th:class="(${type}==Children)?'active':'gg'">
+                            <a href="" th:href="'/web/getBookList?type=Children'">Children</a>
+                        </li>
+                        <li th:class="(${type}==Education)?'active':'gg'">
+                            <a href="" th:href="'/web/getBookList?type=Education'">Education</a>
+                        </li>
+                        <li th:class="(${type}==SocialSciences)?'active':'gg'" class="active">
+                            <a href="#" th:href="'/web/getBookList?type=SocialSciences'">SocialSciences</a>
+                        </li>
+                        <li th:class="(${type}==Management)?'active':'gg'">
+                            <a href="" th:href="'/web/getBookList?type=Management'">Management</a>
+                        </li>
+                        <li th:class="(${type}==Encouragement)?'active':'gg'">
+                            <a href="" th:href="'/web/getBookList?type=Encouragement'">Encouragement</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-9 col-md-6 columm">
 
                     <div class="col-md-12 column">
                         <div class="row clearfix">
-                            <div class="col-md-7 column">
+                            <div class="col-md-4 column">
                                 <h3>
                                     Book List
                                 </h3>
                             </div>
-                            <div class="col-md-5 column">
-                                <form class="bs-example bs-example-form" role="form" action="search.html" th:action="'/web/search'" method="get">
-                                    <div class="col-lg-12"  style="margin-top: 15px">
-
-                                        <div class="input-group">
-                                            <input type="text" name="kw" placeholder="Search" class="form-control">
-                                            <span class="input-group-btn">
-													<input class="btn btn-default"  type="submit" value="Go!">
-                                            </span>
-                                        </div><!-- /input-group -->
-
-                                        <!--<div class="input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-													<button class="btn btn-default" type="button">
-														Go!
-													</button>
-					                            </span>
-                                        </div>--><!-- /input-group -->
-
-                                    </div><!-- /.col-lg-6 -->
+                            <!-- 搜索栏-->
+                            <div class="col-lg-6 col-lg-offset-2" style="margin-top: 10px">
+                                <form class="form-horizontal" role="form" th:action="'/web/search'">
+                                    <div class="form-group">
+                                        <div class="col-lg-5">
+                                            <input type="text" name="kw" class="form-control" id="firstname"
+                                                   placeholder="BookName">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="submit" class="btn btn-default" value="Go!">
+                                            </input>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
+
                         </div>
                         <hr>
                         <div class="row clearfix">
@@ -149,19 +142,15 @@
                             <div class="col-md-12 column">
                                 <div class="row">
                                     <th:block th:each="p,index:${bookList}">
-                                        <div class="col-md-4">
-                                            <div class="thumbnail">
+                                        <div class="col-md-3">
+                                            <div class="thumbnail mybakc">
                                                 <img alt="300x200" src="../../static/image/3.jpg" th:src="${p.picture}" style="height: 300px; width: 200px"/>
                                                 <div class="caption">
                                                     <h3 th:text="${p.name}">
                                                         Thumbnail label
                                                     </h3>
-                                                    <p>
-                                                        <!--<a class="btn btn-primary" href="#" onclick="borrow(1)" th:onclick="'borrow('+${p.id}+')'">borrow</a>-->
+                                                    <p class="col-lg-offset-8">
                                                         <a id="dddd" class="btn btn-primary" data-toggle="modal"  th:attr="data-target='#myModel'+${index.count}" >Detail</a>
-                                                    <p>
-
-                                                    </p>
                                                     </p>
                                                 </div>
                                             </div>
@@ -170,7 +159,7 @@
                                             <div class="modal-dialog" style="width:1100px">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <button type="button" class="close " data-dismiss="modal" aria-hidden="true">
                                                             &times;
                                                         </button>
                                                         <p style="text-align: center">Details</p>
@@ -183,12 +172,6 @@
                                                             </div>
 
                                                             <div class="col-lg-7">
-<!--<<<<<<< HEAD
-                                                                <h1 style="font-family: 'Arial Black'" th:text="${p.name}">书名</h1>
-                                                                <h3 th:text="'作者:'+${p.authorName}">作者</h3>
-                                                                <p>简介</br></br></br></br></p>
-                                                                <p><h4 th:text="${p.remarks}">Left/All： * / * </h4></p>
-=======-->
                                                                 <p th:text="'bookName:'+${p.name}"></p>
                                                                 <p th:text="'author name:'+${p.authorName}">author name</p>
                                                                 <P th:text="'location:'+${p.location}">location</P>
@@ -205,122 +188,98 @@
                                                 </div>
                                             </div><!-- /.modal-content -->
                                         </div><!-- /.modal -->
+
+                                    </th:block>
                                 </div>
-                                </th:block>
                             </div>
+
+                            <!--分页-->
+                            <th:block th:if="${(page.totalPages le 5) and (page.totalPages gt 0)}">
+                                <nav style="text-align: center">
+                                    <ul class="pagination ">
+
+                                        <li th:if="${cPage>0}">
+                                            <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <th:block th:each="pg : ${#numbers.sequence(0, page.totalPages - 1)}">
+                                            <li th:class="(${cPage}==${pg})?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page='+${pg}" th:text="${pg+1}">1</a></li>
+                                        </th:block>
+                                        <li th:if="${cPage}<${page.totalPages - 1}">
+                                            <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+1}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </nav>
+                            </th:block>
+                            <th:block th:if="${page.totalPages gt 5}">
+                                <nav aria-label="Page navigation" style="text-align: center">
+                                    <ul class="pagination">
+                                        <li th:if="${cPage>0}">
+                                            <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <th:block th:if="${cPage}<=1">
+                                            <li th:class="(${cPage}==0)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=0'">1</a></li>
+                                            <li th:class="(${cPage}==1)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=1'">2</a></li>
+                                            <li th:class="(${cPage}==2)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=2'">3</a></li>
+                                            <li th:class="(${cPage}==3)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=3'">4</a></li>
+                                            <li th:class="(${cPage}==4)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=4'">5</a></li>
+                                        </th:block>
+                                        <th:block th:if="${cPage}>1 and ${cPage}<${page.totalPages-2}">
+                                            <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-2}" th:text="${cPage-1}">3</a></li>
+                                            <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" th:text="${cPage}">3</a></li>
+                                            <li class="active"><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage}" th:text="${cPage+1}">3</a></li>
+                                            <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+1}" th:text="${cPage+2}">3</a></li>
+                                            <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+2}" th:text="${cPage+3}">3</a></li>
+                                        </th:block>
+                                        <th:block th:if="${cPage}>=${page.totalPages-2}">
+                                            <li th:class="(${cPage}==${page.totalPages-5})?'active':'gg'"><a th:text="${page.totalPages-4}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-5}">1</a></li>
+                                            <li th:class="(${cPage}==${page.totalPages-4})?'active':'gg'"><a th:text="${page.totalPages-3}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-4}">2</a></li>
+                                            <li th:class="(${cPage}==${page.totalPages-3})?'active':'gg'"><a th:text="${page.totalPages-2}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-3}">3</a></li>
+                                            <li th:class="(${cPage}==${page.totalPages-2})?'active':'gg'"><a th:text="${page.totalPages-1}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-2}">4</a></li>
+                                            <li th:class="(${cPage}==${page.totalPages-1})?'active':'gg'"><a th:text="${page.totalPages}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-1}">5</a></li>
+
+                                        </th:block>
+                                        <li th:if="${cPage}<${page.totalPages - 1}">
+                                            <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+1}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                            </th:block>
+                            <!--分页-->
+
                         </div>
 
-                        <!--分页-->
-                        <th:block th:if="${(page.totalPages le 5) and (page.totalPages gt 0)}">
-                            <nav style="text-align: center">
-                                <ul class="pagination ">
-
-                                    <li th:if="${cPage>0}">
-                                        <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <th:block th:each="pg : ${#numbers.sequence(0, page.totalPages - 1)}">
-                                        <li th:class="(${cPage}==${pg})?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page='+${pg}" th:text="${pg+1}">1</a></li>
-                                    </th:block>
-                                    <li th:if="${cPage}<${page.totalPages - 1}">
-                                        <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+1}" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </nav>
-                        </th:block>
-                        <th:block th:if="${page.totalPages gt 5}">
-                            <nav aria-label="Page navigation" style="text-align: center">
-                                <ul class="pagination">
-                                    <li th:if="${cPage>0}">
-                                        <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <th:block th:if="${cPage}<=1">
-                                        <li th:class="(${cPage}==0)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=0'">1</a></li>
-                                        <li th:class="(${cPage}==1)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=1'">2</a></li>
-                                        <li th:class="(${cPage}==2)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=2'">3</a></li>
-                                        <li th:class="(${cPage}==3)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=3'">4</a></li>
-                                        <li th:class="(${cPage}==4)?'active':'gg'"><a th:href="'/web/getBookList?type='+${type}+'&&page=4'">5</a></li>
-                                    </th:block>
-                                    <th:block th:if="${cPage}>1 and ${cPage}<${page.totalPages-2}">
-                                        <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-2}" th:text="${cPage-1}">3</a></li>
-                                        <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage-1}" th:text="${cPage}">3</a></li>
-                                        <li class="active"><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage}" th:text="${cPage+1}">3</a></li>
-                                        <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+1}" th:text="${cPage+2}">3</a></li>
-                                        <li><a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+2}" th:text="${cPage+3}">3</a></li>
-                                    </th:block>
-                                    <th:block th:if="${cPage}>=${page.totalPages-2}">
-                                        <li th:class="(${cPage}==${page.totalPages-5})?'active':'gg'"><a th:text="${page.totalPages-4}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-5}">1</a></li>
-                                        <li th:class="(${cPage}==${page.totalPages-4})?'active':'gg'"><a th:text="${page.totalPages-3}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-4}">2</a></li>
-                                        <li th:class="(${cPage}==${page.totalPages-3})?'active':'gg'"><a th:text="${page.totalPages-2}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-3}">3</a></li>
-                                        <li th:class="(${cPage}==${page.totalPages-2})?'active':'gg'"><a th:text="${page.totalPages-1}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-2}">4</a></li>
-                                        <li th:class="(${cPage}==${page.totalPages-1})?'active':'gg'"><a th:text="${page.totalPages}" th:href="'/web/getBookList?type='+${type}+'&&page='+${page.totalPages-1}">5</a></li>
-
-                                    </th:block>
-                                    <li th:if="${cPage}<${page.totalPages - 1}">
-                                        <a th:href="'/web/getBookList?type='+${type}+'&&page='+${cPage+1}" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-
-                        </th:block>
-                        <!--分页-->
 
                     </div>
-
-
                 </div>
             </div>
+        </div>
+
+    </div>
+    <div class="bottom">
+        <div class="normal">
+            <img src="../../static/image/Library.png" th:src="'/image/Library.png'"   style="height: auto; width: 350px; margin-top: 25px" class="logow">
+            <ul class="ul_bottom">
+                <li>Tel：17730308728</li>
+                <li> Email：17730308728@qq.com</li>
+            </ul>
+            <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
         </div>
     </div>
-    <div class="footer ">
-        <div class="container">
-            <div class="row footer-top">
-                <div class="col-sm-6 col-lg-6">
-                    <h4></h4>
-                    <p>Welcome!</p>
-                </div>
-                <div class="col-sm-6  col-lg-5 col-lg-offset-1">
-                    <div class="row about">
-                        <div class="col-xs-3">
-                            <h4>About Us</h4>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href=""></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <h4>Contact Us</h4>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a target="_blank" title="" href=""></a>
-                                </li>
-                                <li>
-                                    <a href="">Email</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <hr>
-            <div class="row footer-bottom">
-                <ul class="list-inline text-center">
-                    <li>Copyright &copy;2017. Group 6 Software All Rights Reserved.</li>
-                </ul>
-            </div>
-        </div>
+    <div class="last" style="margin-bottom: 0px!important;">
+        ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
     </div>
 </div>
+
 </body>
 </html>
 

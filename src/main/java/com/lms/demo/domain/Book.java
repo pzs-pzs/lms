@@ -16,16 +16,14 @@ public class Book {
     //国际标准书号
     private String isbn;
     private String authorName;
+
+
+
+    //图书借阅状态0-未归还 1-归还
+    private Integer bStatus;
+
+
     //出版社
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     private String press;
     //备注
     private String remarks;
@@ -39,10 +37,17 @@ public class Book {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createDate = new Date();
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    private Date updateDate;
+    private Date updateDate = new Date();
     @Column(name="location")
     private String location;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getLocation() {
         return location;
     }

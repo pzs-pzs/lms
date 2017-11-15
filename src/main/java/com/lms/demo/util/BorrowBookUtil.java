@@ -27,6 +27,8 @@ public class BorrowBookUtil {
         borrowHistory.setIsbn(b.getIsbn());
         borrowHistory.setName(b.getName());
         borrowHistory.setUserName(user.getName());
+        borrowHistory.setReturnTime(t.getUpdateDate());
+        borrowHistory.setId(b.getId());
         return borrowHistory;
     }
 

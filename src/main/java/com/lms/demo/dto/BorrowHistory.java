@@ -3,12 +3,15 @@ package com.lms.demo.dto;
 import java.util.Date;
 
 public class BorrowHistory {
+    private Long id;
     private String isbn;
     private String name;
     private String autherName;
     private String userName;
     private Date borrowTime;
+    private Date returnTime;
     private Integer borrowStatus;
+    private String fine;
 
     public String getUserName() {
         return userName;
@@ -56,5 +59,29 @@ public class BorrowHistory {
 
     public void setBorrowStatus(Integer borrowStatus) {
         this.borrowStatus = borrowStatus;
+    }
+
+    public Date getReturnTime() {
+        return returnTime;
+    }
+
+    public void setReturnTime(Date returnTime) {
+        this.returnTime = returnTime;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFine() {
+        return fine;
+    }
+
+    public void setFine(String fine) {
+        this.fine = fine;
     }
 }

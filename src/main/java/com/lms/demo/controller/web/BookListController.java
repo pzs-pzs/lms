@@ -24,15 +24,15 @@ public class BookListController {
      */
     @GetMapping("/getBookList")
     public String getBookList(@RequestParam(name = "page",required = false,defaultValue = "0") Integer p,
-                              @RequestParam(name = "size",required = false,defaultValue = "9") Integer s,
+                              @RequestParam(name = "size",required = false,defaultValue = "8") Integer s,
                               @RequestParam(name = "type",required = false,defaultValue = "") String t,
                               Model model) {
-        if(t==null||t.equals("")){
+        if(t==null||t.equals("")||t.equals("All")){
             Page<Book> bookPage = bookService.getBookList(p,s);
             model.addAttribute("bookList",bookPage.getContent());
             model.addAttribute("page",bookPage);
             model.addAttribute("cPage",p);
-            model.addAttribute("type",t);
+            model.addAttribute("type","All");
             return "web/index";
         }
         Page<Book> bookPage = bookService.getBookListByType(p,s,t);
@@ -53,10 +53,10 @@ public class BookListController {
 
     @GetMapping("/search")
     public String searchByKw(@RequestParam(name = "page" ,required = false,defaultValue = "0") int p,
-                             @RequestParam(name = "size" ,required = false,defaultValue = "9") int s,
+                             @RequestParam(name = "size" ,required = false,defaultValue = "8") int s,
                              @RequestParam(name = "kw" , required = false) String kw,
                              Model model){
-        if ( kw==null || StringUtils.isEmpty(kw)) {
+        if ( kw==null || StringUtils.isEmpty(kw)||kw.equals("All")) {
             Page<Book> page = bookService.getBookList(p,s);
             model.addAttribute("bookList",page.getContent());
             model.addAttribute("page",page);

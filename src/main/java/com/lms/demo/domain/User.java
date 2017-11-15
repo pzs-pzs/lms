@@ -3,10 +3,9 @@ package com.lms.demo.domain;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,9 +27,9 @@ public class User implements UserDetails {
     @Column(name = "status")
     private Integer status;
     @Column(name = "create_date")
-    private Date createDate;
+    private Date createDate = new Date();
     @Column(name = "update_date")
-    private Date updateDate;
+    private Date updateDate = new Date();
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;

@@ -16,9 +16,9 @@ public class BorrowBooksTable {
     @Column(name = "status")
     private Integer status;
     @Column(name = "create_date")
-    private Date createDate;
+    private Date createDate = new Date();
     @Column(name = "update_date")
-    private Date updateDate;
+    private Date updateDate = new Date();
 
     public Long getUserId() {
         return userId;
