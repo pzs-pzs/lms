@@ -3,6 +3,7 @@ package com.lms.demo.dto;
 import java.util.Date;
 
 public class BorrowHistory {
+    private Long bookid;
     private Long id;
     private String isbn;
     private String name;
@@ -12,6 +13,15 @@ public class BorrowHistory {
     private Date returnTime;
     private Integer borrowStatus;
     private String fine;
+
+
+    public Long getBookid() {
+        return bookid;
+    }
+
+    public void setBookid(Long bookId) {
+        this.bookid = bookId;
+    }
 
     public String getUserName() {
         return userName;

@@ -1,7 +1,9 @@
 
 html body{
     background: url("/image/background1.jpg") ;
-
+    margin:0;
+    padding:0;
+    height:100%;
 }
 
 .navbar-brand {
@@ -48,12 +50,12 @@ label{
 
 /*.bottom{position:absolute;bottom:40px;left:0px;background:url(/image/footer.jpg) no-repeat center; height: auto;width: 100%}*/
 .logow{display: block;width: 403px;height: 99px;float: left;margin-right: 120px;}
-.bottom{bottom:40px;left:0px;background:url(/image/footer.jpg) no-repeat center; height: auto;width: 100%}
+.bottom{bottom:40px;left:0px;background:url(/image/footer.jpg) no-repeat center; height: auto;width: 100%;position: absolute}
 .ul_bottom{padding: 10px 0px 0px 0px; width: 395px;overflow: hidden;float: left;}
 .ul_bottom li{font-size: 14px;color: #fff;margin-bottom: 20px;}
 .er{float: right;margin-top: 40px;font-size: 14px;color: #fff;width:147px;text-align: center;}
 .er img{display: block;width: 147px;height: 150px;margin-bottom: 15px;}
 /*.last{position:absolute;bottom:0px;left:0px;height: 40px;text-align: center;font-size: 14px;color:rgba(255,255,255,0.5);background-color: #171717;line-height: 40px;width: 100%}*/
-.last{bottom:0px;left:0px;height: 40px;text-align: center;font-size: 14px;color:rgba(255,255,255,0.5);background-color: #171717;line-height: 40px;width: 100%}
+.last{bottom:0px;left:0px;height: 40px;text-align: center;font-size: 14px;color:rgba(255,255,255,0.5);background-color: #171717;line-height: 40px;width: 100%;position: absolute}
 .normal{width: 1000px;margin: 0px auto;overflow: hidden; position: relative;}
 .mynav{background: rgba(0,0,0,0.5) ;background:url(/image/head.png) no-repeat center;}

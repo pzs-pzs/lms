@@ -46,44 +46,44 @@
 
 </head>
 <body>
-<div class="container-fluid " style="padding: 0px">
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <nav class="navbar navbar-default mynav" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header" style="text-indent: 30px">
-                        <a class="navbar-brand" href="#"><img src="../../static/image/Library.png" th:src="'/image/Library.png'"  ondragstart="return false;"></a>
-                    </div>
-
-                    <div>
-                        <ul class="nav navbar-nav pull-right bbbbb">
-                            <th:block th:switch="${#authentication.name}">
-
-                                <li th:case="'anonymousUser'" class="dropdown">
-                                    <a href="#"  class="dropdown-toggle" th:href="'/web/login'">
-                                        Login
-                                    </a>
-                                </li>
-                                <li th:case="*" class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="glyphicon glyphicon-user" th:text="${#authentication.name}">Admin</span>
-                                        <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right aaaaa">
-                                        <li><a  class="text-right" href="#" th:href="'/web/profile'">Profile</a></li>
-                                        <li class="divider"></li>
-                                        <li><a class="text-right" href="#" th:href="'/logout'">Log out</a></li>
-                                    </ul>
-                                </li>
-                            </th:block>
-                        </ul>
-
-                    </div>
+<div class="container-fluid ">
+    <div class="row clearfix" >
+        <nav class="navbar navbar-default mynav" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header" style="text-indent: 30px">
+                    <a class="navbar-brand" href="#"><img src="../../static/image/Library.png" th:src="'/image/Library.png'"  ondragstart="return false;"></a>
                 </div>
-            </nav>
+
+                <div>
+                    <ul class="nav navbar-nav pull-right bbbbb">
+                        <th:block th:switch="${#authentication.name}">
+
+                            <li th:case="'anonymousUser'" class="dropdown">
+                                <a href="#"  class="dropdown-toggle" th:href="'/web/login'">
+                                    Login
+                                </a>
+                            </li>
+                            <li th:case="*" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-user" th:text="${#authentication.name}">Admin</span>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right aaaaa">
+                                    <li><a  class="text-right" href="#" th:href="'/web/profile'">Profile</a></li>
+                                    <li class="divider"></li>
+                                    <li><a class="text-right" href="#" th:href="'/logout'">Log out</a></li>
+                                </ul>
+                            </li>
+                        </th:block>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <div class="col-md-12 column">
+
             <div class="row clearfix">
-                <div class="col-md-1 column"></div>
-                <div class="col-md-2 column well well-lg" style="background: rgba(255,255,255,0.5);margin-top: 40px">
+                <div class="col-md-2 col-lg-offset-1 column well well-lg" style="background: rgba(255,255,255,0.5);margin-top: 40px">
                     <h3>Category</h3>
                     <ul class="nav nav-pills nav-stacked">
                         <li th:class="(${type}==All)?'active':'gg'">
@@ -265,19 +265,20 @@
         </div>
 
     </div>
-    <div class="bottom">
-        <div class="normal">
-            <img src="../../static/image/Library.png" th:src="'/image/Library.png'"   style="height: auto; width: 350px; margin-top: 25px" class="logow">
-            <ul class="ul_bottom">
-                <li>Tel：17730308728</li>
-                <li> Email：17730308728@qq.com</li>
-            </ul>
-            <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
-        </div>
+</div>
+
+<div class="bottom" style="position: relative!important;bottom: 0px">
+    <div class="normal">
+        <img src="../../static/image/Library.png" th:src="'/image/Library.png'"   style="height: auto; width: 350px; margin-top: 25px" class="logow">
+        <ul class="ul_bottom">
+            <li>Tel：17730308728</li>
+            <li> Email：17730308728@qq.com</li>
+        </ul>
+        <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
     </div>
-    <div class="last" style="margin-bottom: 0px!important;">
-        ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
-    </div>
+</div>
+<div class="last" style="margin-bottom: 0px!important; position: relative!important;">
+    ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
 </div>
 
 </body>

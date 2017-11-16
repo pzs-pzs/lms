@@ -104,7 +104,7 @@
                                 <tbody>
                                 <th:block th:each="p,index:${fineList}">
                                     <tr>
-                                        <td th:text="${p.id}">1</td>
+                                        <td th:text="${p.bookId}">1</td>
                                         <td th:text="${p.isbn}">isbn</td>
                                         <td th:text="${p.bookName}">Bangalore</td>
                                         <td th:text="${#dates.format(p.borrowBookDate,'yyyy-MM-dd')}">2017-11-12</td>

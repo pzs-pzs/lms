@@ -13,8 +13,13 @@ public class BorrowBooksTable {
     private Long userId;
     @Column(name = "book_id")
     private Long bookId;
+
     @Column(name = "status")
+    /*
+    1-未还 2-归还
+     */
     private Integer status;
+
     @Column(name = "create_date")
     private Date createDate = new Date();
     @Column(name = "update_date")

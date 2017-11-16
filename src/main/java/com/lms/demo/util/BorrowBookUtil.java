@@ -21,6 +21,7 @@ public class BorrowBookUtil {
 
     public static BorrowHistory getBorrowHistory(BorrowBooksTable t, Book b,User user){
         BorrowHistory borrowHistory = new BorrowHistory();
+        borrowHistory.setId(b.getId());
         borrowHistory.setAutherName(b.getAutherName());
         borrowHistory.setBorrowStatus(t.getStatus());
         borrowHistory.setBorrowTime(t.getCreateDate());

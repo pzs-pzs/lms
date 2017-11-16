@@ -38,6 +38,9 @@ public class BookService {
     BookInventoryRepository bookInventoryRepository;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     UserRepository userRepository;
 
     /**
@@ -45,7 +48,7 @@ public class BookService {
      * @param type 类型
      * @return list
      */
-    public Page<Book> getBookListByType(Integer page,Integer size,String type) {
+    public Page<Book> getBookListByType(Integer page, Integer size, String type) {
         Specification<Book> specification = new Specification<Book>() {
             @Override
             public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
@@ -67,24 +70,11 @@ public class BookService {
      * @param size
      * @return
      */
-    public Page<Book> getBookList(int page,int size) {
+    public Page<Book> getBookList(int page, int size) {
         Sort sort = new Sort(Sort.Direction.DESC,"createDate");
         Pageable pageable = new PageRequest(page,size,sort);
         Page<Book> pageList = bookRepository.findAll(1,pageable);
         return pageList;
-    }
-
-    public List<BorrowHistory> getBorrowHistory(Page<BorrowBooksTable> p) {
-        List<BorrowHistory> bookList = new ArrayList<>();
-        List<BorrowBooksTable> borrowBooksTables = p.getContent();
-        for (BorrowBooksTable b : borrowBooksTables) {
-            Book book = bookRepository.findOne(b.getBookId());
-            User user = userRepository.getOne(b.getUserId());
-            BorrowHistory borrowHistory = BorrowBookUtil.getBorrowHistory(b,book,user);
-            bookList.add(borrowHistory);
-        }
-        return bookList;
-
     }
 
     /**
@@ -111,7 +101,7 @@ public class BookService {
      *添加图书
      */
 
-    public void save(Book entity,String[] booktype,String path,Integer quantity){
+    public void save(Book entity, String[] booktype, String path, Integer quantity){
         String allType = "";
         for(String type:booktype){
             type = type.substring(0, 1).toUpperCase() + type.substring(1);
@@ -131,6 +121,19 @@ public class BookService {
             bookInventory.setBookTotalQuantity(quantity);
             bookInventoryRepository.save(bookInventory);
         }
+
+    }
+
+    public List<BorrowHistory> getBorrowHistory(Page<BorrowBooksTable> p) {
+        List<BorrowHistory> bookList = new ArrayList<>();
+        List<BorrowBooksTable> borrowBooksTables = p.getContent();
+        for (BorrowBooksTable b : borrowBooksTables) {
+            Book book = bookRepository.findOne(b.getBookId());
+            User user = userRepository.getOne(b.getUserId());
+            BorrowHistory borrowHistory = BorrowBookUtil.getBorrowHistory(b,book,user);
+            bookList.add(borrowHistory);
+        }
+        return bookList;
 
     }
 

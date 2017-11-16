@@ -12,90 +12,84 @@
     <script src="../../static/js/bootstrap.min.js" th:src="'/js/bootstrap.min.js'"></script>
     <script src="../../static/js/borrow.js" th:src="'/js/borrow.js'"></script>
     <link rel="stylesheet" href="../../static/css/login.css" th:href="'/css/login.css'">
-    <style type="text/css">
-        #myCarousel {
-            height: 400px;
-
-        }
-        #myCarousel img{
-            width: 100%;
-            height: 400px;
-        }
-
-        .footer {
-            border-top: 1px solid #e5e5e5;
-            color: #777;
-            padding: 19px 0;
-            background-color: #f5f5f5;
-        }
-
-
-        .myDiv{
-            padding-right: 20px;
-            border-right:1px solid #D8D8D8;
-        }
-
-        .myp{
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
-            overflow: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
 
 </head>
 
 
-<div class="container-fluid">
+<div class="container-fluid " style="padding: 0px">
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <nav class="navbar navbar-default navbar-static-top" role="navigation">
-                <div class="navbar-header">
-                    <ul class="nav nav-tabs ">
-                        <li><img src="../../static/image/logo.jpg" th:src="'/image/logo.jpg'" style="height: 45px;width: auto; margin-top: 5px" ></li>
-                        <li><p style="font-size: 35px;margin-top: 3px">Library Management System</p></li>
-                    </ul>
+            <nav class="navbar navbar-default  mynav" role="navigation" >
+                <div class="container-fluid" >
+                    <div class="navbar-header" style="text-indent: 30px">
+                        <a class="navbar-brand" href="#"><img src="../../static/image/Library.png"  th:src="'/image/Library.png'" ondragstart="return false;"></a>
+                    </div>
+                    <div>
+                        <ul class="nav navbar-nav pull-right bbbbb">
+                            <li><a href="../../templates/admin/admin_submit.html" th:href="'/admin/toBorrowBook'">Borrow book</a></li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Query
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu aaaaa">
+                                    <li><a href="#" th:href="'/admin/bookStatusList'">Book information</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" th:href="'/admin/toUserInfo'">User information</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Arrearage
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu aaaaa">
+                                    <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All paid</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All unpaid</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Add
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu aaaaa">
+                                    <li><a href="#" th:href="'/admin/toAddBook'">Book</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" th:href="'/admin/toAddBook'">Student</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" th:href="'/admin/toAddAdmin'">Librarian</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-user">Admin</span>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right aaaaa">
+                                    <li><a  class="text-right" href="#">Profile</a></li>
+                                    <li class="divider"></li>
+                                    <li><a class="text-right" href="/logout">Log out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div>
-                    <ul class="nav navbar-nav">
-                        <li class=""><a th:href="'/admin/toAddBook'">Add book</a></li>
-                        <li class="active"><a th:href="'/admin/bookStatusList'">Query book information</a></li>
-                        <li class=""><a th:href="'/admin/userInfo'">Query user information</a></li>
-                    </ul>
-                </div>
-                <th:block th:switch="${#authentication.name}">
-                    <!--<a th:case="'anonymousUser'" href="../../templates/web/login.html" th:href="'/web/login'">Login</a>-->
-                    <ul th:case="'anonymousUser'" class="nav nav-tabs ">
-                        <li class="dropdown pull-right">
-                            <a th:href="'/web/login'"  >Login</a>
-                        </li>
-
-                    </ul>
-                    <ul th:case="*" class="nav nav-tabs ">
-                        <li class="dropdown pull-right">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle" th:text="${#authentication.name}"></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../web/profile.html" th:href="'/web/profile'">Profile</a>
-                                </li>
-                                <li>
-                                    <a href="/logout">logout</a>
-                                </li>
-
-
-                            </ul>
-                        </li>
-
-                    </ul>
-                </th:block>
-
             </nav>
-
             <div class="row clearfix">
                 <!-- 左边栏 -->
-                <div class="col-md-3 column">
+                <div class="col-lg-3  column well well-lg" style="margin-left: 50px;background: rgba(255,255,255,0.5) ">
                     <div class="myDiv">
-                        <ul class="nav nav-pills nav-stacked">
+                        <ul class="nav nav-pills nav-stacked myfont">
+                            <li th:class="(${type}==All)?'active':'gg'">
+                                <a href="" th:href="'/admin/bookStatusList'">All</a>
+                            </li>
                             <li th:class="(${type}==Literature)?'active':'gg'">
                                 <a href="" th:href="'/admin/bookStatusList?type=Literature'">Literature</a>
                             </li>
@@ -118,22 +112,25 @@
                     </div>
                 </div>
                 <!-- 左边栏结束 -->
-                <div class="col-lg-9 columm">  
+                <div class="col-lg-7 columm">
                     
                     <table class="table table-hover">
-                        <caption>Literature</caption>
+                        <h2>Literature</h2>
                         <thead>
                             <tr>
+                                <th>BookId</th>
                                 <th>Title</th>
                                 <th>ISBN</th>
                                 <th>author</th>
                                 <th>Total</th>
                                 <th>Borrowed</th>
+
                             </tr>
                         </thead>
                         <tbody>
                         <th:block th:each="p,index:${bookStatusList}">
                             <tr>
+                                <td th:text="${p.bookid}"></td>
                                 <td th:text="${p.bookName}"></td>
                                 <td th:text="${p.isbn}"></td>
                                 <td th:text="${p.author}"></td>
@@ -169,7 +166,6 @@
                     </a>
                 </li>
             </ul>
-
         </nav>
     </th:block>
     <th:block th:if="${page.totalPages gt 5}">
@@ -209,60 +205,76 @@
                 </li>
             </ul>
         </nav>
-
     </th:block>
     <!--分页-->
 
-    <div class="footer ">
-        <div class="container">
-            <div class="row footer-top">
-                <div class="col-sm-3 col-lg-3">
-                    <h4></h4>
-                    <p>Welcome!</p>
-                </div>
-                <div class="col-sm-9  col-lg-5 col-lg-offset-1">
-                    <div class="row about">
-                        <div class="col-xs-3">
-                            <h4>About Us</h4>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="">detail</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <h4>Contact Us</h4>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a target="_blank" title="" href=""></a>
-                                </li>
-                                <li>
-                                    <a href="">e-mail</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3">
-                            <h4>Administrator</h4>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a target="_blank" title="" href="admin_login.html">admin login</a>
-                                </li>
-                                <li>
-                                    <a href=""></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <hr>
-            <div class="row footer-bottom">
-                <ul class="list-inline text-center">
-                    <li>Copyright &copy;2017. Group 6 Software All Rights Reserved.</li>
-                </ul>
-            </div>
-        </div>
+</div>
+<div class="bottom">
+    <div class="normal">
+        <img src="../../static/image/Library.png"  th:src="'/image/Library.png'"  style="height: auto; width: 350px; margin-top: 25px" class="logow">
+        <ul class="ul_bottom">
+            <li>Tel：17730308728</li>
+            <li> Email：17730308728@qq.com</li>
+        </ul>
+        <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
     </div>
 </div>
+
+<div class="last" style="margin-bottom: 0px!important;">
+    ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
+</div>
 </body>
+
+<script>
+    var id_count = 0;
+    var img_count = 0;
+
+    var fileUp = function (me) {
+        base64Image({
+            file: me,                              /*【必填】对应的上传元素 */
+            callback: function (imageUrl) {        /*【必填】处理成功后的回调函数 */
+                var img = new Image();
+                img.src = imageUrl;
+                var path="";
+                id_count += 1;
+                path += "<div id='"+id_count+"' class=\"closed\" style=\"float:left;width:132px;height:132px;overflow:hidden;position:relative;display: flex;justify-content: center;align-items: center;margin-right:2px;margin-bottom: 4px;\">" +
+                        "<img id='img_"+id_count+"' class='upload' src=\""+img.src+"\"  style=\"vertival-align:middle;width:129%;\"><span id=\"removed\">X</span></div>";
+                $("#image-list").append(path);
+
+                var count=0;
+                $("img").filter('.upload').each(
+                        function () {
+                            count++;
+                        })
+                if(count>1){
+                    $("#"+id_count).remove();
+                    alert("Only support to upload 1 picture");
+                }
+            },
+
+            ratio:0.75                        /*【选填】压缩率默认0.75 */
+        });
+    };
+</script>
+
+<script type="text/javascript">
+    $("#image-list").off("mouseenter","div").on("mouseenter","div",function() {
+        var that = this;
+        var dom = $(that).children("span");
+        dom.on("click", function () {
+            dom.removeClass("hide");
+            dom.parent().remove();
+        });
+    })
+</script>
+
+<script type="text/javascript">
+    $('#publishTime').datetimepicker({
+        format: 'yyyy-mm-dd',//定义时间格式
+        autoclose: true,//选择好自动关闭
+        minView: 2,//只选择到小时
+    });
+</script>
+
+
+</html>

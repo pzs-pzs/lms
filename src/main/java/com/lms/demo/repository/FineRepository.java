@@ -10,4 +10,6 @@ public interface FineRepository extends JpaRepository<Fine,Long> {
     @Query("select c from Fine c where c.status=?1 and c.uId=?2")
     public Page<Fine> findAllByUserId(int status, Long id, Pageable pageable);
 
+    @Query("select c from Fine c where c.status=?1")
+    public Page<Fine> findAllByStatus(int status, Pageable pageable);
 }

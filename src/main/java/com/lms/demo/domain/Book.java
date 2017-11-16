@@ -29,6 +29,7 @@ public class Book {
     private String remarks;
     //出版时间
     private String publishTime;
+    //数据库是否删除 1有效
     private Integer status;
     //图片链接
     private String picture;
