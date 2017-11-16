@@ -9,12 +9,9 @@
     <link rel="stylesheet" th:href="'/css/bootstrap.min.css'" href="../../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
     <link rel="stylesheet" th:href="'/css/bootstrap-datetimepicker.css'" href="../../static/css/bootstrap-datetimepicker.css">
-    <script th:src="'/js/jquery-3.2.1.min.js'" src="../../static/js/jquery-3.2.1.min.js"></script>
+    <script th:src="'/js/jquery-3.2.1.min.js'" src="../../static/js/jquery-3.2.1.js"></script>
     <script th:src="'/js/jquery.backstretch.js'" src="../../static/js/jquery.backstretch.js"></script>
-    <script th:src="'/js/bootstrap-datetimepicker.min.js'" src="../../static/js/bootstrap-datetimepicker.min.js"></script>
     <script th:src="'/js/bootstrap.min.js'" src="../../static/js/bootstrap.min.js"></script>
-    <script th:src="'/js/base64image.js'" src="../../static/js/base64image.js"></script>
-    <script th:src="'/js/exif.js'" src="../../static/js/exif.js"></script>
     <script th:src="'/js/uploadUtils.js'" src="../../static/js/uploadUtils.js"></script>
 
 
@@ -86,7 +83,7 @@
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right aaaaa">
-                                    <li><a  class="text-right" href="#">Profile</a></li>
+                                    <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
                                     <li class="divider"></li>
                                     <li><a class="text-right" href="/logout">Log out</a></li>
                                 </ul>
@@ -109,37 +106,36 @@
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">ISBN</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="isbn" name="isbn" placeholder="Please input ISBN">
+                            <input type="text"  class="form-control" id="isbn" name="isbn" placeholder="Please input ISBN">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Location</label>
                         <div class="col-sm-3">
-                                <select  class="form-control" >
+                                <select id="select1" class="form-control" >
                                     <option>South</option>
                                     <option>North</option>
                                 </select>
                             </div>
                         <div class="col-sm-3">
-                            <select  class="form-control" >
+                            <select id="select2" class="form-control" >
                                 <option>301</option>
                                 <option>302</option>
                             </select>
                         </div>
                             <div class="col-sm-2">
-                                <select  class="form-control" >
+                                <select  id="select3" class="form-control" >
                                     <option>1</option>
                                     <option>2</option>
                                 </select>
 
                         </div>
                         <div class="col-sm-2">
-                            <select  class="form-control" >
+                            <select id="select4" class="form-control" >
                                 <option>1</option>
                                 <option>2</option>
                             </select>
-
                         </div>
                     </div>
 
@@ -147,7 +143,7 @@
 
                     <div class="form-group">
                         <center>
-                            <button type="button" class="btn btn-primary btn-lg ">Confirm</button>
+                            <button type="button" class="btn btn-primary btn-lg " onclick="addBook()">Confirm</button>
                         </center>
                     </div>
 
@@ -178,57 +174,4 @@
     ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
 </div>
 </body>
-
-<script>
-    var id_count = 0;
-    var img_count = 0;
-
-    var fileUp = function (me) {
-        base64Image({
-            file: me,                              /*【必填】对应的上传元素 */
-            callback: function (imageUrl) {        /*【必填】处理成功后的回调函数 */
-                var img = new Image();
-                img.src = imageUrl;
-                var path="";
-                id_count += 1;
-                path += "<div id='"+id_count+"' class=\"closed\" style=\"float:left;width:132px;height:132px;overflow:hidden;position:relative;display: flex;justify-content: center;align-items: center;margin-right:2px;margin-bottom: 4px;\">" +
-                    "<img id='img_"+id_count+"' class='upload' src=\""+img.src+"\"  style=\"vertival-align:middle;width:129%;\"><span id=\"removed\">X</span></div>";
-                $("#image-list").append(path);
-
-                var count=0;
-                $("img").filter('.upload').each(
-                    function () {
-                        count++;
-                    })
-                if(count>1){
-                    $("#"+id_count).remove();
-                    alert("Only support to upload 1 picture");
-                }
-            },
-
-            ratio:0.75                        /*【选填】压缩率默认0.75 */
-        });
-    };
-</script>
-
-<script type="text/javascript">
-    $("#image-list").off("mouseenter","div").on("mouseenter","div",function() {
-        var that = this;
-        var dom = $(that).children("span");
-        dom.on("click", function () {
-            dom.removeClass("hide");
-            dom.parent().remove();
-        });
-    })
-</script>
-
-<script type="text/javascript">
-    $('#publishTime').datetimepicker({
-        format: 'yyyy-mm-dd',//定义时间格式
-        autoclose: true,//选择好自动关闭
-        minView: 2,//只选择到小时
-    });
-</script>
-
-
 </html>

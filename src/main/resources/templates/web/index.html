@@ -39,7 +39,7 @@
         .myp{
             display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 1;
             overflow: hidden;
         }
     </style>
@@ -63,13 +63,16 @@
                                     Login
                                 </a>
                             </li>
-                            <li th:case="*" class="dropdown">
+                            <li  th:case="*" class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <span class="glyphicon glyphicon-user" th:text="${#authentication.name}">Admin</span>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right aaaaa">
-                                    <li><a  class="text-right" href="#" th:href="'/web/profile'">Profile</a></li>
+
+                                    <li  sec:authorize="hasRole('ROLE_ADMIN')"><a class="text-right" href="#" th:href="'/admin/toAddBook'">Profile</a></li>
+                                    <li  sec:authorize="hasRole('ROLE_NORMAL_USER')"><a  class="text-right" href="#" th:href="'/web/profile'">Profile</a></li>
+
                                     <li class="divider"></li>
                                     <li><a class="text-right" href="#" th:href="'/logout'">Log out</a></li>
                                 </ul>
@@ -146,7 +149,7 @@
                                             <div class="thumbnail mybakc">
                                                 <img alt="300x200" src="../../static/image/3.jpg" th:src="${p.picture}" style="height: 300px; width: 200px"/>
                                                 <div class="caption">
-                                                    <h3 th:text="${p.name}">
+                                                    <h3 class="myp" th:text="${p.name}">
                                                         Thumbnail label
                                                     </h3>
                                                     <p class="col-lg-offset-8">

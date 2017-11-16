@@ -43,6 +43,9 @@ public class BookService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    HttpService httpService;
+
     /**
      * 通过标签进行分类查询
      * @param type 类型
@@ -121,6 +124,31 @@ public class BookService {
             bookInventory.setBookTotalQuantity(quantity);
             bookInventoryRepository.save(bookInventory);
         }
+
+    }
+
+    /**
+     * 添加图书
+     * @param b
+     */
+    public boolean addBook(Book b) throws Exception {
+        Book book = httpService.getFromIsbnApi(b);
+        Book reBook = bookRepository.save(book);
+        BookInventory reBookInventory = null;
+        if(bookInventoryRepository.findOneByBookName(book.getName())!=null){
+            reBookInventory = bookInventoryRepository.addBook(book.getName());
+        }else {
+            BookInventory bookInventory = new BookInventory();
+            bookInventory.setBookName(book.getName());
+            bookInventory.setBookType(book.getType());
+            bookInventory.setBookBorrowQuantity(0);
+            bookInventory.setBookTotalQuantity(1);
+            reBookInventory = bookInventoryRepository.save(bookInventory);
+        }
+        if (reBook==null||reBookInventory==null){
+            return false;
+        }
+        return true;
 
     }
 

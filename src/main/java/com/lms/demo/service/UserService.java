@@ -138,7 +138,7 @@ public class UserService {
      * @return
      */
     public Page<BorrowBooksTable> getNeedFineBook(int page,int size,int status) {
-        Long uid = 24L;
+        Long uid = getUserId();
         Date date = DateUtils.getBeforeDays(new Date(),15);
         Specification<BorrowBooksTable> specification = new Specification<BorrowBooksTable>() {
             @Override

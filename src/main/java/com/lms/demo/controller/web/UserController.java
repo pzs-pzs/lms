@@ -35,7 +35,7 @@ public class UserController {
      */
     @GetMapping("/profile")
     public String toProfile(@RequestParam(name = "page" ,required = false,defaultValue = "0") Integer p,
-                            @RequestParam(name = "size" ,required = false,defaultValue = "9") Integer s,
+                            @RequestParam(name = "size" ,required = false,defaultValue = "7") Integer s,
                             Model model){
         model.addAttribute("user",userService.getUser());
         Map<String,Object> map = userService.getBorrowHistory(p,s,2);
@@ -49,7 +49,7 @@ public class UserController {
      */
     @GetMapping("/borrowRecord")
     public String toBorrowRecord(@RequestParam(name = "page" ,required = false,defaultValue = "0") Integer p,
-                                 @RequestParam(name = "size" ,required = false,defaultValue = "9") Integer s,
+                                 @RequestParam(name = "size" ,required = false,defaultValue = "7") Integer s,
                                  Model model){
         model.addAttribute("user",userService.getUser());
         Map<String,Object> map = userService.getBorrowHistory(p,s,1);
@@ -68,7 +68,7 @@ public class UserController {
      */
     @GetMapping("/fineRecord")
     public String getFineRecord(@RequestParam(name = "page" ,required = false,defaultValue = "0") Integer p,
-                                @RequestParam(name = "size" ,required = false,defaultValue = "9") Integer s,
+                                @RequestParam(name = "size" ,required = false,defaultValue = "7") Integer s,
                                 Model model) {
         model.addAttribute("user",userService.getUser());
         Page<Fine> page = userService.getFineHistory(p,s,1);
@@ -84,7 +84,7 @@ public class UserController {
      */
     @GetMapping("/needFineRecord")
     public String  getNeedFineRecord(@RequestParam(name = "page" ,required = false,defaultValue = "0") Integer p,
-                                     @RequestParam(name = "size" ,required = false,defaultValue = "9") Integer s,
+                                     @RequestParam(name = "size" ,required = false,defaultValue = "7") Integer s,
                                      Model model){
         model.addAttribute("user",userService.getUser());
         Page<BorrowBooksTable> page = userService.getNeedFineBook(p,s,1);

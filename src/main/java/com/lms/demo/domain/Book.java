@@ -19,7 +19,7 @@ public class Book {
 
 
 
-    //图书借阅状态0-未归还 1-归还
+    //图书借阅状态0-未归还 1-归还 2-禁止借阅
     private Integer bStatus;
 
 

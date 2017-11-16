@@ -1,14 +1,12 @@
 package com.lms.demo.service;
 
 import com.lms.demo.domain.Book;
-import com.lms.demo.query.QueryBook;
 import com.lms.demo.repository.QueryBookRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestOperations;
 
@@ -41,6 +39,13 @@ public class BookServiceTest {
 
     @Test
     public void getBookByKw() throws Exception {
+
+    }
+    @Test
+    public void addBook() throws Exception{
+        Book book = new Book();
+        book.setName("麻瓜");
+        service.addBook(book);
 
     }
 

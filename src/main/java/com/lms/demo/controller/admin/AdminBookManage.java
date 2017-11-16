@@ -1,5 +1,6 @@
 package com.lms.demo.controller.admin;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lms.demo.domain.Book;
 import com.lms.demo.domain.BookInventory;
 import com.lms.demo.domain.BorrowBooksTable;
@@ -10,16 +11,13 @@ import com.lms.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Date;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,29 +83,17 @@ public class AdminBookManage {
 
     @RequestMapping("/addBook")
     @ResponseBody
-    public String addBook(@ModelAttribute Book book,
-                          @RequestParam("imgs") List<String> imgs,
-                          @RequestParam("quantity") String quantity,
-                          @RequestParam("booktype" )String[] booktype,
-                          Model model) throws IOException {
-        Iterator iterator = imgs.iterator();
-        while(iterator.hasNext()){
-            if (iterator.next().equals("data:image/jpeg;base64"))
-                iterator.remove();
+    public String addBook(@ModelAttribute Book book, Model model) throws Exception {
+        book.setStatus(1);
+        boolean f = bookService.addBook(book);
+        Map<String,String> map = new HashMap<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        if (f){
+            map.put("status","1");
+            return objectMapper.writeValueAsString(map);
         }
-        String path="";
-        for(String imgUrl:imgs){
-            byte dataByte[] = Base64.decode(imgUrl.getBytes());
-            String fileName=System.currentTimeMillis()+""+".jpg";
-            OutputStream out=new FileOutputStream(directorypath+booktype[0]+"/"+fileName);
-            path = url + "/books"+"/"+booktype[0]+"/" + fileName;
-            out.write(dataByte);
-            out.flush();
-            out.close();
-
-        }
-            bookService.save(book,booktype,path,Integer.parseInt(quantity));
-        return "{\"status\":\"1\"}";
+        map.put("status","0");
+        return objectMapper.writeValueAsString(map);
     }
 
     @RequestMapping("/toUserInfo")
