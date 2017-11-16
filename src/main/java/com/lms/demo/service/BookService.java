@@ -134,18 +134,22 @@ public class BookService {
     public boolean addBook(Book b) throws Exception {
         Book book = httpService.getFromIsbnApi(b);
         Book reBook = bookRepository.save(book);
-        BookInventory reBookInventory = null;
+        boolean f = false;
         if(bookInventoryRepository.findOneByBookName(book.getName())!=null){
-            reBookInventory = bookInventoryRepository.addBook(book.getName());
+           if(bookInventoryRepository.addBook(book.getName())==1){
+                f = true;
+           }
         }else {
             BookInventory bookInventory = new BookInventory();
             bookInventory.setBookName(book.getName());
             bookInventory.setBookType(book.getType());
             bookInventory.setBookBorrowQuantity(0);
             bookInventory.setBookTotalQuantity(1);
-            reBookInventory = bookInventoryRepository.save(bookInventory);
+            if(bookInventoryRepository.save(bookInventory)==null){
+                f = true;
+            }
         }
-        if (reBook==null||reBookInventory==null){
+        if (reBook==null||!f){
             return false;
         }
         return true;

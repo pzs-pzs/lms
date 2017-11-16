@@ -14,11 +14,11 @@ import java.awt.print.Pageable;
 public interface BookInventoryRepository extends JpaRepository<BookInventory,Long>,JpaSpecificationExecutor<BookInventory> {
     @Modifying
     @Query("update BookInventory c set c.bookBorrowQuantity = c.bookBorrowQuantity+1 where c.bookName = ?1")
-    public BookInventory borrowBook(String bookName);
+    public int borrowBook(String bookName);
 
     @Modifying
     @Query("update BookInventory c set c.bookTotalQuantity = c.bookTotalQuantity+1 where c.bookName = ?1")
-    public BookInventory addBook(String bookName);
+    public int addBook(String bookName);
 
     public BookInventory findOneByBookName(String bookName);
 

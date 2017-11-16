@@ -14,6 +14,7 @@ public class BookJson {
     private ArrayList<String> translator;
     private String publisher;
     private String pubdate;
+    private ArrayList<Tags> tags;
 
     private String summary;
 
@@ -87,6 +88,14 @@ public class BookJson {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public ArrayList<Tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<Tags> tags) {
+        this.tags = tags;
     }
 
     @Override

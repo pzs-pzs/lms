@@ -99,47 +99,86 @@
         <!--  form  -->
         <div class="col-lg-6">
             <div class="center">
+
                 <form class="form-horizontal" role="form">
-
-
-
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">ISBN</label>
-                        <div class="col-sm-10">
-                            <input type="text"  class="form-control" id="isbn" name="isbn" placeholder="Please input ISBN">
+                        <label  class="col-sm-3 control-label" style="font-size: 16px">ISBN</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="isbn" name="isbn" placeholder="Please input ISBN">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Location</label>
+                        <label class="col-sm-3 control-label" style="font-size: 16px">Location</label>
+                        <label class="col-sm-1  control-label">campus</label>
                         <div class="col-sm-3">
-                                <select id="select1" class="form-control" >
-                                    <option>South</option>
-                                    <option>North</option>
-                                </select>
-                            </div>
+                            <select  class="form-control" >
+                                <option>South</option>
+                                <option>North</option>
+                            </select>
+
+                        </div>
+                        <label class="col-sm-1 col-sm-offset-1 control-label"style="">room</label>
                         <div class="col-sm-3">
-                            <select id="select2" class="form-control" >
+                            <select  class="form-control" >
                                 <option>301</option>
                                 <option>302</option>
                             </select>
                         </div>
-                            <div class="col-sm-2">
-                                <select  id="select3" class="form-control" >
-                                    <option>1</option>
-                                    <option>2</option>
-                                </select>
 
-                        </div>
-                        <div class="col-sm-2">
-                            <select id="select4" class="form-control" >
+                        <br>
+                        <label class="col-sm-1 col-sm-offset-3 control-label">shelf</label>
+                        <div class="col-sm-3">
+                            <select  class="form-control" >
                                 <option>1</option>
                                 <option>2</option>
                             </select>
+
                         </div>
+                        <label class="col-sm-1 col-sm-offset-1 control-label">layer</label>
+                        <div class="col-sm-3">
+                            <select  class="form-control" >
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
+
+                        </div>
+
                     </div>
 
 
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" style="font-size: 16px">Type</label>
+                        <label class="checkbox-inline col-sm-2">
+                            <input type="checkbox" name="type" id="inlineCheckbox1" value="Literature">Literature
+                        </label>
+                        <label class="checkbox-inline col-sm-2">
+                            <input type="checkbox" name="type" id="inlineCheckbox2" value="Children">Children
+                        </label>
+                        <label class="checkbox-inline col-sm-3">
+                            <input type="checkbox" name="type" id="inlineCheckbox3" value="Education">Education
+                        </label>
+                        <br>
+                        <label class="checkbox-inline col-sm-2 ">
+                            <input type="checkbox" name="type" id="inlineCheckbox4" value="SocialSciences">SocialSciences
+                        </label>
+                        <label class="checkbox-inline col-sm-2">
+                            <input type="checkbox" name="type" id="inlineCheckbox5" value="Management">Management
+                        </label>
+                        <label class="checkbox-inline col-sm-2">
+                            <input type="checkbox" name="type" id="inlineCheckbox6" value="Encouragement">Encouragement
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" style="font-size: 16px">Allow Borrow</label>
+                        <label class="radio-inline col-sm-2">
+                            <input type="radio" name="bstatus" id="optionsRadios1"  value="1"> Yes
+                        </label>
+                        <label class="radio-inline col-sm-2">
+                            <input type="radio" name="bstatus" id="optionsRadios2"  value="2"> No
+                        </label>
+                    </div>
 
                     <div class="form-group">
                         <center>
@@ -148,6 +187,7 @@
                     </div>
 
                 </form>
+
 
             </div>
 
