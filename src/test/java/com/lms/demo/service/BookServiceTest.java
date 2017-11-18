@@ -22,11 +22,7 @@ public class BookServiceTest {
     @Autowired
     private RestOperations restOperations;
 
-    @Test
-    public void getBookListByType() throws Exception {
-        Page<Book> page = service.getBookListByType(0,9,"Literature");
-        page.forEach(System.out::println);
-    }
+
 
     @Test
     public void getBookList() throws Exception {

@@ -4,6 +4,7 @@ import com.lms.demo.domain.Book;
 import com.lms.demo.domain.BookInventory;
 import com.lms.demo.domain.BorrowBooksTable;
 import com.lms.demo.domain.User;
+import com.lms.demo.dto.BookInfo;
 import com.lms.demo.dto.BorrowHistory;
 import com.lms.demo.query.QueryBook;
 import com.lms.demo.repository.BookInventoryRepository;
@@ -22,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -51,20 +54,32 @@ public class BookService {
      * @param type 类型
      * @return list
      */
-    public Page<Book> getBookListByType(Integer page, Integer size, String type) {
-        Specification<Book> specification = new Specification<Book>() {
+    public Map<String,Object> getBookListByType(Integer page, Integer size, String type) {
+        Specification<BookInventory> specification = new Specification<BookInventory>() {
             @Override
-            public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                Path<String> t = root.get("type");
+            public Predicate toPredicate(Root<BookInventory> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                Path<String> t = root.get("bookType");
                 Path<Integer> s = root.get("status");
-                Predicate p1 = criteriaBuilder.like(t,"%"+type+"%");
-                Predicate p2 = criteriaBuilder.equal(s,"1");
-                return criteriaBuilder.and(p1,p2);
+                Predicate p1 = criteriaBuilder.like(t, "%" + type + "%");
+                Predicate p2 = criteriaBuilder.equal(s, "1");
+                return criteriaBuilder.and(p1, p2);
             }
         };
-        Sort sort = new Sort(Sort.Direction.DESC,"createDate");
-        Pageable pageable = new PageRequest(page,size,sort);
-        return bookRepository.findAll(specification,pageable);
+        Sort sort = new Sort(Sort.Direction.DESC, "createDate");
+        Pageable pageable = new PageRequest(page, size, sort);
+        Page<BookInventory> p = bookInventoryRepository.findAll(specification, pageable);
+        List<BookInfo> list = new ArrayList<>();
+        for (BookInventory bookInventory : p.getContent()) {
+            Book book = bookRepository.findTopOrOrderByName(bookInventory.getBookName());
+            BookInfo bookInfo = BorrowBookUtil.getBookInfo(book,bookInventory);
+            list.add(bookInfo);
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("bookPage",p);
+        map.put("bookList",list);
+        return map;
+
+
     }
 
     /**
@@ -73,11 +88,20 @@ public class BookService {
      * @param size
      * @return
      */
-    public Page<Book> getBookList(int page, int size) {
+    public Map<String,Object> getBookList(int page, int size) {
         Sort sort = new Sort(Sort.Direction.DESC,"createDate");
         Pageable pageable = new PageRequest(page,size,sort);
-        Page<Book> pageList = bookRepository.findAll(1,pageable);
-        return pageList;
+        Page<BookInventory> pageList = bookInventoryRepository.findAll(1,pageable);
+        List<BookInfo> list = new ArrayList<>();
+        for (BookInventory bookInventory : pageList.getContent()) {
+            Book book = bookRepository.findTopOrOrderByName(bookInventory.getBookName());
+            BookInfo bookInfo = BorrowBookUtil.getBookInfo(book,bookInventory);
+            list.add(bookInfo);
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("bookPage",pageList);
+        map.put("bookList",list);
+        return map;
     }
 
     /**
@@ -85,8 +109,10 @@ public class BookService {
      * @param id
      * @return
      */
-    public Book getBookById(Long id) {
-        return bookRepository.findOne(id);
+    public BookInfo getBookById(Long id) {
+        BookInventory bookInventory =  bookInventoryRepository.findOne(id);
+        Book book = bookRepository.findTopOrOrderByName(bookInventory.getBookName());
+        return BorrowBookUtil.getBookInfo(book,bookInventory);
     }
 
     /**
@@ -136,7 +162,7 @@ public class BookService {
         Book reBook = bookRepository.save(book);
         boolean f = false;
         if(bookInventoryRepository.findOneByBookName(book.getName())!=null){
-           if(bookInventoryRepository.addBook(book.getName())==1){
+            if(bookInventoryRepository.addBook(book.getName())==1){
                 f = true;
            }
         }else {
@@ -145,7 +171,8 @@ public class BookService {
             bookInventory.setBookType(book.getType());
             bookInventory.setBookBorrowQuantity(0);
             bookInventory.setBookTotalQuantity(1);
-            if(bookInventoryRepository.save(bookInventory)==null){
+            book.setStatus(1);
+            if(bookInventoryRepository.save(bookInventory)!=null){
                 f = true;
             }
         }

@@ -38,7 +38,7 @@ public class UserController {
                             @RequestParam(name = "size" ,required = false,defaultValue = "7") Integer s,
                             Model model){
         model.addAttribute("user",userService.getUser());
-        Map<String,Object> map = userService.getBorrowHistory(p,s,2);
+        Map<String,Object> map = userService.getBorrowHistory(p,s,1);
         model.addAttribute("bookList",map.get("bookList"));
         model.addAttribute("page",map.get("page"));
         model.addAttribute("cPage",p);
@@ -52,7 +52,7 @@ public class UserController {
                                  @RequestParam(name = "size" ,required = false,defaultValue = "7") Integer s,
                                  Model model){
         model.addAttribute("user",userService.getUser());
-        Map<String,Object> map = userService.getBorrowHistory(p,s,1);
+        Map<String,Object> map = userService.getBorrowHistory(p,s,2);
         model.addAttribute("bookList",map.get("bookList"));
         model.addAttribute("page",map.get("page"));
         model.addAttribute("cPage",p);

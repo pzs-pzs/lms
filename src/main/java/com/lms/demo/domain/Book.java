@@ -148,4 +148,12 @@ public class Book {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+
+    public Integer getbStatus() {
+        return bStatus;
+    }
+
+    public void setbStatus(Integer bStatus) {
+        this.bStatus = bStatus;
+    }
 }

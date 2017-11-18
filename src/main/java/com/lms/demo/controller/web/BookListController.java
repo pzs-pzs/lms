@@ -1,6 +1,7 @@
 package com.lms.demo.controller.web;
 
 import com.lms.demo.domain.Book;
+import com.lms.demo.dto.BookInfo;
 import com.lms.demo.query.QueryBook;
 import com.lms.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/web")
@@ -28,27 +30,19 @@ public class BookListController {
                               @RequestParam(name = "type",required = false,defaultValue = "") String t,
                               Model model) {
         if(t==null||t.equals("")||t.equals("All")){
-            Page<Book> bookPage = bookService.getBookList(p,s);
-            model.addAttribute("bookList",bookPage.getContent());
-            model.addAttribute("page",bookPage);
+            Map<String,Object> map = bookService.getBookList(p,s);
+            model.addAttribute("bookList",map.get("bookList"));
+            model.addAttribute("page",map.get("bookPage"));
             model.addAttribute("cPage",p);
             model.addAttribute("type","All");
             return "web/index";
         }
-        Page<Book> bookPage = bookService.getBookListByType(p,s,t);
-        model.addAttribute("bookList",bookPage.getContent());
-        model.addAttribute("page",bookPage);
+        Map<String,Object> map = bookService.getBookListByType(p,s,t);
+        model.addAttribute("bookList",map.get("bookList"));
+        model.addAttribute("page",map.get("bookPage"));
         model.addAttribute("cPage",p);
         model.addAttribute("type",t);
         return "web/index";
-    }
-    /*
-        获取书籍的详细信息
-     */
-    @GetMapping("/getBookDetail")
-    public String getBookDetail(@RequestParam(name = "id") Long id) {
-        Book book = bookService.getBookById(id);
-        return "web/demo";
     }
 
     @GetMapping("/search")
@@ -57,9 +51,9 @@ public class BookListController {
                              @RequestParam(name = "kw" , required = false) String kw,
                              Model model){
         if ( kw==null || StringUtils.isEmpty(kw)||kw.equals("All")) {
-            Page<Book> page = bookService.getBookList(p,s);
-            model.addAttribute("bookList",page.getContent());
-            model.addAttribute("page",page);
+            Map<String,Object> map = bookService.getBookList(p,s);
+            model.addAttribute("bookList",map.get("bookList"));
+            model.addAttribute("page",map.get("bookPage"));
             model.addAttribute("cPage",p);
             model.addAttribute("kw",kw);
             return "web/search";

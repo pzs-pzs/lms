@@ -4,6 +4,7 @@ import com.lms.demo.domain.Book;
 import com.lms.demo.domain.BookInventory;
 import com.lms.demo.domain.BorrowBooksTable;
 import com.lms.demo.domain.User;
+import com.lms.demo.dto.BookInfo;
 import com.lms.demo.dto.BookStatus;
 import com.lms.demo.dto.BorrowHistory;
 
@@ -43,4 +44,16 @@ public class BorrowBookUtil {
         bookStatus.setTotalQuantity(bookInventory.getBookTotalQuantity());
         return bookStatus;
     }
+
+    public static BookInfo getBookInfo (Book book,BookInventory bookInventory){
+        BookInfo bookInfo = new BookInfo();
+        bookInfo.setId(bookInventory.getId());
+        bookInfo.setAuthorName(book.getAuthorName());
+        bookInfo.setLocation(book.getLocation());
+        bookInfo.setPicture(book.getPicture());
+        bookInfo.setName(book.getName());
+        bookInfo.setRemarks(book.getRemarks());
+        return bookInfo;
+    }
+
 }

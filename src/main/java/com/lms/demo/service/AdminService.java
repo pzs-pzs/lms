@@ -73,7 +73,7 @@ public class AdminService {
         List<BookInventory> bookInventoryList = bookInventoryRepository.findAll(pageable).getContent();
         List<BookStatus> bookStatusList = new ArrayList<>();
         for (BookInventory b : bookInventoryList) {
-            Book book = bookRepository.findOneByName(b.getBookName());
+            Book book = bookRepository.findTopOrOrderByName(b.getBookName());
             BookStatus bookStatus = BorrowBookUtil.getBookStatusList(b,book);
             bookStatusList.add(bookStatus);
         }
@@ -109,7 +109,7 @@ public class AdminService {
         Map<String,Object> map = new HashMap<>();
         List<BookStatus> bookStatusList = new ArrayList<>();
         for (BookInventory b : bookInventoryList) {
-            Book book = bookRepository.findOneByName(b.getBookName());
+            Book book = bookRepository.findTopOrOrderByName(b.getBookName());
             BookStatus bookStatus = BorrowBookUtil.getBookStatusList(b,book);
             bookStatusList.add(bookStatus);
         }

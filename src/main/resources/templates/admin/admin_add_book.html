@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Library</title>
     <meta charset="utf-8" />
+    <link rel="shortcut icon" href="../../static/image/logo.ico" th:href="'/image/logo.ico'">
     <link rel="stylesheet" th:href="'/css/bootstrap.min.css'" href="../../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
     <link rel="stylesheet" th:href="'/css/bootstrap-datetimepicker.css'" href="../../static/css/bootstrap-datetimepicker.css">
@@ -100,11 +101,11 @@
         <div class="col-lg-6">
             <div class="center">
 
-                <form class="form-horizontal" role="form">
+                <div class="form-horizontal" role="form">
                     <div class="form-group">
                         <label  class="col-sm-3 control-label" style="font-size: 16px">ISBN</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="isbn" name="isbn" placeholder="Please input ISBN">
+                            <input type="text" class="form-control" id="isbn" name="isbn"  placeholder="Please input ISBN">
                         </div>
                     </div>
 
@@ -112,7 +113,7 @@
                         <label class="col-sm-3 control-label" style="font-size: 16px">Location</label>
                         <label class="col-sm-1  control-label">campus</label>
                         <div class="col-sm-3">
-                            <select  class="form-control" >
+                            <select  id="select1" class="form-control" >
                                 <option>South</option>
                                 <option>North</option>
                             </select>
@@ -120,7 +121,7 @@
                         </div>
                         <label class="col-sm-1 col-sm-offset-1 control-label"style="">room</label>
                         <div class="col-sm-3">
-                            <select  class="form-control" >
+                            <select id="select2"  class="form-control" >
                                 <option>301</option>
                                 <option>302</option>
                             </select>
@@ -129,7 +130,7 @@
                         <br>
                         <label class="col-sm-1 col-sm-offset-3 control-label">shelf</label>
                         <div class="col-sm-3">
-                            <select  class="form-control" >
+                            <select  id="select3" class="form-control" >
                                 <option>1</option>
                                 <option>2</option>
                             </select>
@@ -137,7 +138,7 @@
                         </div>
                         <label class="col-sm-1 col-sm-offset-1 control-label">layer</label>
                         <div class="col-sm-3">
-                            <select  class="form-control" >
+                            <select  id="select4" class="form-control" >
                                 <option>1</option>
                                 <option>2</option>
                             </select>
@@ -186,7 +187,7 @@
                         </center>
                     </div>
 
-                </form>
+                </div>
 
 
             </div>

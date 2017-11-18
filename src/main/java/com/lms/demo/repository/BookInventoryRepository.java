@@ -1,15 +1,13 @@
 package com.lms.demo.repository;
 
 
-import com.lms.demo.domain.Book;
 import com.lms.demo.domain.BookInventory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
-import java.awt.print.Pageable;
 
 public interface BookInventoryRepository extends JpaRepository<BookInventory,Long>,JpaSpecificationExecutor<BookInventory> {
     @Modifying
@@ -21,6 +19,9 @@ public interface BookInventoryRepository extends JpaRepository<BookInventory,Lon
     public int addBook(String bookName);
 
     public BookInventory findOneByBookName(String bookName);
+
+    @Query("select c from BookInventory c where c.status=?1")
+    public Page<BookInventory> findAll(Integer s, Pageable pageable);
 
 
 }

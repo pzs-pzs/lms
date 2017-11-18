@@ -19,5 +19,5 @@ public interface BookRepository extends JpaRepository<Book,Long>,JpaSpecificatio
     @Query("select count(c) from Book c where c.name=?1 and c.status =?2")
     Long countByNameAndStatus(String name,Integer status);
 
-    public Book findOneByName(String name);
+    public Book findTopOrOrderByName(String name);
 }
