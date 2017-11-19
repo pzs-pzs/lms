@@ -1,52 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-      xmlns:data="http://www.thymeleaf.org/extras/data">
+>
 <head>
+    <meta charset="UTF-8">
+    <title>Library Management System</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Library</title>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="../../static/image/logo.ico" th:href="'/image/logo.ico'">
-    <link rel="stylesheet" th:href="'/css/bootstrap.min.css'" href="../../static/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="'/css/bootstrap-datetimepicker.css'" href="../../static/css/bootstrap-datetimepicker.css">
-    <link rel="stylesheet" th:href="'/css/background.css'" href="../../static/css/background.css">
-    <link rel="stylesheet" href="../../static/css/style.css" th:href="'/css/style.css'">
-    <script th:src="'/js/jquery-3.2.1.min.js'" src="../../static/js/jquery-3.2.1.min.js"></script>
-    <script th:src="'/js/jquery.backstretch.js'" src="../../static/js/jquery.backstretch.js"></script>
-    <script th:src="'/js/bootstrap-datetimepicker.min.js'" src="../../static/js/bootstrap-datetimepicker.min.js"></script>
-    <script th:src="'/js/bootstrap.min.js'" src="../../static/js/bootstrap.min.js"></script>
-    <script th:src="'/js/base64image.js'" src="../../static/js/base64image.js"></script>
-    <script th:src="'/js/exif.js'" src="../../static/js/exif.js"></script>
-    <script th:src="'/js/uploadUtils.js'" src="../../static/js/uploadUtils.js"></script>
-
-    <style type="text/css">
-        .footer {
-            border-top: 1px solid #e5e5e5;
-            color: #777;
-            padding: 19px 0;
-            background-color: #f5f5f5;
-            bottom:0px;
-            width: 100%;
-            position:absolute;
-        }
-
-        .center {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-
-            width:50%;
-            height: 50%;
-            -webkit-transform: translateX(-50%) translateY(-50%);
-        }
-    </style>
-
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="'/css/bootstrap.min.css'">
+    <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
+    <script src="../../static/js/jquery-3.2.1.min.js" th:src="'/js/jquery-3.2.1.min.js'"></script>
+    <script src="../../static/js/bootstrap.min.js" th:src="'/js/bootstrap.min.js'"></script>
+    <script src="../../static/js/borrow.js" th:src="'/js/borrow.js'"></script>
+    <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
 
 
 </head>
 <body>
-<!-- nav -->
-<div class="container-fluid">
+<!--导航-->
+<div class="container-fluid ">
     <div class="row clearfix">
         <div class="col-md-12 column" style="padding: 0px">
             <nav class="navbar navbar-default  mynav" role="navigation" >
@@ -127,48 +101,73 @@
                     </div>
                 </div>
             </nav>
-        </div>
-        <!-- nav -->
-
-        <div class="col-lg-3"></div>
-        <!--  form  -->
-        <div class="col-lg-6">
-            <div class="center">
-                <form class="form-horizontal" role="form">
-
-                    <div class="form-group">
-                        <label  class="col-sm-2 control-label">BookId</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="bookId" name="bookId" placeholder="Please scan the barcode of book">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label  class="col-sm-2 control-label">User</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="userId"  name="userId" placeholder="Please scan the barcode of student id card">
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <center>
-                            <button type="button" class="btn btn-danger" onclick="borrowBook()">Lend</button>
-                            <button type="button" class="btn btn-success" onclick="ReturnBook()">Return</button>
-                        </center>
-                    </div>
-
-                </form>
-
             </div>
 
-        </div>
+            <div class="col-lg-6 col-lg-offset-6">
+                <form class="form-horizontal" role="form" action="/admin/toAllPaidArrearage">
+                    <div class="form-group">
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="userID" name="userID"
+                                   placeholder="Please input student id">
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+
+            <div class="col-lg-2 col-lg-offset-1 " style="margin-top: 30px;">
+                <div class="well well-lg col-lg-8" style="background-color: rgba(255,255,255,0.5)">
+                    <h3 >User id:</h3><p th:text="${userId}"></p>
+
+                    <h3 >Name:</h3><p th:text="${username}"></p>
+
+                    <h3>Arrearage:</h3><p id="arrearage" th:text="${arrearage}"></p>
+                    <button type="button" class="btn btn-danger" th:onclick="'payMoney('+${userId}+')'">Repay</button>
+                </div>
+            </div>
+
+
+            <!--欠费表-->
+            <div class="col-lg-8 well well-lg" style="background: rgba(255,255,255,0.7)">
+            <table class="table table-hover">
+                <h2>Arrears</h2>
+                <thead>
+                <tr>
+                    <th>BookId</th>
+                    <th>Title</th>
+                    <th>ISBN</th>
+                    <th>Borrower</th>
+                    <th>Return Date</th>
+                    <th>Arrearage</th>
+                </tr>
+                </thead>
+                <!--内容-->
+                <tbody>
+                <th:block th:each="p,index:${fineList}">
+                    <tr>
+                        <td th:text="${p.id}">1</td>
+                        <td th:text="${p.name}">Bangalore</td>
+                        <td th:text="${p.isbn}">isbn</td>
+                        <td th:text="${p.userName}">name</td>
+                        <td th:text="${#dates.format(p.returnTime,'yyyy-MM-dd')}">2017-11-12</td>
+                        <td th:text="'￥'+${p.fine}">￥100</td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            </div>
+            <!--表格-->
     </div>
 </div>
-
 <div class="bottom">
     <div class="normal">
-        <img src="../../static/image/Library.png"  th:src="'/image/Library.png'" style="height: auto; width: 350px; margin-top: 25px" class="logow">
+        <img src="../../static/image/Library.png"   th:src="'/image/Library.png'" style="height: auto; width: 350px; margin-top: 25px" class="logow">
         <ul class="ul_bottom">
             <li>Tel：17730308728</li>
             <li> Email：17730308728@qq.com</li>
@@ -176,61 +175,13 @@
         <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
     </div>
 </div>
-
-<div class="last" style="margin-bottom: 0px!important;">
+<div class="last">
     ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
 </div>
+
 </body>
 
-<script>
-    var id_count = 0;
-    var img_count = 0;
 
-    var fileUp = function (me) {
-        base64Image({
-            file: me,                              /*【必填】对应的上传元素 */
-            callback: function (imageUrl) {        /*【必填】处理成功后的回调函数 */
-                var img = new Image();
-                img.src = imageUrl;
-                var path="";
-                id_count += 1;
-                path += "<div id='"+id_count+"' class=\"closed\" style=\"float:left;width:132px;height:132px;overflow:hidden;position:relative;display: flex;justify-content: center;align-items: center;margin-right:2px;margin-bottom: 4px;\">" +
-                        "<img id='img_"+id_count+"' class='upload' src=\""+img.src+"\"  style=\"vertival-align:middle;width:129%;\"><span id=\"removed\">X</span></div>";
-                $("#image-list").append(path);
+<script th:src="'/js/Admin.js'"></script>
 
-                var count=0;
-                $("img").filter('.upload').each(
-                        function () {
-                            count++;
-                        })
-                if(count>1){
-                    $("#"+id_count).remove();
-                    alert("Only support to upload 1 picture");
-                }
-            },
-
-            ratio:0.75                        /*【选填】压缩率默认0.75 */
-        });
-    };
-</script>
-
-<script type="text/javascript">
-    $("#image-list").off("mouseenter","div").on("mouseenter","div",function() {
-        var that = this;
-        var dom = $(that).children("span");
-        dom.on("click", function () {
-            dom.removeClass("hide");
-            dom.parent().remove();
-        });
-    })
-</script>
-
-<script type="text/javascript">
-    $('#publishTime').datetimepicker({
-        format: 'yyyy-mm-dd',//定义时间格式
-        autoclose: true,//选择好自动关闭
-        minView: 2,//只选择到小时
-    });
-</script>
-<script src="/js/Admin.js"></script>
 </html>

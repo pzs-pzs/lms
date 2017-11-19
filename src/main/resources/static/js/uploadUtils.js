@@ -29,12 +29,13 @@ function addBook() {
          contentType: false,
          dataType:"json",
          success: function (data) {
+
              if (data['status']==1){
-                 alert("Add OK");
+                alert("Add Ok");
                  window.location.href="/admin/toAddBook";
              }
              else {
-                 alert("Add error!");
+                 alert("error!");
              }
 
 

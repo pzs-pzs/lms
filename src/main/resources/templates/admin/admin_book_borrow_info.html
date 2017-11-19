@@ -12,7 +12,6 @@
     <script src="../../static/js/jquery-3.2.1.min.js" th:src="'/js/jquery-3.2.1.min.js'"></script>
     <script src="../../static/js/bootstrap.min.js" th:src="'/js/bootstrap.min.js'"></script>
     <script src="../../static/js/borrow.js" th:src="'/js/borrow.js'"></script>
-    <link rel="stylesheet" href="../../static/css/login.css" th:href="'/css/login.css'">
     <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
 
 </head>
@@ -28,7 +27,9 @@
                     </div>
                     <div>
                         <ul class="nav navbar-nav pull-right bbbbb">
-                            <li><a href="../../templates/admin/admin_submit.html" th:href="'/admin/toBorrowBook'">Borrow book</a></li>
+                            <li><a href="../../templates/admin/admin_submit.html" th:href="'/admin/toBorrowBook'">Lend/Return</a></li>
+
+
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -39,6 +40,18 @@
                                     <li><a href="#" th:href="'/admin/bookStatusList'">Book information</a></li>
                                     <li class="divider"></li>
                                     <li><a href="#" th:href="'/admin/toUserInfo'">User information</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Manage
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu aaaaa">
+                                    <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a href="#" th:href="'/admin/toManageAdmin'">Admin</a></li>
+                                    <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
+                                    <li><a href="#" th:href="'/admin/toManageUser'">User</a></li>
                                 </ul>
                             </li>
 
@@ -62,7 +75,7 @@
                                 <ul class="dropdown-menu aaaaa">
                                     <li><a href="#" th:href="'/admin/toAddBook'">Book</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toAddBook'">Student</a></li>
+                                    <li><a href="#" th:href="'/admin/toAddStudent'">Student</a></li>
                                     <li class="divider"></li>
                                     <li><a href="#" th:href="'/admin/toAddAdmin'">Librarian</a></li>
                                 </ul>
@@ -70,11 +83,13 @@
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-user">Admin</span>
+                                    <span class="glyphicon glyphicon-user" th:text="${user}">Admin</span>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right aaaaa">
                                     <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                    <li class="divider"></li>
+                                    <li><a class="text-right" th:href="'/admin/adminInfo'">Info</a></li>
                                     <li class="divider"></li>
                                     <li><a class="text-right" href="/logout">Log out</a></li>
                                 </ul>
@@ -114,12 +129,11 @@
                 </div>
                 <!-- 左边栏结束 -->
                 <div class="col-lg-7 columm">
-                    
+
                     <table class="table table-hover">
                         <h2>Literature</h2>
                         <thead>
                             <tr>
-                                <th>BookId</th>
                                 <th>Title</th>
                                 <th>ISBN</th>
                                 <th>author</th>
@@ -130,8 +144,7 @@
                         </thead>
                         <tbody>
                         <th:block th:each="p,index:${bookStatusList}">
-                            <tr>
-                                <td th:text="${p.bookid}"></td>
+                            <tr  data-toggle="modal" th:id="'tr'+${index.count}" th:onclick="'appendBookInfo('+${index.count}+',\''+${p.bookName}+'\')'">
                                 <td th:text="${p.bookName}"></td>
                                 <td th:text="${p.isbn}"></td>
                                 <td th:text="${p.author}"></td>
@@ -140,6 +153,7 @@
                             </tr>
                         </th:block>
                         </tbody>
+
                     </table>
 
                 </div>
@@ -148,6 +162,45 @@
         </div>
     </div>
 
+<th:block th:each="p,index:${bookStatusList}">
+    <div class="modal fade" th:id="'myModel'+${index.count}"  tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true"  >
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header" style="background: url(../../static/image/background.jpg)">
+                    <button type="button" class="close " data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <p style="font-size: 20px; text-align: center">Book Info</p>
+
+                </div>
+                <div class="modal-body">
+                    <div class="container"style="width: 550px">
+
+                        <table class="table table-hover" th:id="'table'+${index.count}">
+
+                            <thead>
+                            <tr>
+                                <th>BookId</th>
+                                <th>BookName</th>
+                                <th>ISBN</th>
+                                <th>author</th>
+                                <th>Status</th>
+                                <th>borrower</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</th:block>
     <!--分页-->
     <th:block th:if="${(page.totalPages le 5) and (page.totalPages gt 0)}">
         <nav style="text-align: center">
@@ -225,57 +278,6 @@
     ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
 </div>
 </body>
-
-<script>
-    var id_count = 0;
-    var img_count = 0;
-
-    var fileUp = function (me) {
-        base64Image({
-            file: me,                              /*【必填】对应的上传元素 */
-            callback: function (imageUrl) {        /*【必填】处理成功后的回调函数 */
-                var img = new Image();
-                img.src = imageUrl;
-                var path="";
-                id_count += 1;
-                path += "<div id='"+id_count+"' class=\"closed\" style=\"float:left;width:132px;height:132px;overflow:hidden;position:relative;display: flex;justify-content: center;align-items: center;margin-right:2px;margin-bottom: 4px;\">" +
-                        "<img id='img_"+id_count+"' class='upload' src=\""+img.src+"\"  style=\"vertival-align:middle;width:129%;\"><span id=\"removed\">X</span></div>";
-                $("#image-list").append(path);
-
-                var count=0;
-                $("img").filter('.upload').each(
-                        function () {
-                            count++;
-                        })
-                if(count>1){
-                    $("#"+id_count).remove();
-                    alert("Only support to upload 1 picture");
-                }
-            },
-
-            ratio:0.75                        /*【选填】压缩率默认0.75 */
-        });
-    };
-</script>
-
-<script type="text/javascript">
-    $("#image-list").off("mouseenter","div").on("mouseenter","div",function() {
-        var that = this;
-        var dom = $(that).children("span");
-        dom.on("click", function () {
-            dom.removeClass("hide");
-            dom.parent().remove();
-        });
-    })
-</script>
-
-<script type="text/javascript">
-    $('#publishTime').datetimepicker({
-        format: 'yyyy-mm-dd',//定义时间格式
-        autoclose: true,//选择好自动关闭
-        minView: 2,//只选择到小时
-    });
-</script>
-
+<script th:src="'/js/Admin.js'"></script>
 
 </html>

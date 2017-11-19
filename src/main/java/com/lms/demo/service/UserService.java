@@ -76,7 +76,9 @@ public class UserService {
         user.setCredentialsNonExpired(true);
         User result = userRepository.save(user);
         long rid = new Long(2);
-        UserRole userRole = new UserRole(userRepository.findByName(username).getId(),rid);
+        UserRole userRole = new UserRole();
+        userRole.setUserId(userRepository.findByName(username).getId());
+        userRole.setRoleId(rid);
         userRoleRepository.save(userRole);
         if(result!=null){
             return true;
@@ -183,7 +185,9 @@ public class UserService {
         user.setCredentialsNonExpired(true);
         User result = userRepository.save(user);
         long rid = new Long(1);
-        UserRole userRole = new UserRole(userRepository.findByName(username).getId(),rid);
+        UserRole userRole = new UserRole();
+        userRole.setUserId(userRepository.findByName(username).getId());
+        userRole.setRoleId(rid);
         userRoleRepository.save(userRole);
         if(result!=null){
             return true;
@@ -192,4 +196,8 @@ public class UserService {
         }
     }
 
+
+    public User getUserByUsername(String username){
+        return userRepository.findByName(username);
+    }
 }

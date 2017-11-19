@@ -5,10 +5,12 @@ import com.lms.demo.domain.BookInventory;
 import com.lms.demo.domain.BorrowBooksTable;
 import com.lms.demo.domain.User;
 import com.lms.demo.dto.BookInfo;
+import com.lms.demo.dto.BookList;
 import com.lms.demo.dto.BookStatus;
 import com.lms.demo.dto.BorrowHistory;
 
 import java.util.Date;
+import java.util.List;
 
 public class BorrowBookUtil {
     public static BorrowBooksTable rejectIn(Long bookId,Long userId){
@@ -36,6 +38,7 @@ public class BorrowBookUtil {
 
     public static BookStatus getBookStatusList(BookInventory bookInventory, Book b){
         BookStatus bookStatus = new BookStatus();
+        bookStatus.setBookid(b.getId());
         bookStatus.setAuthor(b.getAutherName());
         bookStatus.setBookName(b.getName());
         bookStatus.setIsbn(b.getIsbn());
@@ -54,6 +57,12 @@ public class BorrowBookUtil {
         bookInfo.setName(book.getName());
         bookInfo.setRemarks(book.getRemarks());
         return bookInfo;
+    }
+
+    public static BookList getBookList(List<Book> list){
+        BookList bookList = new BookList();
+        bookList.setSpecifyBookList(list);
+        return bookList;
     }
 
 }

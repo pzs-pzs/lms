@@ -2,9 +2,11 @@ package com.lms.demo.service;
 
 import com.lms.demo.domain.Book;
 import com.lms.demo.domain.BorrowBooksTable;
+import com.lms.demo.domain.User;
 import com.lms.demo.repository.BookInventoryRepository;
 import com.lms.demo.repository.BookRepository;
 import com.lms.demo.repository.BorrowBookRepository;
+import com.lms.demo.repository.UserRepository;
 import com.lms.demo.util.BorrowBookUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class BorrowService {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     public boolean borrow(Long bookId,Long userId) {
         /**
          * release 1
@@ -36,7 +41,7 @@ public class BorrowService {
          */
         Book book = bookRepository.findOne(bookId);
 
-        if(bookInventoryRepository.findOneByBookName(book.getName()).getBookTotalQuantity()-bookInventoryRepository.findOneByBookName(book.getName()).getBookBorrowQuantity()>0){
+        if(bookInventoryRepository.findByBookName(book.getName(),1).getBookTotalQuantity()-bookInventoryRepository.findByBookName(book.getName(),1).getBookBorrowQuantity()>0){
             BorrowBooksTable b = borrowBookRepository.save(BorrowBookUtil.rejectIn(bookId,userId));
             if (b == null) {
                 return false;
@@ -49,4 +54,10 @@ public class BorrowService {
 
     }
 
+
+    public User getUser(Long bookId){
+        BorrowBooksTable borrowBooksTable =borrowBookRepository.findoneByBookIdAndStatus(bookId,1);
+        User user = userRepository.getOne(borrowBooksTable.getUserId());
+        return user;
+    }
 }

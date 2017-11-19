@@ -1,12 +1,21 @@
 package com.lms.demo.dto;
 
 public class BookStatus {
+    private Long bookid;
     private String bookName;
     private String isbn;
     private String author;
     private String press;
     private Integer totalQuantity;
     private Integer borrowQuantity;
+
+    public Long getBookid() {
+        return bookid;
+    }
+
+    public void setBookid(Long bookid) {
+        this.bookid = bookid;
+    }
 
     public String getBookName() {
         return bookName;

@@ -18,7 +18,8 @@ public interface BookInventoryRepository extends JpaRepository<BookInventory,Lon
     @Query("update BookInventory c set c.bookTotalQuantity = c.bookTotalQuantity+1 where c.bookName = ?1")
     public int addBook(String bookName);
 
-    public BookInventory findOneByBookName(String bookName);
+    @Query("select c from BookInventory c where c.bookName=?1 and c.status=?2")
+    public BookInventory findByBookName(String bookName,Integer status);
 
     @Query("select c from BookInventory c where c.status=?1")
     public Page<BookInventory> findAll(Integer s, Pageable pageable);

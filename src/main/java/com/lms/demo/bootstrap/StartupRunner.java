@@ -36,6 +36,7 @@ public class StartupRunner implements CommandLineRunner {
         if(role==null){
             roleRepository.save(new Role("ROLE_ADMIN"));
             roleRepository.save(new Role("ROLE_NORMAL_USER"));
+            roleRepository.save(new Role("ROLE_SUPER_ADMIN"));
         }
 
 

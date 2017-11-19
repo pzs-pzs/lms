@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:data="http://www.thymeleaf.org/extras/data">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Library</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="'/css/bootstrap.min.css'" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="'/css/bootstrap-datetimepicker.css'" href="../../static/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" th:href="'../../css/background.css'" href="../../static/css/background.css">
+    <script th:src="'/js/jquery-3.2.1.min.js'" src="../../static/js/jquery-3.2.1.min.js"></script>
+    <script th:src="'/js/jquery.backstretch.js'" src="../../static/js/jquery.backstretch.js"></script>
+    <script th:src="'/js/bootstrap-datetimepicker.min.js'" src="../../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script th:src="'/js/bootstrap.min.js'" src="../../static/js/bootstrap.min.js"></script>
+    <script th:src="'/js/base64image.js'" src="../../static/js/base64image.js"></script>
+    <script th:src="'/js/exif.js'" src="../../static/js/exif.js"></script>
+    <script th:src="'/js/uploadUtils.js'" src="../../static/js/uploadUtils.js"></script>
+
+    <style type="text/css">
+        .footer {
+            border-top: 1px solid #e5e5e5;
+            color: #777;
+
+            background-color: #f5f5f5;
+            bottom:0px;
+            width: 100%;
+            position:absolute;
+        }
+
+        html body{
+            background: url("/image/background1.jpg") ;
+
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 65%;
+            width:50%;
+            height: 50%;
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            background: rgba(255,255,255,0.5);
+            width: 500px;
+        }
+
+        .navbar-brand {
+            padding: 0px;
+        }
+        label{
+            text-align: left !important;
+        }
+
+    </style>
+
+    <script>
+        function isPositiveInteger(s){//是否为正整数
+            var re = /^[0-9]+$/ ;
+            return re.test(s)
+        }
+    </script>
+
+</head>
+<body>
+<!-- nav -->
+<div class="container-fluid " >
+    <div class="row clearfix">
+        <div class="col-md-12 column" style="padding: 0px">
+            <th:block sec:authorize="hasRole('ROLE_SUPER_ADMIN')">
+                <nav class="navbar navbar-default  mynav" role="navigation" >
+                    <div class="container-fluid" >
+                        <div class="navbar-header" style="text-indent: 30px">
+                            <a class="navbar-brand" href="#"><img src="../../static/image/Library.png"  th:src="'/image/Library.png'" ondragstart="return false;"></a>
+                        </div>
+                        <div>
+                            <ul class="nav navbar-nav pull-right bbbbb">
+                                <li><a href="../../templates/admin/admin_submit.html" th:href="'/admin/toBorrowBook'">Lend/Return</a></li>
+
+
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Query
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu aaaaa">
+                                        <li><a href="#" th:href="'/admin/bookStatusList'">Book information</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toUserInfo'">User information</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Manage
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu aaaaa">
+                                        <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')">><a href="#" th:href="'/admin/toManageAdmin'">Admin</a></li>
+                                        <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toManageUser'">User</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Arrearage
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu aaaaa">
+                                        <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All paid</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All unpaid</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Add
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu aaaaa">
+                                        <li><a href="#" th:href="'/admin/toAddBook'">Book</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toAddStudent'">Student</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toAddAdmin'">Librarian</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-user" th:text="${user}">Admin</span>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right aaaaa">
+                                        <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                        <li class="divider"></li>
+                                        <li><a class="text-right" th:href="'/admin/adminInfo'">Info</a></li>
+                                        <li class="divider"></li>
+                                        <li><a class="text-right" href="/logout">Log out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </th:block>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <nav class="navbar navbar-default  mynav" role="navigation" >
+                    <div class="container-fluid" >
+                        <div class="navbar-header" style="text-indent: 30px">
+                            <a class="navbar-brand" href="#"><img src="../../static/image/Library.png"  th:src="'/image/Library.png'" ondragstart="return false;"></a>
+                        </div>
+                        <div>
+                            <ul class="nav navbar-nav pull-right bbbbb">
+                                <li><a href="../../templates/admin/admin_submit.html" th:href="'/admin/toBorrowBook'">Lend/Return</a></li>
+
+
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Query
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu aaaaa">
+                                        <li><a href="#" th:href="'/admin/bookStatusList'">Book information</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toUserInfo'">User information</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Manage
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu aaaaa">
+                                        <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a href="#" th:href="'/admin/toManageAdmin'">Admin</a></li>
+                                        <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toManageUser'">User</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Arrearage
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu aaaaa">
+                                        <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All paid</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All unpaid</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Add
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu aaaaa">
+                                        <li><a href="#" th:href="'/admin/toAddBook'">Book</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toAddStudent'">Student</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" th:href="'/admin/toAddAdmin'">Librarian</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-user" th:text="${user}">Admin</span>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right aaaaa">
+                                        <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                        <li class="divider"></li>
+                                        <li><a class="text-right" th:href="'/admin/adminInfo'">Info</a></li>
+                                        <li class="divider"></li>
+                                        <li><a class="text-right" href="/logout">Log out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </th:block>
+            <th:block sec:authorize="hasRole('ROLE_NORMAL_USER')">
+                <nav class="navbar navbar-default mynav" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header" style="text-indent: 30px">
+                            <a class="navbar-brand" href="#"><img src="../../static/image/Library.png" th:src="'/image/Library.png'" ondragstart="return false;"></a>
+                        </div>
+                        <div>
+                            <ul class="nav navbar-nav pull-right bbbbb">
+                                <li><a href="../../templates/web/fineRecord.html" th:href="'/web/profile'">Not Return History</a></li>
+                                <li><a href="../../templates/web/borrowRecord.html" th:href="'/web/borrowRecord'">Returned History</a></li>
+                                <li class="active"><a href="#">Fine History</a></li>
+                                <li><a href="../../templates/web/needFineRecord.html" th:href="'/web/needFineRecord'">Need Fine</a></li>
+                                <!-- 修改-->
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-user" th:text="${#authentication.name}">Admin</span>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right aaaaa">
+                                        <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                        <li class="divider"></li>
+                                        <li><a class="text-right" href="#" th:href="'/admin/adminInfo'">Info</a></li>
+                                        <li class="divider"></li>
+                                        <li><a class="text-right" href="#" th:href="'/logout'">Log out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </th:block>
+        </div>
+        <!-- nav -->
+
+        <!--  form  -->
+        <div style="position: absolute;top: 25%;left: 20%">
+            <img src="../../static/image/schoolmark.png" th:src="'/image/schoolmark.png'" style="width: 500px;height: auto " >
+        </div>
+
+            <div class="center well well-lg">
+                <p style="font-size:30px;margin-bottom: 30px ">Admin Information</p>
+                <form class="form-horizontal" role="form" action="">
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">Username</label>
+                        <div class="col-sm-10">
+                            <input type="text" th:value="${admin.name}" class="form-control" readonly id="username" name="username" >
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" th:value="${admin.email}" class="form-control" id="email" readonly name="name" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">Phone</label>
+                        <div class="col-sm-10">
+                            <input type="text" th:value="${admin.num}" class="form-control" id="phone" name="phone" readonly>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <center>
+                            <button type="button" id="edit" class="btn btn-primary btn-lg" style="width: 150px" onclick="ModifyUserInformation()">Edit</button>
+                            <button type="button" id="confirm" class="btn btn-primary btn-lg hide" style="width: 150px" onclick="modifySelfInfo()">Confirm</button>
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom">
+    <div class="normal">
+        <img src="../../static/image/Library.png"  th:src="'/image/Library.png'" style="height: auto; width: 350px; margin-top: 25px" class="logow">
+        <ul class="ul_bottom">
+            <li>Tel：17730308728</li>
+            <li> Email：17730308728@qq.com</li>
+        </ul>
+        <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
+    </div>
+</div>
+<div class="last">
+    ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
+</div>
+</body>
+
+<script>
+
+    function ModifyUserInformation() {
+
+        $('#email').attr("readonly",false);
+        $('#phone').attr("readonly",false);
+        $('#confirm').removeClass("hide");
+        $('#edit').addClass("hide");
+    }
+</script>
+
+
+<script src="../../static/js/Admin.js" th:src="'/js/Admin.js'"></script>
+</html>

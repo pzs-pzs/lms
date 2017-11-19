@@ -8,30 +8,13 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="'/css/bootstrap.min.css'">
     <link rel="stylesheet" href="../../static/css/bootstrap-theme.min.css" th:href="'/css/bootstrap-theme.min.css'">
-    <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
+    <link rel="stylesheet" href="../../static/css/background1.css" th:href="'/css/background1.css'">
     <link rel="stylesheet" href="../../static/css/style.css" th:href="'/css/style.css'">
     <link rel="shortcut icon" href="../../static/image/logo.ico" th:href="'/image/logo.ico'">
     <script src="../../static/js/jquery-3.2.1.min.js" th:src="'/js/jquery-3.2.1.min.js'"></script>
     <script src="../../static/js/bootstrap.min.js" th:src="'/js/bootstrap.min.js'"></script>
     <script src="../../static/js/borrow.js" th:src="'/js/borrow.js'"></script>
     <style type="text/css">
-        #myCarousel {
-            height: 400px;
-
-        }
-        #myCarousel img{
-            width: 100%;
-            height: 400px;
-        }
-
-        .footer {
-            border-top: 1px solid #e5e5e5;
-            color: #777;
-            padding: 19px 0;
-            background-color: #f5f5f5;
-        }
-
-
         .myDiv{
             padding-right: 20px;
             border-right:1px solid #D8D8D8;
@@ -43,6 +26,25 @@
             -webkit-line-clamp: 1;
             overflow: hidden;
         }
+
+        html,
+        body{
+            height: 100%;
+            margin:0;
+            padding:0;
+        }
+        #container {
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            margin: 0 auto -60px;/*margin-bottom的负值等于footer高度*/
+        }
+        .push,
+        #footer {
+            height: 30px;
+            clear:both;
+        }
+
     </style>
 
 </head>
@@ -72,7 +74,10 @@
                                 <ul class="dropdown-menu dropdown-menu-right aaaaa">
 
                                     <li  sec:authorize="hasRole('ROLE_ADMIN')"><a class="text-right" href="#" th:href="'/admin/toAddBook'">Profile</a></li>
+                                    <li  sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a class="text-right" href="#" th:href="'/admin/toAddBook'">Profile</a></li>
                                     <li  sec:authorize="hasRole('ROLE_NORMAL_USER')"><a  class="text-right" href="#" th:href="'/web/profile'">Profile</a></li>
+                                    <li class="divider"></li>
+                                    <li><a class="text-right" href="#" th:href="'/admin/adminInfo'">Info</a></li>
 
                                     <li class="divider"></li>
                                     <li><a class="text-right" href="#" th:href="'/logout'">Log out</a></li>
@@ -271,21 +276,22 @@
     </div>
 </div>
 
-<div class="bottom" style="position: relative!important;bottom: 0px">
-    <div class="normal">
-        <img src="../../static/image/Library.png" th:src="'/image/Library.png'"   style="height: auto; width: 350px; margin-top: 25px" class="logow">
-        <ul class="ul_bottom">
-            <li>Tel：17730308728</li>
-            <li> Email：17730308728@qq.com</li>
-        </ul>
-        <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
+<div id="footer">
+    <div class="bottom">
+        <div class="normal">
+            <img src="../../static/image/Library.png" th:src="'/image/Library.png'"   style="height: auto; width: 350px; margin-top: 25px" class="logow">
+            <ul class="ul_bottom">
+                <li>Tel：17730308728</li>
+                <li> Email：17730308728@qq.com</li>
+            </ul>
+            <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
+        </div>
     </div>
-</div>
-<div class="last" style="margin-bottom: 0px!important; position: relative!important;">
-    ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
+    <div class="last">
+        ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
+    </div>
 </div>
 
 </body>
-
 </html>
 

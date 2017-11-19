@@ -7,7 +7,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Library</title>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="../../static/image/logo.ico" th:href="'/image/logo.ico'">
     <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="'/css/bootstrap.min.css'">
     <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
     <script src="../../static/js/jquery-3.2.1.min.js" th:src="'/js/jquery-3.2.1.min.js'"></script>
@@ -34,6 +33,7 @@
 <div class="container-fluid " style="padding: 0px">
     <div class="row clearfix">
         <div class="col-md-12 column">
+
             <nav class="navbar navbar-default  mynav" role="navigation" >
                 <div class="container-fluid" >
                     <div class="navbar-header" style="text-indent: 30px">
@@ -112,6 +112,8 @@
                     </div>
                 </div>
             </nav>
+        </th:block>
+
             <!-- 搜索栏-->
             <div class="col-lg-6 col-lg-offset-6">
                 <form class="form-horizontal" role="form" method="get" action="/admin/findUserInfo">
@@ -132,115 +134,125 @@
 
             <div class="row clearfix">
                 <!-- 左边栏 -->
-                <div class="col-md-3 col-md-offset-1 " style="margin-top: 30px;">
-                    <div class="well well-lg col-lg-8" style="background-color: rgba(255,255,255,0.5)">
-                    <h3>User id:</h3><p th:text="${userID}"></p>
 
-                    <h3>Name:</h3><p th:text="${username}"></p>
-                    </div>
-                </div>
                 <!-- 左边栏结束 -->
-                <div class="col-md-6 ">
+                <div class="col-md-6 col-md-offset-3">
 
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>BookId</th>
-                            <th>Title</th>
-                            <th>ISBN</th>
-                            <th>author</th>
-                            <th>Borrow Date</th>
+                            <th>AdminId</th>
+                            <th>AdminName</th>
+                            <th>Tel</th>
+                            <th>E-mail</th>
                             <th>Status</th>
-
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <th:block th:each="p,index:${bookList}">
-                        <tr>
-                            <td th:text="${p.name}"></td>
-                            <td th:text="${p.name}"></td>
-                            <td th:text="${p.isbn}"></td>
-                            <td th:text="${p.autherName}"></td>
-                            <td th:text="${#dates.format(p.borrowTime,'yyyy-MM-dd')}"></td>
-                            <th:block th:switch="${p.borrowStatus}">
-                                <td th:case="'1'">Not Returned</td>
-                                <td th:case="'2'">Returned</td>
-                            </th:block>
-                        </tr>
+                        <th:block th:each="p,index:${addminList}">
+
+                            <r>
+                                <td th:text="${p.id}"></td>
+                                <td th:text="${p.name}"></td>
+                                <td th:text="${p.num}"></td>
+                                <td th:text="${p.email}"></td>
+                                <th:block th:switch="${p.status}">
+                                    <td th:case="'1'">enable</td>
+                                    <td th:case="'0'">disable</td>
+                                </th:block>
+                                <td>
+                                    <a id="dd" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#myModel'+${index.count}"style="background-color:rgb(118,118,118); font-size: 10px"  >
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a id="dd2" th:class="${p.status}==1?'btn btn-primary':'btn btn-primary hide'" style="background-color:rgb(118,118,118);font-size: 10px" th:onclick="'deleteAdmin('+${p.id}+')'">
+                                        <span class="glyphicon  glyphicon-trash"></span>
+                                    </a>
+                                    <a id="dd3" th:class="${p.status}==0?'btn btn-primary':'btn btn-primary hide'" style="background-color:rgb(118,118,118);font-size: 10px" th:onclick="'startAdmin('+${p.id}+')'">
+                                        <span class="glyphicon glyphicon-play " ></span>
+                                    </a>
+                                </td>
+                            </r>
+                            <div class="modal fade" id="gggg" th:id="'myModel'+${index.count}" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true"  >
+                                <div class="modal-dialog" style="width:600px">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background: url(../../static/image/background.jpg)">
+                                            <button type="button" class="close " data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <p style="font-size: 20px; text-align: center">Admin Information</p>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="container"style="width: 550px">
+
+                                                <form class="form-horizontal " role="form" action="">
+                                                    <div class="form-group">
+                                                        <label  class="lg2 control-label">AdminID</label>
+
+                                                        <input type="text" th:id="id+${index.count}" name="id" class="lg1 form-control "  readonly="" style="background: #fff;" th:value="${p.id}">
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="lg2 control-label">AdminName</label>
+
+                                                        <input type="text" class="lg1 form-control"  readonly="" style="background: #fff;" th:value="${p.name}">
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="lg2 control-label">Email</label>
+
+                                                        <input type="text" th:id="email+${index.count}" name="email" class="lg1 form-control" th:value="${p.email}">
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="lg2 control-label">Phone</label>
+
+                                                        <input type="text" name="phone" th:id="phone+${index.count}" class="lg1 form-control" th:value="${p.num}">
+
+                                                    </div>
+
+
+                                                    <div class="form-group" style="margin: 0 auto">
+                                                        <center>
+                                                            <button type="button" class="btn btn-primary btn-lg" style="width: 150px" th:onclick="'modifyAdmin('+${index.count}+')'">Confirm</button>
+                                                        </center>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                         </th:block>
                         </tbody>
                     </table>
-
                 </div>
 
             </div>
         </div>
+        <div class="bottom">
+            <div class="normal">
+                <img src="../../static/image/Library.png"  th:src="'/image/Library.png'" style="height: auto; width: 350px; margin-top: 25px" class="logow">
+                <ul class="ul_bottom">
+                    <li>Tel：17730308728</li>
+                    <li> Email：17730308728@qq.com</li>
+                </ul>
+                <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
+            </div>
+        </div>
+        <div class="last" style="margin-bottom: 0px!important;">
+            ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
+        </div>
     </div>
-</div>
-<div class="bottom">
-    <div class="normal">
-        <img src="../../static/image/Library.png"  th:src="'/image/Library.png'" style="height: auto; width: 350px; margin-top: 25px" class="logow">
-        <ul class="ul_bottom">
-            <li>Tel：17730308728</li>
-            <li> Email：17730308728@qq.com</li>
-        </ul>
-        <img src="../../static/image/barcode.jpg" th:src="'/image/barcode.jpg'" style="height: auto ;width: 80px;margin:10px;">
-    </div>
-</div>
-<div class="last" style="margin-bottom: 0px!important;">
-    ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
 </div>
 </body>
-
-<script>
-    var id_count = 0;
-    var img_count = 0;
-
-    var fileUp = function (me) {
-        base64Image({
-            file: me,                              /*【必填】对应的上传元素 */
-            callback: function (imageUrl) {        /*【必填】处理成功后的回调函数 */
-                var img = new Image();
-                img.src = imageUrl;
-                var path="";
-                id_count += 1;
-                path += "<div id='"+id_count+"' class=\"closed\" style=\"float:left;width:132px;height:132px;overflow:hidden;position:relative;display: flex;justify-content: center;align-items: center;margin-right:2px;margin-bottom: 4px;\">" +
-                        "<img id='img_"+id_count+"' class='upload' src=\""+img.src+"\"  style=\"vertival-align:middle;width:129%;\"><span id=\"removed\">X</span></div>";
-                $("#image-list").append(path);
-
-                var count=0;
-                $("img").filter('.upload').each(
-                        function () {
-                            count++;
-                        })
-                if(count>1){
-                    $("#"+id_count).remove();
-                    alert("Only support to upload 1 picture");
-                }
-            },
-
-            ratio:0.75                        /*【选填】压缩率默认0.75 */
-        });
-    };
-</script>
-
-<script type="text/javascript">
-    $("#image-list").off("mouseenter","div").on("mouseenter","div",function() {
-        var that = this;
-        var dom = $(that).children("span");
-        dom.on("click", function () {
-            dom.removeClass("hide");
-            dom.parent().remove();
-        });
-    })
-</script>
-
-<script type="text/javascript">
-    $('#publishTime').datetimepicker({
-        format: 'yyyy-mm-dd',//定义时间格式
-        autoclose: true,//选择好自动关闭
-        minView: 2,//只选择到小时
-    });
-</script>
-
+<script src="/js/Admin.js"></script>
 </html>

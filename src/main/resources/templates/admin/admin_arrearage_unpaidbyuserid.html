@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <head>
     <meta charset="UTF-8">
     <title>Library Management System</title>
@@ -25,23 +27,13 @@
                     </div>
                     <div>
                         <ul class="nav navbar-nav pull-right bbbbb">
-                            <li><a href="../../templates/admin/admin_submit.html" th:href="'/admin/toBorrowBook'">Borrow book</a></li>
+                            <li><a href="../../templates/admin/admin_submit.html" th:href="'/admin/toBorrowBook'">Lend/Return</a></li>
+
+
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     Query
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu aaaaa">
-                                    <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All paid</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All unpaid</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    Arrearage
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu aaaaa">
@@ -53,13 +45,37 @@
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Manage
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu aaaaa">
+                                    <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a href="#" th:href="'/admin/toManageAdmin'">Admin</a></li>
+                                    <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
+                                    <li><a href="#" th:href="'/admin/toManageUser'">User</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Arrearage
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu aaaaa">
+                                    <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All paid</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All unpaid</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     Add
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu aaaaa">
                                     <li><a href="#" th:href="'/admin/toAddBook'">Book</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toAddBook'">Student</a></li>
+                                    <li><a href="#" th:href="'/admin/toAddStudent'">Student</a></li>
                                     <li class="divider"></li>
                                     <li><a href="#" th:href="'/admin/toAddAdmin'">Librarian</a></li>
                                 </ul>
@@ -67,11 +83,13 @@
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-user">Admin</span>
+                                    <span class="glyphicon glyphicon-user" th:text="${user}">Admin</span>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right aaaaa">
                                     <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                    <li class="divider"></li>
+                                    <li><a class="text-right" th:href="'/admin/adminInfo'">Info</a></li>
                                     <li class="divider"></li>
                                     <li><a class="text-right" href="/logout">Log out</a></li>
                                 </ul>
@@ -82,22 +100,21 @@
             </nav>
             </div>
 
-            <!-- 搜索栏-->
-            <div class="col-lg-6 col-lg-offset-6">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" id="firstname"
-                                   placeholder="Please input student id">
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-default">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </div>
+        <div class="col-lg-6 col-lg-offset-6">
+            <form class="form-horizontal" role="form" action="/admin/toAllUnpaidArrearage">
+                <div class="form-group">
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" id="userID" name="userID"
+                               placeholder="Please input student id">
                     </div>
-                </form>
-            </div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
             <br>
             <!--欠费表-->
             <div class="col-lg-10 col-lg-offset-1 well well-lg" style="background: rgba(255,255,255,0.7)">
@@ -143,6 +160,66 @@
 <div class="last">
     ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
 </div>
+<!--分页-->
+<th:block th:if="${(page.totalPages le 5) and (page.totalPages gt 0)}">
+    <nav style="text-align: center">
+        <ul class="pagination ">
+
+            <li th:if="${cPage>0}">
+                <a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${cPage-1}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <th:block th:each="pg : ${#numbers.sequence(0, page.totalPages - 1)}">
+                <li th:class="(${cPage}==${pg})?'active':'gg'"><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${pg}" th:text="${pg+1}">1</a></li>
+            </th:block>
+            <li th:if="${cPage}<${page.totalPages - 1}">
+                <a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${cPage+1}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</th:block>
+<th:block th:if="${page.totalPages gt 5}">
+    <nav aria-label="Page navigation" style="text-align: center">
+        <ul class="pagination">
+            <li th:if="${cPage>0}">
+                <a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${cPage-1}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <th:block th:if="${cPage}<=1">
+                <li th:class="(${cPage}==0)?'active':'gg'"><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page=0'">1</a></li>
+                <li th:class="(${cPage}==1)?'active':'gg'"><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page=1'">2</a></li>
+                <li th:class="(${cPage}==2)?'active':'gg'"><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page=2'">3</a></li>
+                <li th:class="(${cPage}==3)?'active':'gg'"><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page=3'">4</a></li>
+                <li th:class="(${cPage}==4)?'active':'gg'"><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page=4'">5</a></li>
+            </th:block>
+            <th:block th:if="${cPage}>1 and ${cPage}<${page.totalPages-2}">
+                <li><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${cPage-2}" th:text="${cPage-1}">3</a></li>
+                <li><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${cPage-1}" th:text="${cPage}">3</a></li>
+                <li class="active"><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${cPage}" th:text="${cPage+1}">3</a></li>
+                <li><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${cPage+1}" th:text="${cPage+2}">3</a></li>
+                <li><a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${cPage+2}" th:text="${cPage+3}">3</a></li>
+            </th:block>
+            <th:block th:if="${cPage}>=${page.totalPages-2}">
+                <li th:class="(${cPage}==${page.totalPages-5})?'active':'gg'"><a th:text="${page.totalPages-4}" th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${page.totalPages-5}">1</a></li>
+                <li th:class="(${cPage}==${page.totalPages-4})?'active':'gg'"><a th:text="${page.totalPages-3}" th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${page.totalPages-4}">2</a></li>
+                <li th:class="(${cPage}==${page.totalPages-3})?'active':'gg'"><a th:text="${page.totalPages-2}" th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${page.totalPages-3}">3</a></li>
+                <li th:class="(${cPage}==${page.totalPages-2})?'active':'gg'"><a th:text="${page.totalPages-1}" th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${page.totalPages-2}">4</a></li>
+                <li th:class="(${cPage}==${page.totalPages-1})?'active':'gg'"><a th:text="${page.totalPages}" th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${page.totalPages-1}">5</a></li>
+
+            </th:block>
+            <li th:if="${cPage}<${page.totalPages - 1}">
+                <a th:href="'/admin/toAllUnpaidArrearage?userId='+${userId}+'&&page='+${cPage+1}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</th:block>
+<!--分页-->
 </body>
 
 <script>

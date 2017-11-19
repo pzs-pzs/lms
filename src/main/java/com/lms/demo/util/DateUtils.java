@@ -11,6 +11,19 @@ public class DateUtils {
         Date before = new Date(calendar.getTimeInMillis());
         return before;
     }
-
+    public static Date getBeforeMonth(Date now){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.MONTH,-1);
+        Date before = new Date(calendar.getTimeInMillis());
+        return before;
+    }
+    public static Date getBeforeYear(Date now){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.YEAR,-1);
+        Date before = new Date(calendar.getTimeInMillis());
+        return before;
+    }
 
 }

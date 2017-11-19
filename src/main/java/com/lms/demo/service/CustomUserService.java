@@ -18,10 +18,13 @@ public class CustomUserService implements UserDetailsService {
         User user = userRepository.findByName(s);
         if (user == null) {
             throw new UsernameNotFoundException("用户 " + s + " 不存在");
+        }else if(user.getStatus().equals(0)){
+            throw new UsernameNotFoundException("用户 " + s + "banned");
+        }else {
+            System.out.println("s:"+s+"已经登录");
+            System.out.println("username:"+user.getUsername());
+            System.out.println("password:"+user.getPassword());
+            return user;
         }
-        System.out.println("s:"+s+"已经登录");
-        System.out.println("username:"+user.getUsername());
-        System.out.println("password:"+user.getPassword());
-        return user;
     }
 }

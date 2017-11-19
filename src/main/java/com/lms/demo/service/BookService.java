@@ -140,7 +140,7 @@ public class BookService {
         entity.setPicture(path);
         entity.setStatus(2);
         bookRepository.save(entity);
-        if(bookInventoryRepository.findOneByBookName(entity.getName())!=null){
+        if(bookInventoryRepository.findByBookName(entity.getName(),1)!=null){
             bookInventoryRepository.addBook(entity.getName());
         }else {
             BookInventory bookInventory = new BookInventory();
@@ -161,7 +161,7 @@ public class BookService {
         Book book = httpService.getFromIsbnApi(b);
         Book reBook = bookRepository.save(book);
         boolean f = false;
-        if(bookInventoryRepository.findOneByBookName(book.getName())!=null){
+        if(bookInventoryRepository.findByBookName(book.getName(),1)!=null){
             if(bookInventoryRepository.addBook(book.getName())==1){
                 f = true;
            }
@@ -171,6 +171,7 @@ public class BookService {
             bookInventory.setBookType(book.getType());
             bookInventory.setBookBorrowQuantity(0);
             bookInventory.setBookTotalQuantity(1);
+            bookInventory.setStatus(1);
             book.setStatus(1);
             if(bookInventoryRepository.save(bookInventory)!=null){
                 f = true;
@@ -194,6 +195,23 @@ public class BookService {
         }
         return bookList;
 
+    }
+
+    public List<BorrowHistory> getBorrowHistory(List<BorrowBooksTable> list) {
+        List<BorrowHistory> bookList = new ArrayList<>();
+        List<BorrowBooksTable> borrowBooksTables = list;
+        for (BorrowBooksTable b : borrowBooksTables) {
+            Book book = bookRepository.findOne(b.getBookId());
+            User user = userRepository.getOne(b.getUserId());
+            BorrowHistory borrowHistory = BorrowBookUtil.getBorrowHistory(b,book,user);
+            bookList.add(borrowHistory);
+        }
+        return bookList;
+
+    }
+
+    public List<Book> getSpecifyBookList(String name){
+        return  bookRepository.findAllByName(name);
     }
 
 }
