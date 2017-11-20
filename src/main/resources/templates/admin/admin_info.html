@@ -11,22 +11,10 @@
     <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
     <script src="../../static/js/jquery-3.2.1.min.js" th:src="'/js/jquery-3.2.1.min.js'"></script>
     <script src="../../static/js/bootstrap.min.js" th:src="'/js/bootstrap.min.js'"></script>
-    <style type="text/css">
-        .footer {
-            border-top: 1px solid #e5e5e5;
-            color: #777;
-            padding: 19px 0;
-            background-color: #f5f5f5;
-            bottom:0px;
-            width: 100%;
-            position:absolute;
-        }
-        .myDiv{
-            padding-left: 20px;
-            border-left:1px solid #D8D8D8;
-        }
-    </style>
-
+    <script src="../../static/js/check.js" th:src="'/js/check.js'"></script>
+    <script src="../../static/js/repeated.js"  th:src="'/js/repeated.js'"></script>
+    <script th:src="'/js/toastr.min.js'" src="../../static/js/toastr.min.js"></script>
+    <link rel="stylesheet" th:href="'/css/toastr.min.css'" href="../../static/css/toastr.min.css">
 </head>
 
 
@@ -176,44 +164,45 @@
                             </r>
                             <div class="modal fade" id="gggg" th:id="'myModel'+${index.count}" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true"  >
                                 <div class="modal-dialog" style="width:600px">
-                                    <div class="modal-content">
-                                        <div class="modal-header" style="background: url(../../static/image/background.jpg)">
+                                    <div class="modal-content" style="background: url(/image/background1.jpg)">
+                                        <div class="modal-header" style="background: url(/image/head.png)">
                                             <button type="button" class="close " data-dismiss="modal" aria-hidden="true">
                                                 &times;
                                             </button>
-                                            <p style="font-size: 20px; text-align: center">Admin Information</p>
+                                            <p style="color: #ffffff; font-size: 20px; text-align: center">Admin Information</p>
 
                                         </div>
                                         <div class="modal-body">
-                                            <div class="container"style="width: 550px">
+                                            <div class="container" style="width: 600px;height: auto">
 
-                                                <form class="form-horizontal " role="form" action="">
+                                                <form class="form-horizontal reg-box" role="form" style="line-height:20px" action="">
                                                     <div class="form-group">
                                                         <label  class="lg2 control-label">AdminID</label>
 
-                                                        <input type="text" th:id="id+${index.count}" name="id" class="lg1 form-control "  readonly="" style="background: #fff;" th:value="${p.id}">
+                                                        <input type="text" th:id="id+${index.count}" name="id" class="lg1 form-control "  readonly="true"  th:value="${p.id}">
 
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label  class="lg2 control-label">AdminName</label>
-
-                                                        <input type="text" class="lg1 form-control"  readonly="" style="background: #fff;" th:value="${p.name}">
+                                                        <input type="text" class="lg1 form-control"  readonly="true"  th:value="${p.name}">
 
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label  class="lg2 control-label">Email</label>
 
-                                                        <input type="text" th:id="email+${index.count}" name="email" class="lg1 form-control" th:value="${p.email}">
+                                                        <input class="lg1 form-control email" type="text" th:onblur="'checkemail('+${index.count}+')'" th:id="email+${index.count}" name="email"  th:value="${p.email}">
+                                                        <p class="pull-left" style="margin-left:120px;width: 520px;font-size: 14px;color: red;visibility: hidden">visibility</p>
 
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label  class="lg2 control-label">Phone</label>
 
-                                                        <input type="text" name="phone" th:id="phone+${index.count}" class="lg1 form-control" th:value="${p.num}">
+                                                        <input class="lg1 form-control phone" type="text" th:onblur="'checkphone('+${index.count}+')'" name="phone" th:id="phone+${index.count}"  th:value="${p.num}">
 
+                                                        <p class="pull-left" style="margin-left:120px;width: 520px;font-size: 14px;color: red;visibility: hidden">visibility</p>
                                                     </div>
 
 

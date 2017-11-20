@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="../../static/css/background.css" th:href="'/css/background.css'">
     <script src="../../static/js/jquery-3.2.1.min.js" th:src="'/js/jquery-3.2.1.min.js'"></script>
     <script src="../../static/js/bootstrap.min.js" th:src="'/js/bootstrap.min.js'"></script>
+    <script th:src="'/js/toastr.min.js'" src="../../static/js/toastr.min.js"></script>
+    <link rel="stylesheet" th:href="'/css/toastr.min.css'" href="../../static/css/toastr.min.css">
     <style type="text/css">
         .footer {
             border-top: 1px solid #e5e5e5;
@@ -199,15 +201,15 @@
                                                     <div class="form-group">
                                                         <label  class="lg2 control-label">Email</label>
 
-                                                        <input type="text" th:id="email+${index.count}" name="email" class="lg1 form-control" th:value="${p.email}">
-
+                                                        <input type="text" th:id="email+${index.count}" name="email" th:onblur="'checkemail('+${index.count}+')'" class="lg1 form-control" th:value="${p.email}">
+                                                        <p class="pull-left" style="margin-left:120px;width: 520px;font-size: 14px;color: red;visibility: hidden">visibility</p>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label  class="lg2 control-label">Phone</label>
 
-                                                        <input type="text" name="phone" th:id="phone+${index.count}" class="lg1 form-control" th:value="${p.num}">
-
+                                                        <input type="text" name="phone" th:id="phone+${index.count}" th:onblur="'checkphone('+${index.count}+')'" class="lg1 form-control" th:value="${p.num}">
+                                                        <p class="pull-left" style="margin-left:120px;width: 520px;font-size: 14px;color: red;visibility: hidden">visibility</p>
                                                     </div>
 
 

@@ -1,4 +1,22 @@
 function addBook() {
+
+    var flag = false;
+    var checks = document.getElementsByName("type");
+    for(var i=0;i<checks.length;i++){
+        if(checks[i].checked==true){
+            flag = true;
+
+        }
+    }
+
+
+    if(!flag){
+        toastr.options.positionClass ='toast-top-center';
+        toastr.error("Please choose one at least!");
+        toastr.options.timeOut = 200;
+        return false;
+    }
+
     var form = new FormData();
     form.append("isbn", $('#isbn').val());
     var area = $('#select1 option:selected').text();
@@ -31,17 +49,23 @@ function addBook() {
          success: function (data) {
 
              if (data['status']==1){
-                alert("Add Ok");
+                 toastr.options.positionClass ='toast-top-center';
+                 toastr.success("Add successfully");
+                 toastr.options.timeOut = 200;
                  window.location.href="/admin/toAddBook";
              }
              else {
-                 alert("error!");
+                 toastr.options.positionClass ='toast-top-center';
+                 toastr.error("Add error");
+                 toastr.options.timeOut = 200;
              }
 
 
          },
          error: function () {
-             alert("Add error!");
+             toastr.options.positionClass ='toast-top-center';
+             toastr.error("Add error");
+             toastr.options.timeOut = 200;
          }
     });
     return;

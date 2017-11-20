@@ -13,6 +13,8 @@
     <script src="../../static/js/bootstrap.min.js" th:src="'/js/bootstrap.min.js'"></script>
     <script src="../../static/js/user.js" th:src="'/js/user.js'"></script>
     <script src="../../static/js/jquery.backstretch.min.js" th:src="'/js/jquery.backstretch.min.js'"></script>
+    <script src="../../static/js/check.js" th:src="'/js/check.js'"></script>
+
 
 </head>
 <body>
@@ -36,29 +38,27 @@
             <img src="../../static/image/schoolmark.png" th:src="'/image/schoolmark.png'" style="height: 500px;width: auto;margin-top: 40px">
         </div>
         <div class="col-md-offset-2 col-md-3 ">
-            <form class="form-horizontal" id="login" method="post" th:action="'/web/login'">
+            <form class="form-horizontal reg-box" id="login"  method="post" th:action="'/web/login'">
                 <span class="heading">login</span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="account" name="username"
-                               placeholder="account"> <i class="fa fa-user"></i>
-                        <p id="msg">
-                    </div>
-                    <div class="form-group ">
-                        <input type="password" class="form-control" id="password" name="password"
-                               placeholder="password"> <i class="fa fa-lock"></i> <a href="#"   class="fa fa-question-circle"></a>
-                    </div>
+                <div class="form-group">
+                    <input type="text" class="form-control account"  id="account" name="username"
+                           placeholder="account">
+                    <p class="pull-left" style="font-size: 14px;color: red;visibility: hidden">visibility</p>
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="form-group ">
+                    <input type="password" class="form-control admin_pwd" id="password" name="password"
+                           placeholder="password">
+                    <p class="pull-left" style="font-size: 14px;color: red;visibility: hidden">visibility</p>
+                    <i class="fa fa-lock"></i>
+                </div>
 
-                    <div class="form-group">
-                        <div class="main-checkbox">
-                            <input type="checkbox" value="None" id="checkbox1" name="check" />
-                            <label for="checkbox1"></label>
-                        </div>
+                <div class="form-group">
 
-                        <span class="text">Remember me</span>
-                        <input type="submit" class="btn btn-default"  value="login"/>
-                        <!--<a href="../../templates/web/register.html" th:href="'/web/toRegister'"><input id="btn-login" type="button" class="btn btn-default"  value="register"/></a>-->
+                    <input type="submit" class="btn btn-default  admin_submit"  value="login"/>
+                    <!--<a href="../../templates/web/register.html" th:href="'/web/toRegister'"><input id="btn-login" type="button" class="btn btn-default"  value="register"/></a>-->
 
-                    </div>
+                </div>
 
             </form>
         </div>

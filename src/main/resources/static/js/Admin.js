@@ -13,10 +13,18 @@ function addAdmin() {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/toAddAdmin";
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                //alert(result.message);
+                window.setTimeout("window.location.href='/admin/toAddAdmin'",1000);
+
+
             },error:function(){
-                alert("Add administrator failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Add administrator failed");
+                toastr.options.timeOut = 500;
+                //alert("Add administrator failed");
             }
 
 
@@ -27,11 +35,18 @@ function addAdmin() {
 }
 
 function addStudent() {
+
+
+
     var form = new FormData();
     form.append("username",$("#username").val());
     form.append("password",$("#password").val());
     form.append("email",$("#email").val());
     form.append("num",$("#num").val());
+
+
+
+
     $.ajax({
             type:'POST',
             url:'/admin/addStudent',
@@ -41,10 +56,16 @@ function addStudent() {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/toAddStudent";
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                window.setTimeout("window.location.href='/admin/toAddStudent'",1000);
+
+
             },error:function(){
-                alert("Add administrator failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Add administrator failed");
+                toastr.options.timeOut = 500;
             }
 
 
@@ -69,18 +90,22 @@ function borrowBook() {
             contentType: false,
             success:function (result) {
                 if(result.message=="You should pay arrearage"){
-                    var con = confirm("Would you pay arrearage?");
-                    if(con==true){
-                        alert("give me your money");
-                        window.location.href="/admin/toArrearagePay?userId="+userId;
-                    }
+
+                    window.location.href="/admin/toArrearagePay?userId="+userId;
+
                 }else {
-                    alert(result.message);
-                    window.location.href="/admin/toBorrowBook";
+                    toastr.options.positionClass ='toast-top-center';
+                    toastr.success(result.message);
+                    toastr.options.timeOut = 500;
+                    window.setTimeout("window.location.href='/admin/toBorrowBook'",1000);
+
+
                 }
 
             },error:function(){
-                alert("Borrow Book failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Borrow Book failed");
+                toastr.options.timeOut = 500;
             }
 
         }
@@ -101,17 +126,20 @@ function ReturnBook() {
             contentType: false,
             success:function (result) {
                 if(result.message=="You should pay arrearage"){
-                    var con = confirm("Would you pay arrearage?");
-                    if(con==true){
-                        alert("give me your money");
-                        window.location.href="/admin/toArrearagePay?bookId="+bookId;
-                    }
+                    window.location.href="/admin/toArrearagePay?bookId="+bookId;
+
                 }else {
-                    alert(result.message);
-                    window.location.href="/admin/toBorrowBook";
+                    toastr.options.positionClass ='toast-top-center';
+                    toastr.success(result.message);
+                    toastr.options.timeOut = 500;
+                    window.setTimeout("window.location.href='/admin/toBorrowBook'",1000);
+
+
                 }
             },error:function(){
-                alert("ReturnBook Book failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("ReturnBook Book failed");
+                toastr.options.timeOut = 500;
             }
 
         }
@@ -133,10 +161,17 @@ function payMoney(userId) {
                 processData: false,
                 contentType: false,
                 success:function (result) {
-                    alert(result.message);
-                    window.location.href="/admin/toBorrowBook";
+                    toastr.options.positionClass ='toast-top-center';
+                    toastr.success(result.message);
+                    toastr.options.timeOut = 500;
+                    window.setTimeout("window.location.href='/admin/toBorrowBook'",1000);
+
+
                 },error:function(){
-                    alert("Pay money failed");
+                    toastr.options.positionClass ='toast-top-center';
+                    toastr.error("Pay money failed");
+                    toastr.options.timeOut = 500;
+                    //alert();
                 }
 
             }
@@ -149,6 +184,52 @@ function modifyAdmin(i) {
     form.append("id",$("#id"+i).val());
     form.append("email",$("#email"+i).val());
     form.append("phone",$("#phone"+i).val());
+
+
+
+    var email = $("#email"+i);
+    var phone = $("#phone"+i);
+
+    var isTrue = true;
+
+    reg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    reg2=/^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
+
+    if(email.val()===""){
+        email.addClass("errorC");
+        email.next().html("Please input your email");
+        email.next().css("visibility","visible");
+        isTrue = false;
+
+    }else if(email.val().match(reg) === null){
+        email.addClass("errorC");
+        email.next().html("The format of email is wrong!");
+        email.next().css("visibility","visible");
+        isTrue = false;
+    }
+
+    if(phone.val()===""){
+        phone.addClass("errorC");
+        phone.next().html("Please input your phone num!");
+        phone.next().css("visibility","visible");
+        return false;
+    }else if(phone.val().length<11)
+    {
+        phone.addClass("errorC");
+        phone.next().html("The length of phone num is wrong!");
+        phone.next().css("visibility","visible");
+        isTrue = false;
+    } else if(phone.val().match(reg2) === null){
+        phone.addClass("errorC");
+        phone.next().html("The format of phone num is wrong!");
+        phone.next().css("visibility","visible");
+        isTrue = false;
+    }
+
+
+    if(isTrue===false) return isTrue;
+
+
     $.ajax({
             type:'POST',
             url:'/admin/modifyAdmin',
@@ -158,10 +239,17 @@ function modifyAdmin(i) {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/toManageAdmin";
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                window.setTimeout("window.location.href='/admin/toManageAdmin'",1000);
+
+
             },error:function(){
-                alert("Modify AdminInfo failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Modify AdminInfo failed");
+                toastr.options.timeOut = 500;
+
             }
 
         }
@@ -173,6 +261,48 @@ function modifyUser(i) {
     form.append("id",$("#id"+i).val());
     form.append("email",$("#email"+i).val());
     form.append("phone",$("#phone"+i).val());
+
+    var email = $("#email"+i);
+    var phone = $("#phone"+i);
+
+    var isTrue = true;
+
+    reg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    reg2=/^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
+
+    if(email.val()===""){
+        email.addClass("errorC");
+        email.next().html("Please input your email");
+        email.next().css("visibility","visible");
+        isTrue = false;
+
+    }else if(email.val().match(reg) === null){
+        email.addClass("errorC");
+        email.next().html("The format of email is wrong!");
+        email.next().css("visibility","visible");
+        isTrue = false;
+    }
+
+    if(phone.val()===""){
+        phone.addClass("errorC");
+        phone.next().html("Please input your phone num!");
+        phone.next().css("visibility","visible");
+        return false;
+    }else if(phone.val().length<11)
+    {
+        phone.addClass("errorC");
+        phone.next().html("The length of phone num is wrong!");
+        phone.next().css("visibility","visible");
+        isTrue = false;
+    } else if(phone.val().match(reg2) === null){
+        phone.addClass("errorC");
+        phone.next().html("The format of phone num is wrong!");
+        phone.next().css("visibility","visible");
+        isTrue = false;
+    }
+
+
+    if(isTrue===false) return isTrue;
     $.ajax({
             type:'POST',
             url:'/admin/modifyAdmin',
@@ -182,10 +312,16 @@ function modifyUser(i) {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/toManageUser";
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                window.setTimeout("window.location.href='/admin/toManageUser'",1000);
+
+
             },error:function(){
-                alert("Modify AdminInfo failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Modify AdminInfo failed");
+                toastr.options.timeOut = 500;
             }
 
         }
@@ -205,10 +341,15 @@ function modifySelfInfo() {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/adminInfo";
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                window.setTimeout("window.location.href='/admin/adminInfo'",1000);
+
             },error:function(){
-                alert("Modify Info failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Modify Info failed");
+                toastr.options.timeOut = 500;
             }
 
         }
@@ -231,10 +372,16 @@ function deleteAdmin(id) {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/toManageAdmin";
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                window.setTimeout("window.location.href='/admin/toManageAdmin'",1000);
+
+
             },error:function(){
-                alert("Deleted failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Deleted failed");
+                toastr.options.timeOut = 500;
             }
 
         }
@@ -257,10 +404,16 @@ function startAdmin(id) {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/toManageAdmin";
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                window.setTimeout("window.location.href='/admin/toManageAdmin'",1000);
+
+
             },error:function(){
-                alert("Start failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Start failed");
+                toastr.options.timeOut = 500;
             }
 
         }
@@ -283,10 +436,16 @@ function deleteUser(id) {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/toManageUser";
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                window.setTimeout("window.location.href='/admin/toManageUser'",1000);
+
             },error:function(){
-                alert("Deleted failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Deleted failed");
+                toastr.options.timeOut = 500;
+
             }
 
         }
@@ -305,10 +464,16 @@ function AllBookInfo(name) {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/adminInfo";
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                window.setTimeout("window.location.href='/admin/adminInfo'",1000);
+
+
             },error:function(){
-                alert("Modify Info failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Modify Info failed");
+                toastr.options.timeOut = 500;
             }
 
         }
@@ -342,12 +507,14 @@ function appendBookInfo(id,bookname) {
                             <td>'+'<a id='+'\'mytda\' class='+'\'btn btn-primary\' onclick='+'\'deleteBook('+a.id+')\'>\
                             <span class='+'\'glyphicon  glyphicon-trash\'></span>\
                             </a></tr>');
-
               }
                 $("#myModel"+id).modal("show");
             }
             ,error:function(){
-                alert("Modify Info failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Modify Info failed");
+                toastr.options.timeOut = 500;
+
             }
 
         }
@@ -370,12 +537,76 @@ function deleteBook(id) {
             processData: false,
             contentType: false,
             success:function (result) {
-                alert(result.message);
-                window.location.href="/admin/bookStatusList";
+
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+
+                window.setTimeout("window.location.href='/admin/bookStatusList'",1000);
+
             },error:function(){
-                alert("Delete book failed");
+                toastr.options.positionClass ='toast-top-center';
+                toastr.error("Delete book failed");
+                toastr.options.timeOut = 500;
             }
 
         }
     )
+}
+
+
+function checkemail(id) {
+    /*密码输入框失去焦点*/
+    var email = $("#email"+id);
+
+
+        reg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+
+        if(email.val() === "email"||email.val()===""){
+            email.addClass("errorC");
+            email.next().html("Please input your email!");
+            email.next().css("visibility","visible");
+
+        }else if(email.val().match(reg) === null){
+            email.addClass("errorC");
+            email.next().html("The format of email is wrong!");
+            email.next().css("visibility","visible");
+        }else
+        {
+            email.addClass("checkedN");
+            email.removeClass("errorC");
+            email.next().empty();
+        }
+    
+
+}
+
+function checkphone(id) {
+    //手机号栏失去焦点
+    var phone=$("#phone"+id);
+        reg=/^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
+
+        if( phone.val()===""|| phone.val()==="Please input your phone!")
+        {
+            phone.addClass("errorC");
+            phone.next().html("Please input your phone num!");
+            phone.next().css("visibility","visible");
+        }
+        else if(phone.val().length<11)
+        {
+            phone.addClass("errorC");
+            phone.next().html("The length of phone num is wrong!");
+            phone.next().css("visibility","visible");
+        } else if(phone.val().match(reg) === null){
+            phone.addClass("errorC");
+            phone.next().html("The format of phone num is wrong!");
+            phone.next().css("visibility","visible");
+        } else
+        {
+            phone.addClass("checkedN");
+            phone.removeClass("errorC");
+            phone.next().empty();
+        }
+
+    
 }

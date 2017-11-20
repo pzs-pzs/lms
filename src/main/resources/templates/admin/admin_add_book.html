@@ -14,7 +14,11 @@
     <script th:src="'/js/jquery.backstretch.js'" src="../../static/js/jquery.backstretch.js"></script>
     <script th:src="'/js/bootstrap.min.js'" src="../../static/js/bootstrap.min.js"></script>
     <script th:src="'/js/uploadUtils.js'" src="../../static/js/uploadUtils.js"></script>
+    <script th:src="'/js/toastr.min.js'" src="../../static/js/toastr.min.js"></script>
+    <link rel="stylesheet" th:href="'/css/toastr.min.css'" href="../../static/css/toastr.min.css">
 
+    <script src="../../static/js/check.js" th:src="'/js/check.js'"></script>
+    <script src="../../static/js/repeated.js"  th:src="'/js/repeated.js'"></script>
 
 
     <script>
@@ -117,11 +121,12 @@
         <div class="col-lg-6">
             <div class="center">
 
-                <div class="form-horizontal" role="form">
+                <div class="form-horizontal reg-box" role="form">
                     <div class="form-group">
                         <label  class="col-sm-3 control-label" style="font-size: 16px">ISBN</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="isbn" name="isbn"  placeholder="Please input ISBN">
+                            <input type="text" class="form-control isbn" id="isbn" name="isbn"  placeholder="Please input ISBN">
+                            <p class="pull-left" style="font-size: 14px;color: red;visibility: hidden">visibility</p>
                         </div>
                     </div>
 
@@ -190,7 +195,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label" style="font-size: 16px">Allow Borrow</label>
                         <label class="radio-inline col-sm-2">
-                            <input type="radio" name="bstatus" id="optionsRadios1"  value="1"> Yes
+                            <input type="radio" name="bstatus" id="optionsRadios1"  value="1" checked> Yes
                         </label>
                         <label class="radio-inline col-sm-2">
                             <input type="radio" name="bstatus" id="optionsRadios2"  value="2"> No
