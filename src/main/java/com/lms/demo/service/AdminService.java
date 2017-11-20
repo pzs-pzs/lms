@@ -211,6 +211,8 @@ public class AdminService {
         }else {
             date = DateUtils.getBeforeDays(new Date(),7);
         }
+        String qdate = dateFormat.format(date);
+        System.out.println(date);
         Specification<Fine> specification = new Specification<Fine>() {
 
             @Override
@@ -218,7 +220,7 @@ public class AdminService {
                 Path<Date> createDate = root.get("createDate");
                 Path<Integer> status = root.get("status");
                 Predicate p1 = cb.equal(status,statu);
-                Predicate p3 = cb.lessThan(createDate.as(String.class),date.toString());
+                Predicate p3 = cb.greaterThan(createDate.as(String.class),qdate);
                 return cb.and(p1,p3);
             }
         };
@@ -384,7 +386,7 @@ public class AdminService {
     }
 
     public BookList getSpecifyBookList(String bookname){
-       List<Book> list = bookRepository.findAllByName(bookname);
+       List<Book> list = bookRepository.findAllByName(bookname,1);
        List<String> borrower = new ArrayList<>();
        for(Book b:list){
            BorrowBooksTable borrowBooksTable = borrowBookRepository.findoneByBookIdAndStatus(b.getId(),1);

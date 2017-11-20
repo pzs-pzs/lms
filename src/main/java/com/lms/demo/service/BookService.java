@@ -11,8 +11,10 @@ import com.lms.demo.repository.BookInventoryRepository;
 import com.lms.demo.repository.BookRepository;
 import com.lms.demo.repository.QueryBookRepository;
 import com.lms.demo.repository.UserRepository;
+import com.lms.demo.util.BarCodeUtils;
 import com.lms.demo.util.BorrowBookUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -152,7 +154,8 @@ public class BookService {
         }
 
     }
-
+    @Value("${storage.image.barcode}")
+    String path;
     /**
      * 添加图书
      * @param b
@@ -160,6 +163,7 @@ public class BookService {
     public boolean addBook(Book b) throws Exception {
         Book book = httpService.getFromIsbnApi(b);
         Book reBook = bookRepository.save(book);
+        BarCodeUtils.generateFile(reBook.getId()+"", path+reBook.getId()+".png");
         boolean f = false;
         if(bookInventoryRepository.findByBookName(book.getName(),1)!=null){
             if(bookInventoryRepository.addBook(book.getName())==1){

@@ -26,5 +26,8 @@ public interface BookRepository extends JpaRepository<Book,Long>,JpaSpecificatio
     public List<Book> findAllByName(String name);
 
 
+    @Query("select c from Book c where c.name=?1 and c.status=?2")
+    public List<Book> findAllByName(String name,Integer status);
+
     public Book findTopOrOrderByName(String name);
 }
