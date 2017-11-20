@@ -18,8 +18,6 @@ function addAdmin() {
                 toastr.options.timeOut = 500;
                 //alert(result.message);
                 window.setTimeout("window.location.href='/admin/toAddAdmin'",1000);
-
-
             },error:function(){
                 toastr.options.positionClass ='toast-top-center';
                 toastr.error("Add administrator failed");
@@ -60,17 +58,11 @@ function addStudent() {
                 toastr.success(result.message);
                 toastr.options.timeOut = 500;
                 window.setTimeout("window.location.href='/admin/toAddStudent'",1000);
-
-
             },error:function(){
                 toastr.options.positionClass ='toast-top-center';
-                toastr.error("Add administrator failed");
+                toastr.error("Add Student Failed");
                 toastr.options.timeOut = 500;
             }
-
-
-
-
         }
     )
 }
@@ -148,7 +140,7 @@ function ReturnBook() {
 
 function payMoney(userId) {
     var fine =$('#arrearage').text();
-    var con = confirm("Would you pay ¥"+fine+"?");
+    var con = confirm("Fine: ¥"+fine+"?");
     var form = new FormData();
     form.append("userId",userId);
     if(con==true){
@@ -452,6 +444,37 @@ function deleteUser(id) {
     )
 }
 
+function startUser(id) {
+    var form = new FormData();
+    form.append("id",id);
+    var con = confirm("Are you sure start this?");
+    if(con==false){
+        return;
+    }
+    $.ajax({
+            type:'POST',
+            url:'/admin/startUser',
+            data:form,
+            dataType:'json',
+            traditional: true,
+            processData: false,
+            contentType: false,
+            success:function (result) {
+
+                toastr.options.positionClass ='toast-top-center';
+                toastr.success(result.message);
+                toastr.options.timeOut = 500;
+                window.setTimeout("window.location.href='/admin/toManageUser'",1000);
+
+            },error:function(){
+                alert("Start failed");
+            }
+
+        }
+    )
+}
+
+
 function AllBookInfo(name) {
     var form = new FormData();
     form.append("bookname",name);
@@ -497,12 +520,21 @@ function appendBookInfo(id,bookname) {
                 for(var i = 0; i < bookList.specifyBookList.length; i++){
                     var a = bookList.specifyBookList[i];
                     var borrowerrrr = bookList.borrower[i];
+                    var status;
+                    if(a.bStatus==0){
+                        status="Not Returned";
+                    }else if(a.bStatus==1){
+                        status="On Shelf"
+                    }else{
+                        status="Borrow Forbidden";
+                    }
+
                         $("#table"+id+" tbody").append('<tr>\
                             <td>'+a.id+'</td>\
                             <td>'+a.name+'</td>\
-                            <td>'+a.isbn+'</td>\
                             <td>'+a.authorName+'</td>\
-                            <td>'+a.status+'</td>\
+                            <td>'+a.location+'</td>\
+                            <td>'+status+'</td>\
                             <td>'+borrowerrrr+'</td>\
                             <td>'+'<a id='+'\'mytda\' class='+'\'btn btn-primary\' onclick='+'\'deleteBook('+a.id+')\'>\
                             <span class='+'\'glyphicon  glyphicon-trash\'></span>\
@@ -554,7 +586,6 @@ function deleteBook(id) {
     )
 }
 
-
 function checkemail(id) {
     /*密码输入框失去焦点*/
     var email = $("#email"+id);
@@ -583,30 +614,59 @@ function checkemail(id) {
 
 function checkphone(id) {
     //手机号栏失去焦点
-    var phone=$("#phone"+id);
-        reg=/^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
+    var phone = $("#phone" + id);
+    reg = /^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
 
-        if( phone.val()===""|| phone.val()==="Please input your phone!")
-        {
-            phone.addClass("errorC");
-            phone.next().html("Please input your phone num!");
-            phone.next().css("visibility","visible");
-        }
-        else if(phone.val().length<11)
-        {
-            phone.addClass("errorC");
-            phone.next().html("The length of phone num is wrong!");
-            phone.next().css("visibility","visible");
-        } else if(phone.val().match(reg) === null){
-            phone.addClass("errorC");
-            phone.next().html("The format of phone num is wrong!");
-            phone.next().css("visibility","visible");
-        } else
-        {
-            phone.addClass("checkedN");
-            phone.removeClass("errorC");
-            phone.next().empty();
-        }
+    if (phone.val() === "" || phone.val() === "Please input your phone!") {
+        phone.addClass("errorC");
+        phone.next().html("Please input your phone num!");
+        phone.next().css("visibility", "visible");
+    }
+    else if (phone.val().length < 11) {
+        phone.addClass("errorC");
+        phone.next().html("The length of phone num is wrong!");
+        phone.next().css("visibility", "visible");
+    } else if (phone.val().match(reg) === null) {
+        phone.addClass("errorC");
+        phone.next().html("The format of phone num is wrong!");
+        phone.next().css("visibility", "visible");
+    } else {
+        phone.addClass("checkedN");
+        phone.removeClass("errorC");
+        phone.next().empty();
+    }
 
-    
+
+}
+function toSearchUserInfo() {
+    var username = $('#username').val();
+    var form = new FormData();
+    form.append("username",username);
+    $.ajax({
+            type:'POST',
+            url:'/admin/toSearchUserInfo',
+            data:form,
+            dataType:'json',
+            traditional: true,
+            processData: false,
+            contentType: false,
+            success:function (result) {
+                if(result.message=="null"){
+                    toastr.options.positionClass ='toast-top-center';
+                    toastr.error("User doesn't exist");
+                    toastr.options.timeOut = 500;
+                    window.setTimeout("window.location.href='/admin/toUserInfo'",1000);
+                }else{
+                    window.location.href="/admin/findUserInfo?username="+username;
+                }
+
+            },error:function(){
+            toastr.options.positionClass ='toast-top-center';
+            toastr.error("Find failed");
+            toastr.options.timeOut = 500;
+            }
+
+        }
+    )
+
 }

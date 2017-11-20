@@ -92,8 +92,8 @@ public class BarCodeUtils {
     }
 
     public static void main(String[] args) {
-        String msg = "14130110035";
-        String path = "C:\\Users\\puzhengsong\\Desktop\\img\\barcode.png";
+        String msg = "14130110036";
+        String path = "C:\\Users\\liuzhenghao\\Desktop\\img\\14130110036.png";
         generateFile(msg, path);
     }
 }

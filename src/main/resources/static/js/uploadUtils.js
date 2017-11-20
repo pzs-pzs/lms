@@ -5,10 +5,8 @@ function addBook() {
     for(var i=0;i<checks.length;i++){
         if(checks[i].checked==true){
             flag = true;
-
         }
     }
-
 
     if(!flag){
         toastr.options.positionClass ='toast-top-center';
@@ -51,13 +49,13 @@ function addBook() {
              if (data['status']==1){
                  toastr.options.positionClass ='toast-top-center';
                  toastr.success("Add successfully");
-                 toastr.options.timeOut = 200;
-                 window.location.href="/admin/toAddBook";
+                 toastr.options.timeOut = 500;
+                 window.setTimeout("window.location.href='/admin/toAddBook'",1000);
              }
              else {
                  toastr.options.positionClass ='toast-top-center';
                  toastr.error("Add error");
-                 toastr.options.timeOut = 200;
+                 toastr.options.timeOut = 500;
              }
 
 

@@ -32,7 +32,7 @@
         }
 
         html body{
-            background: url("/image/background1.jpg") ;
+            background: url(/image/background1.jpg) ;
 
         }
         .form-group {
@@ -109,7 +109,7 @@
 
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        Arrearage
+                                        Fine
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu aaaaa">
@@ -133,15 +133,15 @@
                                     </ul>
                                 </li>
 
-                                <li class="dropdown">
+                                <li class="dropdown active">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <span class="glyphicon glyphicon-user" th:text="${user}">Admin</span>
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right aaaaa">
-                                        <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                        <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Home</a></li>
                                         <li class="divider"></li>
-                                        <li><a class="text-right" th:href="'/admin/adminInfo'">Info</a></li>
+                                        <li><a class="text-right" th:href="'/admin/adminInfo'">Archives</a></li>
                                         <li class="divider"></li>
                                         <li><a class="text-right" href="/logout">Log out</a></li>
                                     </ul>
@@ -169,9 +169,9 @@
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu aaaaa">
-                                        <li><a href="#" th:href="'/admin/bookStatusList'">Book information</a></li>
+                                        <li><a href="#" th:href="'/admin/bookStatusList'">Book Information</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="#" th:href="'/admin/toUserInfo'">User information</a></li>
+                                        <li><a href="#" th:href="'/admin/toUserInfo'">Reader Borrowed History</a></li>
                                     </ul>
                                 </li>
 
@@ -183,19 +183,19 @@
                                     <ul class="dropdown-menu aaaaa">
                                         <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a href="#" th:href="'/admin/toManageAdmin'">Admin</a></li>
                                         <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
-                                        <li><a href="#" th:href="'/admin/toManageUser'">User</a></li>
+                                        <li><a href="#" th:href="'/admin/toManageUser'">Reader</a></li>
                                     </ul>
                                 </li>
 
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        Arrearage
+                                        Fine
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu aaaaa">
-                                        <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All paid</a></li>
+                                        <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All Paid</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All unpaid</a></li>
+                                        <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All UnPaid</a></li>
                                     </ul>
                                 </li>
 
@@ -207,9 +207,9 @@
                                     <ul class="dropdown-menu aaaaa">
                                         <li><a href="#" th:href="'/admin/toAddBook'">Book</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="#" th:href="'/admin/toAddStudent'">Student</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#" th:href="'/admin/toAddAdmin'">Librarian</a></li>
+                                        <li><a href="#" th:href="'/admin/toAddStudent'">Reader</a></li>
+                                        <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
+                                        <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a href="#" th:href="'/admin/toAddAdmin'">Admin</a></li>
                                     </ul>
                                 </li>
 
@@ -219,9 +219,9 @@
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right aaaaa">
-                                        <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                        <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Home</a></li>
                                         <li class="divider"></li>
-                                        <li><a class="text-right" th:href="'/admin/adminInfo'">Info</a></li>
+                                        <li><a class="text-right" th:href="'/admin/adminInfo'">Archives</a></li>
                                         <li class="divider"></li>
                                         <li><a class="text-right" href="/logout">Log out</a></li>
                                     </ul>
@@ -241,8 +241,8 @@
                             <ul class="nav navbar-nav pull-right bbbbb">
                                 <li><a href="../../templates/web/fineRecord.html" th:href="'/web/profile'">Not Return History</a></li>
                                 <li><a href="../../templates/web/borrowRecord.html" th:href="'/web/borrowRecord'">Returned History</a></li>
-                                <li class="active"><a href="#">Fine History</a></li>
-                                <li><a href="../../templates/web/needFineRecord.html" th:href="'/web/needFineRecord'">Need Fine</a></li>
+                                <li><a href="#">Payment Record</a></li>
+                                <li><a href="../../templates/web/needFineRecord.html" th:href="'/web/needFineRecord'">Unpaid Fine</a></li>
                                 <!-- 修改-->
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -250,9 +250,9 @@
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right aaaaa">
-                                        <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                        <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Home</a></li>
                                         <li class="divider"></li>
-                                        <li><a class="text-right" href="#" th:href="'/admin/adminInfo'">Info</a></li>
+                                        <li><a class="text-right" href="#" th:href="'/admin/adminInfo'">Archives</a></li>
                                         <li class="divider"></li>
                                         <li><a class="text-right" href="#" th:href="'/logout'">Log out</a></li>
                                     </ul>
@@ -271,8 +271,8 @@
         </div>
 
             <div class="center well well-lg">
-                <p style="font-size:30px;margin-bottom: 30px ">Admin Information</p>
-                <form class="form-horizontal reg-box" style="line-height: 10px" role="form"  action="">
+                <p style="font-size:30px;margin-bottom: 30px ">Information</p>
+                <form class="form-horizontal reg-box" role="form" action="">
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">Username</label>
                         <div class="col-sm-10">

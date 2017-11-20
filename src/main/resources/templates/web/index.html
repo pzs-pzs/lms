@@ -37,6 +37,7 @@
             min-height: 100%;
             height: auto !important;
             height: 100%;
+
             margin: 0 auto -60px;/*margin-bottom的负值等于footer高度*/
         }
         .push,
@@ -74,10 +75,10 @@
                                 <ul class="dropdown-menu dropdown-menu-right aaaaa">
 
                                     <li  sec:authorize="hasRole('ROLE_ADMIN')"><a class="text-right" href="#" th:href="'/admin/toAddBook'">Profile</a></li>
-                                    <li  sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a class="text-right" href="#" th:href="'/admin/toAddBook'">Profile</a></li>
+                                    <li  sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a class="text-right" href="#" th:href="'/admin/toBorrowBook'">Profile</a></li>
                                     <li  sec:authorize="hasRole('ROLE_NORMAL_USER')"><a  class="text-right" href="#" th:href="'/web/profile'">Profile</a></li>
                                     <li class="divider"></li>
-                                    <li><a class="text-right" href="#" th:href="'/admin/adminInfo'">Info</a></li>
+                                    <li><a class="text-right" href="#" th:href="'/admin/adminInfo'">Archives</a></li>
 
                                     <li class="divider"></li>
                                     <li><a class="text-right" href="#" th:href="'/logout'">Log out</a></li>
@@ -136,8 +137,9 @@
                                                    placeholder="BookName">
                                         </div>
                                         <div class="col-sm-2">
-                                            <input type="submit" class="btn btn-default" value="Go!">
-                                            </input>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
@@ -151,7 +153,7 @@
                             <div class="col-md-12 column">
                                 <div class="row">
                                     <th:block th:each="p,index:${bookList}">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" data-toggle="modal"  th:attr="data-target='#myModel'+${index.count}">
                                             <div class="thumbnail mybakc">
                                                 <img alt="300x200" src="../../static/image/3.jpg" th:src="${p.picture}" style="height: 139px; width: 106px"/>
                                                 <div class="caption">
@@ -159,32 +161,36 @@
                                                         Thumbnail label
                                                     </h3>
                                                     <p class="col-lg-offset-8">
-                                                        <a id="dddd" class="btn btn-primary" data-toggle="modal"  th:attr="data-target='#myModel'+${index.count}" >Detail</a>
+                                                    <p></p>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal fade" th:id="'myModel'+${index.count}" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" style="width:1100px">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" style="background: url(/ima)">
+
+                                                <div class="modal-content" style="background: url(/image/background1.jpg)">
+                                                    <div class="modal-header" style="background: url(/image/head.png)">
                                                         <button type="button" class="close " data-dismiss="modal" aria-hidden="true">
                                                             &times;
                                                         </button>
-                                                        <p style="text-align: center">Details</p>
+                                                        <p style="text-align: center;font-size: 22px;color: #FFFFFF;margin: 0 auto">Details</p>
 
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="container">
                                                             <div class="col-lg-4">
-                                                                <img src="../../static/image/3.jpg" th:src="${p.picture}" style="height: 139px; width: 106px">
+                                                                <center>
+                                                                    <img src="../../static/image/3.jpg"  th:src="${p.picture}" style="height: 300px; width: 200px;">
+                                                                </center>
                                                             </div>
 
                                                             <div class="col-lg-7">
-                                                                <p th:text="'bookName:'+${p.name}"></p>
-                                                                <p th:text="'author name:'+${p.authorName}">author name</p>
-                                                                <P th:text="'location:'+${p.location}">location</P>
-                                                                <p >remarks:</p></pr></br></br></br></br></p>
+                                                                <p style="font-size: 20px;font-weight: bold" th:text="${p.name}"></p>
+                                                                <p style="font-size: 18px" th:text="${p.authorName}">author name</p>
+                                                                <P style="font-size: 16px" th:text="${p.location}">location</P>
+                                                                <P style="font-size: 16px" th:text="${p.quantity}">location</P>
+                                                                <p ></p></pr></br></br></br></br></p>
                                                                 <h4 th:text="${p.remarks}"></h4>
                                                             </div>
                                                         </div>
@@ -197,6 +203,7 @@
                                                 </div>
                                             </div><!-- /.modal-content -->
                                         </div><!-- /.modal -->
+
 
                                     </th:block>
                                 </div>
@@ -264,7 +271,7 @@
 
                             </th:block>
                             <!--分页-->
-
+                            <br><br><br>
                         </div>
 
 

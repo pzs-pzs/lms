@@ -49,7 +49,6 @@ public class AdminService {
         PageRequest pageRequest = new PageRequest(page,size,sort);
         User user = userRepository.findByName(username);
         if(user==null){
-            System.out.println(page);
             map.put("page",page);
             return map;
         }
@@ -89,7 +88,6 @@ public class AdminService {
         Sort sort = new Sort(Sort.Direction.DESC,"createDate");
         Pageable pageable = new PageRequest(page,size,sort);
         Page<BookInventory> bookInventoryPage = bookInventoryRepository.findAll(1,pageable);
-        System.out.println(bookInventoryPage.getSize());
         return bookInventoryPage;
     }
 
@@ -107,7 +105,6 @@ public class AdminService {
         Sort sort = new Sort(Sort.Direction.DESC,"createDate");
         Pageable pageable = new PageRequest(page,size,sort);
         List<BookInventory>  bookInventoryList = bookInventoryRepository.findAll(specification,pageable).getContent();
-        System.out.println(bookInventoryList.size());
         return bookInventoryRepository.findAll(specification,pageable);
     }
 
@@ -127,7 +124,8 @@ public class AdminService {
                                String email,String num){
         User users = userRepository.findByName(username);
         if(users!=null){
-            return "Username is not available";
+            System.out.println(users.getName());
+            return "Username is repeated";
         }
         User user = new User();
         BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(4);
@@ -203,7 +201,7 @@ public class AdminService {
         return fineRepository.findAllByStatus(status,pageRequest);
     }
 
-    public Page<Fine> getAllPaidListByDateRange(int page, int size, int status,String DateRange){
+    public Page<Fine> getAllPaidListByDateRange(int page, int size, int statu,String DateRange){
         Date date;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         if(DateRange.equals("year")){
@@ -219,8 +217,8 @@ public class AdminService {
             public Predicate toPredicate(Root<Fine> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 Path<Date> createDate = root.get("createDate");
                 Path<Integer> status = root.get("status");
-                Predicate p1 = cb.equal(status,"1");
-                Predicate p3 = cb.lessThan(createDate.as(String.class),dateFormat.format(date));
+                Predicate p1 = cb.equal(status,statu);
+                Predicate p3 = cb.lessThan(createDate.as(String.class),date.toString());
                 return cb.and(p1,p3);
             }
         };
@@ -286,6 +284,7 @@ public class AdminService {
         if(user.getStatus().equals(0)){
             return "Student is forbidden";
         }
+        System.out.println(book.getbStatus());
         if(book.getbStatus().equals(0)){
             return "Book doesn't return";
         }
@@ -337,7 +336,6 @@ public class AdminService {
         Date date = DateUtils.getBeforeDays(new Date(),15);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String d2 = format.format(date);
-        System.out.println(d2);
         Specification<BorrowBooksTable> specification = new Specification<BorrowBooksTable>() {
             @Override
             public Predicate toPredicate(Root<BorrowBooksTable> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {

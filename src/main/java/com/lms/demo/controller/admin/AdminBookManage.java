@@ -229,6 +229,18 @@ public class AdminBookManage {
         return "admin/admin_user_borrow_info1";
     }
 
+    @RequestMapping("toSearchUserInfo")
+    @ResponseBody
+    public String toSearchUserInfo(@RequestParam(name = "username")String username){
+        User user = userService.getUserByUsername(username);
+        System.out.println("aaaaaaaaaa");
+        if(user==null){
+            return "{\"message\":\"null\"}";
+        }else {
+            return "{\"message\":\"success\"}";
+        }
+    }
+
     @RequestMapping("findUserInfo")
     public String finduserInfo(@RequestParam(name = "page",required = false,defaultValue = "0") Integer p,
                            @RequestParam(name = "size",required = false,defaultValue = "8") Integer s,
@@ -251,7 +263,6 @@ public class AdminBookManage {
                                  Model model){
         model.addAttribute("user", userService.getUser().getName());
         if(t.equals("All")||t.equals("")){
-            System.out.println("aaaaaaaaaa");
             Page<BookInventory> bookStatusPage = adminService.getAllBookStatusList(p,s);
             Map<String,Object> map = adminService.getBookStatusList(p,s);
             model.addAttribute("page",bookStatusPage);

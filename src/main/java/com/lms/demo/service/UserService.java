@@ -140,8 +140,8 @@ public class UserService {
      * @param status
      * @return
      */
-    public Page<BorrowBooksTable> getNeedFineBook(int page,int size,int status) {
-        Long uid = 24L;
+    public Page<BorrowBooksTable> getNeedFineBook(int page,int size,int s) {
+        Long uid = getUserId();
         Date date = DateUtils.getBeforeDays(new Date(),15);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String qDate = simpleDateFormat.format(date);
@@ -151,7 +151,7 @@ public class UserService {
                 Path<Date> createDate = root.get("createDate");
                 Path<Integer> status = root.get("status");
                 Path<Long> userId = root.get("userId");
-                Predicate p1 = criteriaBuilder.equal(status,"1");
+                Predicate p1 = criteriaBuilder.equal(status,s);
                 Predicate p2 = criteriaBuilder.equal(userId,uid);
                 Predicate p3 = criteriaBuilder.lessThan(createDate.as(String.class),qDate);
                 return criteriaBuilder.and(p1,p2,p3);

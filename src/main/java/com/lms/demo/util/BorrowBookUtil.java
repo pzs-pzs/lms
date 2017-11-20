@@ -24,6 +24,7 @@ public class BorrowBookUtil {
 
     public static BorrowHistory getBorrowHistory(BorrowBooksTable t, Book b,User user){
         BorrowHistory borrowHistory = new BorrowHistory();
+        System.out.println(b.getName());
         borrowHistory.setId(b.getId());
         borrowHistory.setAutherName(b.getAutherName());
         borrowHistory.setBorrowStatus(t.getStatus());
@@ -56,6 +57,7 @@ public class BorrowBookUtil {
         bookInfo.setPicture(book.getPicture());
         bookInfo.setName(book.getName());
         bookInfo.setRemarks(book.getRemarks());
+        bookInfo.setQuantity(bookInventory.getBookTotalQuantity());
         return bookInfo;
     }
 

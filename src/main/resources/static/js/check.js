@@ -13,18 +13,18 @@ $(function(){
     (function isbn() {
 
         $(".reg-box .isbn").blur(function () {
-            if($(this).val().length === 13||$(this).val().length === 10){
-                $(this).addClass("checkedN");
-                $(this).removeClass("errorC");
-                $(this).next().empty();
-            }else if($(this).val()===""){
+            if($(this).val()===""){
                 $(this).addClass("errorC");
                 $(this).next().html("Please input the ISBN of book!");
                 $(this).next().css("visibility","visible");
-            } else {
+            }else if($(this).val().length != 13&&$(this).val().length != 10){
                 $(this).addClass("errorC");
                 $(this).next().html("The ISBN isn't correct!");
                 $(this).next().css("visibility","visible");
+            }else {
+                $(this).addClass("checkedN");
+                $(this).removeClass("errorC");
+                $(this).next().empty();
             }
         });
     })();
@@ -38,6 +38,7 @@ $(function(){
         $(".reg-box .phone").blur(function(){
 
             var isHide = $("#confirmmm").hasClass("hide");
+
             if(!isHide){
                 reg=/^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
 
@@ -141,6 +142,8 @@ $(function(){
                 }
             }
         });
+
+
     })();
 });
 
@@ -183,170 +186,207 @@ $(function () {
 });
 
 $(function () {
+    var flag = true;
     $(".reg-box .add_user").click(function () {
-        var username = $(".reg-box #username");
-        var pwd = $(".reg-box #password");
-        var email = $(".reg-box #email");
-        var phone = $(".reg-box #num");
+        if(flag){
+            var username = $(".reg-box #username");
+            var pwd = $(".reg-box #password");
+            var email = $(".reg-box #email");
+            var phone = $(".reg-box #num");
 
-        var isTrue = true;
+            var isTrue = true;
 
-        reg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-        reg2=/^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
-        reg3=/^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{4,12}$/;
-        if(username.val()===""){
-            username.addClass("errorC");
-            username.next().html("Please input your username!");
-            username.next().css("visibility","visible");
-            isTrue = false;
-        }else if(username.val().length != 11)
-        {
-            username.addClass("errorC");
-            username.next().html("The account isn't correct!");
-            username.next().css("visibility","visible");
-            isTrue = false;
-        }
+            reg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+            reg2=/^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
+            reg3=/^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{4,12}$/;
+            if(username.val()===""){
+                username.addClass("errorC");
+                username.next().html("Please input your username!");
+                username.next().css("visibility","visible");
+                isTrue = false;
+            }else if(username.val().length != 11)
+            {
+                username.addClass("errorC");
+                username.next().html("The account isn't correct!");
+                username.next().css("visibility","visible");
+                isTrue = false;
+            }
 
-        if(pwd.val()===""){
-            pwd.addClass("errorC");
-            pwd.next().html("Please input your password!");
-            pwd.next().css("visibility","visible");
-            isTrue = false;
+            if(pwd.val()===""){
+                pwd.addClass("errorC");
+                pwd.next().html("Please input your password!");
+                pwd.next().css("visibility","visible");
+                isTrue = false;
 
-        }else if(pwd.val().match(reg3) === null)
-        {
-            pwd.addClass("errorC");
-            pwd.next().html("The password isn't correct!");
-            pwd.next().css("visibility","visible");
+            }else if(pwd.val().match(reg3) === null)
+            {
+                pwd.addClass("errorC");
+                pwd.next().html("The password isn't correct!");
+                pwd.next().css("visibility","visible");
 
-            isTrue = false;
-            alert("4"+isTrue);
+                isTrue = false;
 
-        }
+            }
 
-        if(email.val()===""){
-            email.addClass("errorC");
-            email.next().html("Please input your email");
-            email.next().css("visibility","visible");
-            isTrue = false;
-            alert("5"+isTrue);
+            if(email.val()===""){
+                email.addClass("errorC");
+                email.next().html("Please input your email");
+                email.next().css("visibility","visible");
+                isTrue = false;
 
-        }else if(email.val().match(reg) === null){
-            email.addClass("errorC");
-            email.next().html("The format of email is wrong!");
-            email.next().css("visibility","visible");
-            isTrue = false;
-        }
+            }else if(email.val().match(reg) === null){
+                email.addClass("errorC");
+                email.next().html("The format of email is wrong!");
+                email.next().css("visibility","visible");
+                isTrue = false;
+            }
 
-        if(phone.val()===""){
-            phone.addClass("errorC");
-            phone.next().html("Please input your phone num!");
-            phone.next().css("visibility","visible");
-            isTrue = false;
-        } else if(phone.val().length != 11)
-        {
-            alert(phone.length);
-            phone.addClass("errorC");
-            phone.next().html("The length of phone num is wrong!");
-            phone.next().css("visibility","visible");
-            isTrue = false;
+            if(phone.val()===""){
+                phone.addClass("errorC");
+                phone.next().html("Please input your phone num!");
+                phone.next().css("visibility","visible");
+                isTrue = false;
+            } else if(phone.val().length != 11)
+            {
+                alert(phone.length);
+                phone.addClass("errorC");
+                phone.next().html("The length of phone num is wrong!");
+                phone.next().css("visibility","visible");
+                isTrue = false;
 
-        }else if(phone.val().match(reg2) === null){
-            phone.addClass("errorC");
-            phone.next().html("The format of phone num is wrong!");
-            phone.next().css("visibility","visible");
-            isTrue = false;
+            }else if(phone.val().match(reg2) === null){
+                phone.addClass("errorC");
+                phone.next().html("The format of phone num is wrong!");
+                phone.next().css("visibility","visible");
+                isTrue = false;
 
-        }
-        if(isTrue){
-            addStudent();
-        }else {
-            return isTrue;
+            }
+            if(isTrue){
+                flag = false;
+                addStudent();
+            }else {
+                return isTrue;
+            }
         }
     })
 });
 
 $(function () {
-    $(".reg-box .add_user").click(function () {
-        var username = $(".reg-box #username");
-        var pwd = $(".reg-box #password");
-        var email = $(".reg-box #email");
-        var phone = $(".reg-box #num");
+    var flag = true;
+    $(".reg-box .add_admin").click(function () {
+
+        if(flag){
+            var username = $(".reg-box #username");
+            var pwd = $(".reg-box #password");
+            var email = $(".reg-box #email");
+            var phone = $(".reg-box #num");
+
+            var isTrue = true;
+
+            reg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+            reg2=/^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
+            reg3=/^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{4,12}$/;
+            if(username.val()===""){
+                username.addClass("errorC");
+                username.next().html("Please input your username!");
+                username.next().css("visibility","visible");
+                isTrue = false;
+            }else if(username.val().length != 11)
+            {
+                username.addClass("errorC");
+                username.next().html("The account isn't correct!");
+                username.next().css("visibility","visible");
+                isTrue = false;
+            }
+
+            if(pwd.val()===""){
+                pwd.addClass("errorC");
+                pwd.next().html("Please input your password!");
+                pwd.next().css("visibility","visible");
+                isTrue = false;
+
+            }else if(pwd.val().match(reg3) === null)
+            {
+                pwd.addClass("errorC");
+                pwd.next().html("The password isn't correct!");
+                pwd.next().css("visibility","visible");
+
+                isTrue = false;
+
+            }
+
+            if(email.val()===""){
+                email.addClass("errorC");
+                email.next().html("Please input your email");
+                email.next().css("visibility","visible");
+                isTrue = false;
+
+            }else if(email.val().match(reg) === null){
+                email.addClass("errorC");
+                email.next().html("The format of email is wrong!");
+                email.next().css("visibility","visible");
+                isTrue = false;
+            }
+
+            if(phone.val()===""){
+                phone.addClass("errorC");
+                phone.next().html("Please input your phone num!");
+                phone.next().css("visibility","visible");
+                isTrue = false;
+            } else if(phone.val().length != 11)
+            {
+                phone.addClass("errorC");
+                phone.next().html("The length of phone num is wrong!");
+                phone.next().css("visibility","visible");
+                isTrue = false;
+
+            }else if(phone.val().match(reg2) === null){
+                phone.addClass("errorC");
+                phone.next().html("The format of phone num is wrong!");
+                phone.next().css("visibility","visible");
+                isTrue = false;
+
+            }
+
+            if(isTrue){
+                flag = false;
+                addAdmin();
+            }else {
+                return isTrue;
+            }
+
+        }
+    })
+});
+
+$(function () {
+    var flag = true;
+    $(".reg-box .add_book").click(function () {
+        var isbn = $(".reg-box .isbn");
 
         var isTrue = true;
+        if (flag){
+            if(isbn.val()===""){
+                isbn.addClass("errorC");
+                isbn.next().html("Please input the ISBN of book!");
+                isbn.next().css("visibility","visible");
+                isTrue = false;
+            }else if(isbn.val().length != 13&&isbn.val().length != 10){
+                isbn.addClass("errorC");
+                isbn.next().html("The ISBN isn't correct!");
+                isbn.next().css("visibility","visible");
+                isTrue = false;
+            }
 
-        reg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-        reg2=/^1[3|4|5|7|8][0-9]\d{4,8}$/i;//验证手机正则(输入前7位至11位)
-        reg3=/^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{4,12}$/;
-        if(username.val()===""){
-            username.addClass("errorC");
-            username.next().html("Please input your username!");
-            username.next().css("visibility","visible");
-            isTrue = false;
-        }else if(username.val().length != 11)
-        {
-            username.addClass("errorC");
-            username.next().html("The account isn't correct!");
-            username.next().css("visibility","visible");
-            isTrue = false;
+            if(isTrue){
+                flag = false;
+                addBook();
+            }else {
+                return false;
+            }
         }
 
-        if(pwd.val()===""){
-            pwd.addClass("errorC");
-            pwd.next().html("Please input your password!");
-            pwd.next().css("visibility","visible");
-            isTrue = false;
 
-        }else if(pwd.val().match(reg3) === null)
-        {
-            pwd.addClass("errorC");
-            pwd.next().html("The password isn't correct!");
-            pwd.next().css("visibility","visible");
-
-            isTrue = false;
-            alert("4"+isTrue);
-
-        }
-
-        if(email.val()===""){
-            email.addClass("errorC");
-            email.next().html("Please input your email");
-            email.next().css("visibility","visible");
-            isTrue = false;
-            alert("5"+isTrue);
-
-        }else if(email.val().match(reg) === null){
-            email.addClass("errorC");
-            email.next().html("The format of email is wrong!");
-            email.next().css("visibility","visible");
-            isTrue = false;
-        }
-
-        if(phone.val()===""){
-            phone.addClass("errorC");
-            phone.next().html("Please input your phone num!");
-            phone.next().css("visibility","visible");
-            isTrue = false;
-        } else if(phone.val().length != 11)
-        {
-            alert(phone.length);
-            phone.addClass("errorC");
-            phone.next().html("The length of phone num is wrong!");
-            phone.next().css("visibility","visible");
-            isTrue = false;
-
-        }else if(phone.val().match(reg2) === null){
-            phone.addClass("errorC");
-            phone.next().html("The format of phone num is wrong!");
-            phone.next().css("visibility","visible");
-            isTrue = false;
-
-        }
-        if(isTrue){
-            addAdmin();
-        }else {
-            return isTrue;
-        }
     })
 });
 

@@ -39,13 +39,13 @@
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu aaaaa">
-                                    <li><a href="#" th:href="'/admin/bookStatusList'">Book information</a></li>
+                                    <li><a href="#" th:href="'/admin/bookStatusList'">Book Information</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toUserInfo'">User information</a></li>
+                                    <li><a href="#" th:href="'/admin/toUserInfo'">Reader Borrowed History</a></li>
                                 </ul>
                             </li>
 
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     Manage
                                     <b class="caret"></b>
@@ -53,19 +53,19 @@
                                 <ul class="dropdown-menu aaaaa">
                                     <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a href="#" th:href="'/admin/toManageAdmin'">Admin</a></li>
                                     <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toManageUser'">User</a></li>
+                                    <li><a href="#" th:href="'/admin/toManageUser'">Reader</a></li>
                                 </ul>
                             </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    Arrearage
+                                    Fine
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu aaaaa">
-                                    <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All paid</a></li>
+                                    <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All Paid</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All unpaid</a></li>
+                                    <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All UnPaid</a></li>
                                 </ul>
                             </li>
 
@@ -77,9 +77,9 @@
                                 <ul class="dropdown-menu aaaaa">
                                     <li><a href="#" th:href="'/admin/toAddBook'">Book</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toAddStudent'">Student</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toAddAdmin'">Librarian</a></li>
+                                    <li><a href="#" th:href="'/admin/toAddStudent'">Reader</a></li>
+                                    <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
+                                    <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a href="#" th:href="'/admin/toAddAdmin'">Admin</a></li>
                                 </ul>
                             </li>
 
@@ -89,9 +89,9 @@
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right aaaaa">
-                                    <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                    <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Home</a></li>
                                     <li class="divider"></li>
-                                    <li><a class="text-right" th:href="'/admin/adminInfo'">Info</a></li>
+                                    <li><a class="text-right" th:href="'/admin/adminInfo'">Archives</a></li>
                                     <li class="divider"></li>
                                     <li><a class="text-right" href="/logout">Log out</a></li>
                                 </ul>
@@ -102,22 +102,6 @@
             </nav>
         </th:block>
 
-            <!-- 搜索栏-->
-            <div class="col-lg-6 col-lg-offset-6">
-                <form class="form-horizontal" role="form" method="get" action="/admin/findUserInfo">
-                    <div class="form-group">
-                        <div class="col-lg-5">
-                            <input type="text" class="form-control" id="username" name="username"
-                                   placeholder="Please input student id">
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-default" >
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
             <br>
 
             <div class="row clearfix">
@@ -129,9 +113,9 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>AdminId</th>
+                            <th>AdminID</th>
                             <th>AdminName</th>
-                            <th>Tel</th>
+                            <th>Phone</th>
                             <th>E-mail</th>
                             <th>Status</th>
                             <th></th>
@@ -157,7 +141,7 @@
                                     <a id="dd2" th:class="${p.status}==1?'btn btn-primary':'btn btn-primary hide'" style="background-color:rgb(118,118,118);font-size: 10px" th:onclick="'deleteAdmin('+${p.id}+')'">
                                         <span class="glyphicon  glyphicon-trash"></span>
                                     </a>
-                                    <a id="dd3" th:class="${p.status}==0?'btn btn-primary':'btn btn-primary hide'" style="background-color:rgb(118,118,118);font-size: 10px" th:onclick="'startAdmin('+${p.id}+')'">
+                                    <a id="dd3" th:class="${p.status}==0?'btn btn-primary':'btn btn-primary hide'" style="background-color:rgb(118,118,118);font-size: 10px"  th:onclick="'startAdmin('+${p.id}+')'">
                                         <span class="glyphicon glyphicon-play " ></span>
                                     </a>
                                 </td>

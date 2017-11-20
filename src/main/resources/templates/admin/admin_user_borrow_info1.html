@@ -47,15 +47,15 @@
 
 
 
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     Query
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu aaaaa">
-                                    <li><a href="#" th:href="'/admin/bookStatusList'">Book information</a></li>
+                                    <li><a href="#" th:href="'/admin/bookStatusList'">Book Information</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toUserInfo'">User information</a></li>
+                                    <li><a href="#" th:href="'/admin/toUserInfo'">Reader Borrowed History</a></li>
                                 </ul>
                             </li>
 
@@ -67,19 +67,19 @@
                                 <ul class="dropdown-menu aaaaa">
                                     <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a href="#" th:href="'/admin/toManageAdmin'">Admin</a></li>
                                     <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toManageUser'">User</a></li>
+                                    <li><a href="#" th:href="'/admin/toManageUser'">Reader</a></li>
                                 </ul>
                             </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    Arrearage
+                                    Fine
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu aaaaa">
-                                    <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All paid</a></li>
+                                    <li><a href="#" th:href="'/admin/toAllPaidArrearage'">All Paid</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All unpaid</a></li>
+                                    <li><a href="#" th:href="'/admin/toAllUnpaidArrearage'">All UnPaid</a></li>
                                 </ul>
                             </li>
 
@@ -91,9 +91,9 @@
                                 <ul class="dropdown-menu aaaaa">
                                     <li><a href="#" th:href="'/admin/toAddBook'">Book</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toAddStudent'">Student</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#" th:href="'/admin/toAddAdmin'">Librarian</a></li>
+                                    <li><a href="#" th:href="'/admin/toAddStudent'">Reader</a></li>
+                                    <li  sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="divider"></li>
+                                    <li sec:authorize="hasRole('ROLE_SUPER_ADMIN')"><a href="#" th:href="'/admin/toAddAdmin'">Admin</a></li>
                                 </ul>
                             </li>
 
@@ -103,9 +103,9 @@
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right aaaaa">
-                                    <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Index</a></li>
+                                    <li><a  class="text-right" href="#" th:href="'/web/getBookList'">Home</a></li>
                                     <li class="divider"></li>
-                                    <li><a class="text-right" th:href="'/admin/adminInfo'">Info</a></li>
+                                    <li><a class="text-right" th:href="'/admin/adminInfo'">Archives</a></li>
                                     <li class="divider"></li>
                                     <li><a class="text-right" href="/logout">Log out</a></li>
                                 </ul>
@@ -116,19 +116,19 @@
             </nav>
             <!-- 搜索栏-->
             <div class="col-lg-6 col-lg-offset-6">
-                <form class="form-horizontal" role="form" method="get" action="/admin/findUserInfo">
+                <div class="form-horizontal">
                     <div class="form-group">
                         <div class="col-lg-5">
                             <input type="text" class="form-control" id="username" name="username"
                                    placeholder="Please input student id">
                         </div>
                         <div class="col-sm-2">
-                            <button type="submit" class="btn btn-default" >
-                                <span class="glyphicon glyphicon-search"></span>
+                            <button type="submit" class="btn btn-default"onclick="toSearchUserInfo()" >
+                                <span class="glyphicon glyphicon-search" ></span>
                             </button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
             <br>
 
@@ -136,7 +136,7 @@
                 <!-- 左边栏 -->
                 <div class="col-md-3 col-md-offset-1 " style="margin-top: 30px;">
                     <div class="well well-lg col-lg-8" style="background-color: rgba(255,255,255,0.5)">
-                    <h3>User id:</h3><p th:text="${userID}"></p>
+                    <h3>Reader ID:</h3><p th:text="${userID}"></p>
 
                     <h3>Name:</h3><p th:text="${username}"></p>
                     </div>
@@ -193,56 +193,5 @@
     ©Copyright &copy;2017. Group 6 Software All Rights Reserved.
 </div>
 </body>
-
-<script>
-    var id_count = 0;
-    var img_count = 0;
-
-    var fileUp = function (me) {
-        base64Image({
-            file: me,                              /*【必填】对应的上传元素 */
-            callback: function (imageUrl) {        /*【必填】处理成功后的回调函数 */
-                var img = new Image();
-                img.src = imageUrl;
-                var path="";
-                id_count += 1;
-                path += "<div id='"+id_count+"' class=\"closed\" style=\"float:left;width:132px;height:132px;overflow:hidden;position:relative;display: flex;justify-content: center;align-items: center;margin-right:2px;margin-bottom: 4px;\">" +
-                        "<img id='img_"+id_count+"' class='upload' src=\""+img.src+"\"  style=\"vertival-align:middle;width:129%;\"><span id=\"removed\">X</span></div>";
-                $("#image-list").append(path);
-
-                var count=0;
-                $("img").filter('.upload').each(
-                        function () {
-                            count++;
-                        })
-                if(count>1){
-                    $("#"+id_count).remove();
-                    alert("Only support to upload 1 picture");
-                }
-            },
-
-            ratio:0.75                        /*【选填】压缩率默认0.75 */
-        });
-    };
-</script>
-
-<script type="text/javascript">
-    $("#image-list").off("mouseenter","div").on("mouseenter","div",function() {
-        var that = this;
-        var dom = $(that).children("span");
-        dom.on("click", function () {
-            dom.removeClass("hide");
-            dom.parent().remove();
-        });
-    })
-</script>
-
-<script type="text/javascript">
-    $('#publishTime').datetimepicker({
-        format: 'yyyy-mm-dd',//定义时间格式
-        autoclose: true,//选择好自动关闭
-        minView: 2,//只选择到小时
-    });
-</script>
-
+<script src="/js/Admin.js"></script>
 </html>

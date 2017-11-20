@@ -1,5 +1,7 @@
 package com.lms.demo.dto;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public class BookInfo {
     //对应库存表id
     private Long id;
@@ -9,6 +11,15 @@ public class BookInfo {
     private String authorName;
     private String picture;
     private String  remarks;
+    private Integer quantity;
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
     public String getRemarks() {
         return remarks;
